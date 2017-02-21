@@ -32,7 +32,7 @@ Erroneous situations can arise when the user inputs an incorrect command (misspe
 In terms of the actual appearance of the GUI, the program’s user interface is composed of the main window filled with different sections. The top of the screen houses a control panel where various settings of the application can be set, such as pen color or application language. In the middle of the screen is the application display, showing the movements of the turtle and the lines that it lays down. To the side of the display is the variable window housing the values of the variables and definitions that have been declared by the user. Beneath these windows is the console, a text based window where the user is able to input commands and see the return values.
 
 Below is a mockup drawing of the user interface for the SLogo application:
-![Scanned in mockup of the User Interface design for our application] (SLogo_UI.jpg "SLogo Application User Interface Example Design")
+![Scanned in mockup of the User Interface design for our application] (SLogo_UI.JPG "SLogo Application User Interface Example Design")
 
 ### API Details
 - Front end:

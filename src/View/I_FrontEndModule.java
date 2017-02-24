@@ -2,7 +2,7 @@ package View;
 
 import utils.RawCommand;
 
-interface FrontEndModule {
+interface I_FrontEndModule {
 	/**
 	 * updates the information displayed in the module to data
 	 * @param data new data to be displayed

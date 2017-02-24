@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import utils.RawCommand;
 
-public interface GUIInterface {
+public interface I_GUI {
 	
 	/**
 	 * displays the result of an execution on the front end

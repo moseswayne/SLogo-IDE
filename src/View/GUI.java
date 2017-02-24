@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import utils.RawCommand;
 
-public class GUI implements GUIInterface{
+public class GUI implements I_GUI{
 
 	public GUI() {
 		// TODO Auto-generated constructor stub

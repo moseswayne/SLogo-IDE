@@ -4,9 +4,9 @@ import java.util.Collection;
 
 import View.FrontEndData;
 
-public class ExecutionEngine implements I_ExecutionEngine {
+public class ModelExecutionEngine implements I_ExecutionEngine {
 
-	public ExecutionEngine() {
+	public ModelExecutionEngine() {
 		// TODO Auto-generated constructor stub
 	}
 

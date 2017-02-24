@@ -1,6 +1,11 @@
 package Model;
 
+import java.util.Collection;
+
+import View.FrontEndData;
+
 public interface ExecutionEngine {
 
-	public void runOp(Command runCommand);
+	public Collection<FrontEndData> runOp(Command runCommand);
+	
 }

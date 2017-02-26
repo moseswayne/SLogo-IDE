@@ -4,27 +4,26 @@
 package View.cmdHistory;
 
 import View.FrontEndData;
+import View.I_FrontEndModule;
 
 /**
  * @author Yuxiang He
  *
  */
 public class cmdData extends FrontEndData {
-	private final Class<?> RELATED_FE_CLASS=new CmdHistoryDisplay().getClass();
 	
 	/**
 	 * 
 	 */
 	public cmdData() {
-		// TODO Auto-generated constructor stub
+		super(new CmdHistoryDisplay().getClass());
 	}
 
-	/**
-	 * relates to CmdHistoryDisplay 
-	 */
 	@Override
-	public Class<?> getRelatedModuleClass() {
-		return RELATED_FE_CLASS;
+	public Object getData() {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 
 }

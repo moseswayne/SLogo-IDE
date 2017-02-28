@@ -1,18 +1,26 @@
 package View;
 
+import javafx.scene.Node;
 import utils.RawCommand;
 
-interface I_FrontEndModule {
+public interface I_FrontEndModule {
 	/**
 	 * updates the information displayed in the module to data
 	 * @param data new data to be displayed
+	 * @return TODO
 	 */
-	void updateDisplayedData(FrontEndData data);
+	public void updateDisplayedData(FrontEndData data);
 	
 	
 	/**
 	 * gets the result of a user's interaction
 	 * @return
 	 */
-	RawCommand getUserInteractionResult();
+	public RawCommand getUserInteractionResult();
+	
+	
+	/**
+	 * @return Node to be positioned in GUI
+	 */
+	public Node getVisualizedContent();
 }

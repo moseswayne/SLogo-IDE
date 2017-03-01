@@ -11,7 +11,7 @@ public class FrontEndData {
 		myCommand = command;
 	}
 
-	public void setPrintData(Double data) {
+	public void setPrintData(double data) {
 		myPrintValue = data;
 	}
 

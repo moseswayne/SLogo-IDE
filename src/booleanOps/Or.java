@@ -1,5 +1,13 @@
 package booleanOps;
 
-public class Or {
+import Operations.A_BooleanOperation;
+import utils.ParameterObject;
+
+public class Or extends A_BooleanOperation{
+
+	@Override
+	public boolean evaluate(ParameterObject params) {
+		return (params.getElement(0)!=0 || params.getElement(1)!=0);
+	}
 
 }

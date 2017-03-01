@@ -15,16 +15,18 @@ public class Main extends Application {
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
 		GUI display=new GUI();
+
+		stage.setTitle(TITLE);
+		Scene sc=display.getScene();
+		stage.setScene(sc);
+		stage.show();
+		
 		ArrayList<FrontEndData> dataCollection=new ArrayList<>();
 		TurtlePosition pos=new TurtlePosition(115, 125, 90);
 		TurtleDispData td=new TurtleDispData(pos, true);
 
 		dataCollection.add(td);
 		display.show(dataCollection);
-		stage.setTitle(TITLE);
-		Scene sc=display.getScene();
-		stage.setScene(sc);
-		stage.show();
 	}
 
     /**

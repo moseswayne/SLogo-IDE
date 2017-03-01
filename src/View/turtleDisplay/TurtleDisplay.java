@@ -1,6 +1,7 @@
 package View.turtleDisplay;
 
 import javafx.scene.paint.Color;
+import java.awt.Dimension;
 import View.FrontEndData;
 import View.I_FrontEndModule;
 import javafx.scene.Node;
@@ -8,22 +9,27 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import utils.RawCommand;
-import utils.TurtlePosition;
+import utils.TurtleParameters;
 
 public class TurtleDisplay implements I_FrontEndModule {
 	private Canvas lineCanvas;
-	private StackPane turtleContainer;
+	private Pane turtleContainer;
 	private StackPane container;
 	private ImageView turtle;
-	private TurtlePosition currentPosition;
+	private TurtleParameters currentPosition;
 	private Paint penColor;
+	private Dimension paneSize;
+	private final Dimension turtleSize=new Dimension(20, 20);
 	private final Paint DEAFAULT_PEN_COLOR=Color.BLACK;
 	private final double DEAFAULT_X=0;
 	private final double DEAFAULT_Y=0;
 	private final double DEAFAULT_HEADING=0;
+	private final boolean DEAFAULT_PENDOWN_POSITION=true;
 	
 	/**
 	 *  
@@ -32,26 +38,36 @@ public class TurtleDisplay implements I_FrontEndModule {
 	 */
 	public TurtleDisplay(int height, int width) {
 		penColor=DEAFAULT_PEN_COLOR;
-		currentPosition=new TurtlePosition(DEAFAULT_X, DEAFAULT_Y, DEAFAULT_HEADING);
-		initiateCanvas(height, width);
+		currentPosition=new TurtleParameters(DEAFAULT_X, DEAFAULT_Y, DEAFAULT_HEADING, DEAFAULT_PENDOWN_POSITION);
+		paneSize=new Dimension(height, width);
+		initiateCanvas();
 		initiateTurtle();
 		container=new StackPane(lineCanvas, turtleContainer);
-		container.setMinSize(lineCanvas.getWidth(), lineCanvas.getHeight());
+		bindSizeToCanvas(container);
 	}
 
-	private void initiateTurtle() {
-		Image turtleIMG =  new Image("http://forums.realgm.com/boards/images/nba/xtoronto_raptors.gif.pagespeed.ic.QSf6xmfYSP.png", 0, 0, true, true);
-		turtle=new ImageView(turtleIMG); 
-		turtleContainer=new StackPane(turtle);
-		turtleContainer.setMaxSize(lineCanvas.getWidth(), lineCanvas.getHeight());
-		drawTurtle(currentPosition);
+	private void bindSizeToCanvas(Region region) {
+		region.setPrefSize(paneSize.getWidth(), paneSize.getHeight());
+		region.setMaxSize(paneSize.getWidth(), paneSize.getHeight());
+		region.setMinSize(paneSize.getWidth(), paneSize.getHeight());
 	}
 
-	private void initiateCanvas(int height, int width) {
-		lineCanvas=new Canvas(height, width);
+	private void initiateCanvas() {
+		lineCanvas=new Canvas(paneSize.getWidth(), paneSize.getHeight());
 		GraphicsContext lineGC=lineCanvas.getGraphicsContext2D();
 		lineGC.setFill(Color.GREY);
 		lineGC.fillRect(0,0,lineCanvas.getWidth(),lineCanvas.getHeight());
+	}
+	
+	private void initiateTurtle() {
+		Image turtleIMG =  new Image("http://www.mosaic.pro/images/products/detail/Turtletopviewlargenatural.JPG");
+		turtle=new ImageView(turtleIMG); 
+		turtle.setFitWidth(turtleSize.getWidth());
+		turtle.setFitHeight(turtleSize.getHeight());
+		
+		turtleContainer=new Pane(turtle);
+		bindSizeToCanvas(turtleContainer);
+		drawTurtle(currentPosition);
 	}
 
 	/**
@@ -59,20 +75,27 @@ public class TurtleDisplay implements I_FrontEndModule {
 	 */
 	@Override
 	public void updateDisplayedData(FrontEndData data) {
-		TurtleDispData castedData=(TurtleDispData) data;
-		draw(castedData);
+    	TurtleParameters newTurtleParams=data.getTurtleParameters();
+    	if(newTurtleParams==null){
+    		return;
+    	}
+		GraphicsContext canvasGC=lineCanvas.getGraphicsContext2D();
+    	if(newTurtleParams.isPendown()){
+    		canvasGC.setStroke(penColor);
+            canvasGC.strokeLine(centralizeXPosition(currentPosition.getX()), centralizeYPosition(currentPosition.getY()), 
+            		centralizeXPosition(newTurtleParams.getX())+turtleSize.getWidth()/2, centralizeYPosition(newTurtleParams.getY())+turtleSize.getHeight()/2);
+    	}
+    	drawTurtle(newTurtleParams);
+    	currentPosition=newTurtleParams;
+	}
+
+	private double centralizeXPosition(double xPos){
+		return xPos+paneSize.getWidth()/2-turtleSize.getWidth()/2;
 	}
 	
-	private void draw(TurtleDispData data) {
-    	GraphicsContext canvasGC=lineCanvas.getGraphicsContext2D();
-    	TurtlePosition newPosition=(TurtlePosition) data.getData();
-    	if(data.isPenDown()){
-    		canvasGC.setStroke(penColor);
-            canvasGC.strokeLine(currentPosition.getX(), currentPosition.getY(), newPosition.getX(), newPosition.getY());
-    	}
-    	drawTurtle(newPosition);
-    	currentPosition=newPosition;
-    }
+	private double centralizeYPosition(double yPos){
+		return yPos+paneSize.getHeight()/2-turtleSize.getHeight()/2;
+	}
 
 
     /**
@@ -81,10 +104,10 @@ public class TurtleDisplay implements I_FrontEndModule {
      * @param gc the graphics context the image is to be drawn on.
      * @param position specifies the position of the image's center point, and the heading of the image
      */
-    private void drawTurtle(TurtlePosition position) {
+    private void drawTurtle(TurtleParameters position) {
     	turtle.setRotate(position.getHeading());
-    	turtle.setX(position.getX());
-    	turtle.setY(position.getY());
+    	turtle.setX(centralizeXPosition(position.getX()));
+    	turtle.setY(centralizeYPosition(position.getY()));
     }
     
     
@@ -96,9 +119,6 @@ public class TurtleDisplay implements I_FrontEndModule {
 
 	@Override
 	public Node getVisualizedContent() {
-		container.getChildren().clear();
-		container.getChildren().add(lineCanvas);
-		container.getChildren().add(turtleContainer);
 		return container;
 	}
 

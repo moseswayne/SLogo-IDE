@@ -1,11 +1,13 @@
 package View;
 
 import java.util.Map;
+import utils.TurtleParameters;
 
 public class FrontEndData {
 	private String myCommand;
 	private Double myPrintValue;
-	private Map<String, Double> myTurtleParameters;
+	private TurtleParameters myTurtleParameters;
+	private Map<String, String> variables;
 
 	public FrontEndData(String command) {
 		myCommand = command;
@@ -15,16 +17,21 @@ public class FrontEndData {
 		myPrintValue = data;
 	}
 
-	public void setTurtle(Map<String, Double> paramMap) {
-		myTurtleParameters = paramMap;
+	public void setTurtleParameters(TurtleParameters position) {
+		myTurtleParameters = position;
 	}
+
 
 	public Double getPrintConsole() {
 		return myPrintValue;
 	}
 
-	public Map<String, Double> getTurtle() {
+	public TurtleParameters getTurtleParameters() {
 		return myTurtleParameters;
+	}
+	
+	public Map<String, String> getVars() {
+		return variables;
 	}
 
 	public String getCommandName() {

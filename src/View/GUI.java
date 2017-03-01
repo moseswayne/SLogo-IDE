@@ -20,7 +20,7 @@ public class GUI implements I_GUI{
 	
 //	private final String SHOW_DATA_METHOD_NAME="updateDisplayedData";
 	private final Dimension DEFAULT_SIZE = new Dimension(800, 600);
-	private final Dimension DEFAULT_TURTLE_DISP_SIZE=new Dimension(300, 300);
+	private final Dimension DEFAULT_TURTLE_DISP_SIZE = new Dimension(300, 300);
 	private Scene myScene;
 	private BorderPane root;
 	private CmdHistoryDisplay cmdHistoryDisplay;
@@ -121,8 +121,6 @@ public class GUI implements I_GUI{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 
 	@Override
 	public Scene getScene() {

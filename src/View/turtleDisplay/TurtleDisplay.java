@@ -33,8 +33,8 @@ public class TurtleDisplay implements I_FrontEndModule {
 	
 	/**
 	 *  
-	 * @param height
-	 * @param width
+	 * @param height height of turtleDisplay
+	 * @param width width of turtleDisplay
 	 */
 	public TurtleDisplay(int height, int width) {
 		penColor=DEAFAULT_PEN_COLOR;
@@ -43,15 +43,23 @@ public class TurtleDisplay implements I_FrontEndModule {
 		initiateCanvas();
 		initiateTurtle();
 		container=new StackPane(lineCanvas, turtleContainer);
-		bindSizeToCanvas(container);
+		standardizeSize(container);
 	}
 
-	private void bindSizeToCanvas(Region region) {
+	/**
+	 * binds the size of a Region (namely container and turtleContainer in this case) 
+	 * to the size of the "turtleDisplay"
+	 * @param region
+	 */
+	private void standardizeSize(Region region) {
 		region.setPrefSize(paneSize.getWidth(), paneSize.getHeight());
 		region.setMaxSize(paneSize.getWidth(), paneSize.getHeight());
 		region.setMinSize(paneSize.getWidth(), paneSize.getHeight());
 	}
 
+	/**
+	 * sets up the Canvas
+	 */
 	private void initiateCanvas() {
 		lineCanvas=new Canvas(paneSize.getWidth(), paneSize.getHeight());
 		GraphicsContext lineGC=lineCanvas.getGraphicsContext2D();
@@ -59,19 +67,22 @@ public class TurtleDisplay implements I_FrontEndModule {
 		lineGC.fillRect(0,0,lineCanvas.getWidth(),lineCanvas.getHeight());
 	}
 	
+	/**
+	 * sets up turtle and turtle container
+	 */
 	private void initiateTurtle() {
 		Image turtleIMG =  new Image("http://www.mosaic.pro/images/products/detail/Turtletopviewlargenatural.JPG");
 		turtle=new ImageView(turtleIMG); 
 		turtle.setFitWidth(turtleSize.getWidth());
 		turtle.setFitHeight(turtleSize.getHeight());
-		
 		turtleContainer=new Pane(turtle);
-		bindSizeToCanvas(turtleContainer);
-		drawTurtle(currentPosition);
+		standardizeSize(turtleContainer);
+		moveTurtle(currentPosition);
 	}
 
 	/**
 	 * 
+	 * API for updating visualization
 	 */
 	@Override
 	public void updateDisplayedData(FrontEndData data) {
@@ -85,14 +96,22 @@ public class TurtleDisplay implements I_FrontEndModule {
             canvasGC.strokeLine(centralizeXPosition(currentPosition.getX()), centralizeYPosition(currentPosition.getY()), 
             		centralizeXPosition(newTurtleParams.getX())+turtleSize.getWidth()/2, centralizeYPosition(newTurtleParams.getY())+turtleSize.getHeight()/2);
     	}
-    	drawTurtle(newTurtleParams);
+    	moveTurtle(newTurtleParams);
     	currentPosition=newTurtleParams;
 	}
 
+	/**
+	 * makes (0, 0) at the center of the display, 
+	 * i.e. center-aligns every coordinate
+	 */
 	private double centralizeXPosition(double xPos){
 		return xPos+paneSize.getWidth()/2-turtleSize.getWidth()/2;
 	}
 	
+	/**
+	 * makes (0, 0) at the center of the display, 
+	 * i.e. center-aligns every coordinate
+	 */
 	private double centralizeYPosition(double yPos){
 		return yPos+paneSize.getHeight()/2-turtleSize.getHeight()/2;
 	}
@@ -104,7 +123,7 @@ public class TurtleDisplay implements I_FrontEndModule {
      * @param gc the graphics context the image is to be drawn on.
      * @param position specifies the position of the image's center point, and the heading of the image
      */
-    private void drawTurtle(TurtleParameters position) {
+    private void moveTurtle(TurtleParameters position) {
     	turtle.setRotate(position.getHeading());
     	turtle.setX(centralizeXPosition(position.getX()));
     	turtle.setY(centralizeYPosition(position.getY()));
@@ -117,6 +136,7 @@ public class TurtleDisplay implements I_FrontEndModule {
 		return null;
 	}
 
+	//TODO potentially dangerous?
 	@Override
 	public Node getVisualizedContent() {
 		return container;

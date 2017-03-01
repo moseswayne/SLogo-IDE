@@ -20,6 +20,10 @@ public class FrontEndData {
 	public void setTurtleParameters(TurtleParameters position) {
 		myTurtleParameters = position;
 	}
+	
+	public void setTurtleParameters(double x, double y, double heading, boolean isPendown) {
+		myTurtleParameters = new TurtleParameters(x, y, heading, isPendown);
+	}
 
 
 	public Double getPrintConsole() {

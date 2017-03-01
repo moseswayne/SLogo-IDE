@@ -5,6 +5,7 @@ import java.util.TreeMap;
 import View.FrontEndData;
 import View.I_FrontEndModule;
 import javafx.scene.Node;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -22,10 +23,26 @@ public class VarDisplay implements I_FrontEndModule {
 	
 	public VarDisplay() {
 		map=new TreeMap<String, String>();
+		fillMap();
 		myVisualContent=new VBox();
 		updateVisualContent();
 	}
 	
+	/**
+	 * TESTING ONLY
+	 */
+	//TODO: remove this
+	private void fillMap() {
+		map.put("x", "12");
+		map.put("y", "13");
+		map.put("x", "14");
+		map.put("a", "15");
+		map.put("b", "17");
+		map.put("c", "129");
+		map.put("d", "22");
+		map.put("e", "156");
+	}
+
 	/**
 	 * Assumes GUI has passed the correct data object
 	 * @return updated myVisualContent
@@ -83,6 +100,7 @@ public class VarDisplay implements I_FrontEndModule {
 		return null;
 	}
 
+	//TODO pretty dangerous...maybe don't return the instance variable here...
 	@Override
 	public Node getVisualizedContent() {
 		return myVisualContent;

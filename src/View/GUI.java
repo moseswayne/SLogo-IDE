@@ -10,13 +10,17 @@ import View.console.Console;
 import View.turtleDisplay.TurtleDisplay;
 import View.varDisplay.VarDisplay;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import utils.RawCommand;
 
 public class GUI implements I_GUI{
 	
 //	private final String SHOW_DATA_METHOD_NAME="updateDisplayedData";
 	private final Dimension DEFAULT_SIZE = new Dimension(800, 600);
+	private final Dimension DEAFAULT_TURTLE_DISP_SIZE=new Dimension(300, 300);
 	private Scene myScene;
 	private BorderPane root;
 	private CmdHistoryDisplay cmdHistoryDisplay;
@@ -34,12 +38,30 @@ public class GUI implements I_GUI{
 		root = new BorderPane();
 		cmdHistoryDisplay=new CmdHistoryDisplay();
 		console=new Console();
-		turtleDisplay=new TurtleDisplay();
+		turtleDisplay=new TurtleDisplay((int)DEAFAULT_TURTLE_DISP_SIZE.getWidth(), (int)DEAFAULT_TURTLE_DISP_SIZE.getHeight());
 		varDisplay=new VarDisplay();
 		setupRoot();
+//		 root = new BorderPane();
+//
+//        Canvas canvas = new Canvas(300, 300);
+//        GraphicsContext gc = canvas.getGraphicsContext2D();
+//        drawLines(gc);
+//
+//        root.getChildren().add(canvas);
 		myScene= new Scene(root, DEFAULT_SIZE.getWidth(), DEFAULT_SIZE.getHeight());
 	}
-	
+
+
+//    private void drawLines(GraphicsContext gc) {
+//    	
+//        gc.beginPath();
+//        gc.moveTo(30.5, 30.5);
+//        gc.lineTo(150.5, 30.5);
+//        gc.lineTo(150.5, 150.5);
+//        gc.lineTo(30.5, 30.5);
+//        gc.stroke();
+//    }
+//    
 	/**
 	 * populate root with the modules
 	 */

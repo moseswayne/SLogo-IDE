@@ -20,6 +20,14 @@ public class VarDispData extends FrontEndData {
 		map=_map;
 	}
 
+//	/**
+//	 * testing ONLY
+//	 */
+//	//TODO remove this method
+//	public void add(String a){
+//		map.put(a, a+a);
+//	}
+	
 	@Override
 	public Object getData() {
 		return map;

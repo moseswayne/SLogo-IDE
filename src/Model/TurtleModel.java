@@ -1,6 +1,6 @@
-package Operations;
+package Model;
 
-class TurtleModel {
+public class TurtleModel {
 	private double myX;
 	private double myY;
 	private double myHeading;
@@ -8,8 +8,12 @@ class TurtleModel {
 	private boolean isTurtleShowing;
 
 	protected TurtleModel() {
-		myX = 0;
-		myY = 0;
+		// TurtleModel(0, 0);
+	}
+
+	protected TurtleModel(double x, double y) {
+		myX = x;
+		myY = y;
 		myHeading = 0;
 		isPenShowing = true;
 		isTurtleShowing = true;

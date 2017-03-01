@@ -6,6 +6,6 @@ import View.FrontEndData;
 
 public interface I_ExecutionEngine {
 
-	public Collection<FrontEndData> runOp(Command runCommand);
+	public Collection<FrontEndData> runOp(RawCommand runCommand);
 	
 }

@@ -1,10 +1,8 @@
 package Operations;
 
 import View.FrontEndData;
-import utils.TurtleModel;
+import utils.ParameterObject;
 
 public interface CommandOperation {
-	public ParameterObject execute(ParameterObject params);
-
-	public FrontEndData execute();
+	public FrontEndData execute(ParameterObject params, FrontEndData data);
 }

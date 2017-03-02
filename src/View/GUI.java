@@ -89,7 +89,7 @@ public class GUI implements I_GUI{
 		for(I_FrontEndModule module: myModules){
 			if(module.hasBufferedUserInteraction()){
 				RawCommand rcmd=module.getUserInteractionResult();
-				rcmd.settranslationMap(translationMap);
+				rcmd.setTranslationMap(translationMap);
 				return rcmd;
 			}
 		}

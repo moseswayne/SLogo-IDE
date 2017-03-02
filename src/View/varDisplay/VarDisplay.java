@@ -5,7 +5,6 @@ import java.util.TreeMap;
 import View.FrontEndData;
 import View.I_FrontEndModule;
 import javafx.scene.Node;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -113,6 +112,12 @@ public class VarDisplay implements I_FrontEndModule {
 	@Override
 	public Node getVisualizedContent() {
 		return myVisualContent;
+	}
+
+	@Override
+	public boolean hasBufferedUserInteraction() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

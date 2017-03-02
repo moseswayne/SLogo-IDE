@@ -18,9 +18,16 @@ public interface I_FrontEndModule {
 	 */
 	public RawCommand getUserInteractionResult();
 	
+	/**
+	 * 
+	 * @return true if there is user interaction result to be passed out
+	 */
+	public boolean hasBufferedUserInteraction();
 	
 	/**
 	 * @return Node to be positioned in GUI
 	 */
 	public Node getVisualizedContent();
+	
+
 }

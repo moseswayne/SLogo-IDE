@@ -150,4 +150,9 @@ public class TurtleDisplay implements I_FrontEndModule {
 		return container;
 	}
 
+	@Override
+	public boolean hasBufferedUserInteraction() {
+		return false;
+	}
+
 }

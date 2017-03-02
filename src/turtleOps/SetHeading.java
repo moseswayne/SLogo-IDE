@@ -15,17 +15,22 @@ public class SetHeading extends A_TurtleCommand {
 		myTurtle.setHeading(params.getDoubleAt(0));
 		return myTurtle;
 	}
-/**
- * Returns the number of degrees moved
- */
+
+	/**
+	 * Returns the number of degrees moved
+	 */
 	@Override
 	protected double returnValue(ParameterObject params) {
 		double value;
-		try{
-			//if updateTurtle called before returnValue
+		try {
+			// if updateTurtle called before returnValue
 			value = myTurtle.getHeading() - previousHeading;
-		} catch (NullPointerException e){
+		} catch (NullPointerException e) {
+			myTurtle = params.getTurtle();
 			value = params.getDoubleAt(0) - myTurtle.getHeading();
+			// TODO or
+			// updateTurtle(params);
+			// value = this.returnValue(params);
 		}
 		return value;
 	}

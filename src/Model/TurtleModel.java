@@ -89,18 +89,4 @@ public class TurtleModel {
 		return isPenShowing = visibility;
 	}
 
-	/**
-	 * Gets distance from current point to new input point
-	 * 
-	 * @param x
-	 *            is the new x coordinate
-	 * @param y
-	 *            is the new y coordinate
-	 * @return a double of the straight line distance
-	 */
-	public double getDistance(double x, double y) {
-		return Math.sqrt((x - this.myX) * (x - this.myX) + (y - this.myY) * (y - this.myY));
-	}
-
-	
 }

@@ -12,7 +12,8 @@ public class TowardsPoint extends A_TurtleCommand {
 	protected TurtleModel updateTurtle(ParameterObject params) {
 		myTurtle = params.getTurtle();
 		previousHeading = myTurtle.getHeading();
-		myTurtle.setHeading(getAbsoluteHeading(params.getDoubleAt(0),params.getDoubleAt(1), myTurtle.getX(), myTurtle.getY()));
+		myTurtle.setHeading(
+				getAbsoluteHeading(params.getDoubleAt(0), params.getDoubleAt(1), myTurtle.getX(), myTurtle.getY()));
 		return myTurtle;
 	}
 
@@ -21,19 +22,22 @@ public class TowardsPoint extends A_TurtleCommand {
 	 */
 	@Override
 	protected double returnValue(ParameterObject params) {
-		double value;
+		double difference;
 		try {
 			// if updateTurtle called before returnValue
-			value = myTurtle.getHeading() - previousHeading;
+			difference = myTurtle.getHeading() - previousHeading;
 		} catch (NullPointerException e) {
 			myTurtle = params.getTurtle();
-			value = getAbsoluteHeading(params.getDoubleAt(0),params.getDoubleAt(1), myTurtle.getX(), myTurtle.getY()) - myTurtle.getHeading();
+			difference = getAbsoluteHeading(params.getDoubleAt(0), params.getDoubleAt(1), myTurtle.getX(), myTurtle.getY())
+					- myTurtle.getHeading();
+			// TODO or
+			// updateTurtle(params);
+			// value = this.returnValue(params);
 		}
-		return value;
+		return difference;
 	}
 
 	private double getAbsoluteHeading(double newX, double newY, double currentX, double currentY) {
-		return Math.toDegrees(
-				Math.atan(Math.abs(newY - currentY) / Math.abs(newX - currentX)));
+		return Math.toDegrees(Math.atan(Math.abs(newY - currentY) / Math.abs(newX - currentX)));
 	}
 }

@@ -6,13 +6,12 @@ import utils.ParameterObject;
 
 public abstract class A_TurtleCommand implements CommandOperation {
 
-	public FrontEndData execute(ParameterObject params, FrontEndData data) {
+	public void execute(ParameterObject params, FrontEndData data) {
 
 		data.setPrintData(returnValue(params));
 		TurtleModel myTurtle = updateTurtle(params);
-		data.setTurtleParameters(myTurtle.getX(), myTurtle.getY(), myTurtle.getHeading(), myTurtle.getPenShowing());
+		data.addTurtleParameters(myTurtle.getX(), myTurtle.getY(), myTurtle.getHeading(), myTurtle.getPenShowing(), myTurtle.getTurtleShowing());
 		// TODO may need to make a queue
-		return data;
 	}
 
 	protected abstract TurtleModel updateTurtle(ParameterObject params);

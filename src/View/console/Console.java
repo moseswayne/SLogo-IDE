@@ -7,16 +7,11 @@ import java.util.List;
 import java.util.Properties;
 import View.FrontEndData;
 import View.I_FrontEndModule;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Border;
@@ -24,7 +19,6 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -60,7 +54,6 @@ public class Console implements I_FrontEndModule {
 	}
 
 	private void setupOutDisp() {		
-		outputDisplay.setLayoutX(20);
 		outputContainer.setBorder(new Border(new BorderStroke(Color.AQUAMARINE, BorderStrokeStyle.SOLID,
 				new CornerRadii(2.5), new BorderWidths(5.0))));
 		outputContainer.setPrefSize(consoleSize.getWidth(), consoleSize.getHeight() * OUTPUT_DISP_HEIGHT_RATIO);
@@ -76,6 +69,7 @@ public class Console implements I_FrontEndModule {
 			}
 		});
 		outputContainer.setContent(outputDisplay);
+		outputContainer.vvalueProperty().bind(outputDisplay.heightProperty());
 	}
 
 	private void setupInputContainer() {

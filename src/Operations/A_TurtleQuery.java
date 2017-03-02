@@ -1,5 +1,5 @@
 package Operations;
-import utils.TurtleModel;
+import Model.TurtleModel;
 public abstract class A_TurtleQuery implements CommandOperation{
 
 	

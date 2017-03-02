@@ -7,6 +7,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+
+import Model.ModelExecutionEngine;
 import View.cmdHistory.CmdHistoryDisplay;
 import View.console.Console;
 import View.turtleDisplay.TurtleDisplay;
@@ -43,12 +45,15 @@ public class GUI implements I_GUI{
 	private Map<String, String> translationMap;
 	private Properties languageProp;
 	
+	ModelExecutionEngine engine;
+	
 	/**
 	 * 
 	 * @param sceneWidth
 	 * @param sceneHeight
 	 */
 	public GUI () {
+//		engine=new ModelExecutionEngine();
 		language=DEAFAULT_LANGUAGE;
 		root = new BorderPane();
 		initiateModules();
@@ -61,6 +66,12 @@ public class GUI implements I_GUI{
 			throw new Error("properties file not found or something else created an IO error");
 		}
 		translationMap=buildTranslationMap();
+//		try {
+//			engine.runOp(getUserInput());
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		int x=0;
 	}
 	

@@ -7,7 +7,7 @@ public class Equal extends A_BooleanOperation{
 
 	@Override
 	public boolean evaluate(ParameterObject params) {
-		return (params.getDoubleAt(0)==params.getDoubleAt(1));
+		return (params.getDoubleAt(0).intValue()==params.getDoubleAt(1).intValue());
 	}
 
 }

@@ -22,6 +22,8 @@ public class GUI implements I_GUI{
 	private final Dimension DEFAULT_SIZE = new Dimension(1000, 700);
 	private final Dimension DEAFAULT_TURTLE_DISP_SIZE=new Dimension(500, 400);
 	private final Dimension DEAFAULT_CONSOLE_SIZE=new Dimension(1000, 200);
+	private final Dimension DEAFAULT_VAR_DIST_SIZE=new Dimension(200, 400);
+	
 	
 	private Scene myScene;
 	private BorderPane root;

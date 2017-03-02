@@ -10,6 +10,7 @@ public class TurtleParameters {
 	private double y;
 	private double heading;
 	private boolean isPendown;
+	private boolean turtleVisible;
 	
 	/**
 	 * 
@@ -17,11 +18,12 @@ public class TurtleParameters {
 	 * @param _y
 	 * @param _heading
 	 */
-	public TurtleParameters(double _x, double _y, double _heading, boolean _isPendown) {
+	public TurtleParameters(double _x, double _y, double _heading, boolean _isPendown, boolean _turtleVisible) {
 		x=_x;
 		y=_y;
 		heading=_heading;
 		isPendown=_isPendown;
+		turtleVisible=_turtleVisible;
 	}
 	
 	/**
@@ -53,5 +55,9 @@ public class TurtleParameters {
 	
 	public boolean isPendown(){
 		return isPendown;
+	}
+	
+	public boolean turtleVisible(){
+		return turtleVisible;
 	}
 }

@@ -21,20 +21,25 @@ public class ParameterObject {
 		varMap = vars;
 	}
 	
-	public Double getElement(int index) {
+	public String getRawElement(int index) {
 		try {
-			String val = parameterList.get(index);
-			if(varMap.containsKey(val)) {
-				return varMap.get(val);
-			} else {
-				try {
-					Double.parseDouble(val);
-				} catch (Exception NumberFormatException){
-					
-				}
-			}
+			return parameterList.get(index);
 		} catch (Exception NullPointerException){
 			//do something
+		}
+		return null;
+	}
+	
+	public Double getDoubleAt(int index) {
+		String val = getRawElement(index);
+		if(varMap.containsKey(val)) {
+			return varMap.get(val);
+		} else {
+			try {
+				Double.parseDouble(val);
+			} catch (Exception NumberFormatException){
+				//do something
+			}
 		}
 		return null;
 	}

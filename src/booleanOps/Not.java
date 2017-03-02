@@ -7,7 +7,7 @@ public class Not extends A_BooleanOperation{
 
 	@Override
 	public boolean evaluate(ParameterObject params) {
-		return (params.getElement(0) == 0);
+		return (params.getDoubleAt(0) == 0);
 	}
 	
 }

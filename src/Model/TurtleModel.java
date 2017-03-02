@@ -69,23 +69,23 @@ public class TurtleModel {
 	/**
 	 * Setters
 	 */
-	protected double setX(double newX) {
+	public double setX(double newX) {
 		return myX = newX;
 	}
 
-	protected double setY(double newY) {
+	public double setY(double newY) {
 		return myY = newY;
 	}
 
-	protected double setHeading(double newHeading) {
+	public double setHeading(double newHeading) {
 		return myHeading = newHeading;
 	}
 
-	protected boolean setTurtleShowing(boolean visibility) {
+	public boolean setTurtleShowing(boolean visibility) {
 		return isTurtleShowing = visibility;
 	}
 
-	protected boolean setPenShowing(boolean visibility) {
+	public boolean setPenShowing(boolean visibility) {
 		return isPenShowing = visibility;
 	}
 
@@ -102,28 +102,5 @@ public class TurtleModel {
 		return Math.sqrt((x - this.myX) * (x - this.myX) + (y - this.myY) * (y - this.myY));
 	}
 
-	/**
-	 * Gets x and y coordinates based on total distance traveled and the
-	 * direction traveled in
-	 * 
-	 * @param distance
-	 * @param direction
-	 * @return double representing the new coordinate
-	 */
-	public double newXCoordinate(double distance, int direction) {
-		return setX(Math.sin(this.getHeading()) * coordinateHelper(distance, direction));
-	}
-
-	public double newYCoordinate(double distance, int direction) {
-		return setY(Math.cos(this.getHeading()) * coordinateHelper(distance, direction));
-	}
-
-	private double coordinateHelper(double distance, int direction) {
-		if (direction < 0) {
-			direction = -1;
-		} else {
-			direction = 1;
-		}
-		return distance * direction;
-	}
+	
 }

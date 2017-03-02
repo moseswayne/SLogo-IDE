@@ -4,9 +4,9 @@ import Model.TurtleModel;
 import Operations.A_TurtleCommand;
 import utils.ParameterObject;
 
-public class TurnLeft extends A_TurtleCommand {
+public class TurnRight extends A_TurtleCommand {
 	private double degrees;
-	private static int DIRECTION = -1;
+	private static int DIRECTION = 1;
 	private static int FULL_CIRCLE = 360;
 	private TurtleModel myTurtle;
 
@@ -40,3 +40,4 @@ public class TurnLeft extends A_TurtleCommand {
 		return newHeading;
 	}
 }
+

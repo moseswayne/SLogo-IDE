@@ -2,6 +2,8 @@ package View.turtleDisplay;
 
 import javafx.scene.paint.Color;
 import java.awt.Dimension;
+import java.util.Queue;
+
 import View.FrontEndData;
 import View.I_FrontEndModule;
 import javafx.scene.Node;
@@ -30,6 +32,7 @@ public class TurtleDisplay implements I_FrontEndModule {
 	private final double DEAFAULT_Y=0;
 	private final double DEAFAULT_HEADING=0;
 	private final boolean DEAFAULT_PENDOWN_POSITION=true;
+	private final boolean DEAFAULT_TURTLE_VISIBILITY=true;
 	
 	/**
 	 *  
@@ -38,7 +41,9 @@ public class TurtleDisplay implements I_FrontEndModule {
 	 */
 	public TurtleDisplay(int height, int width) {
 		penColor=DEAFAULT_PEN_COLOR;
-		currentParams=new TurtleParameters(DEAFAULT_X, DEAFAULT_Y, DEAFAULT_HEADING, DEAFAULT_PENDOWN_POSITION);
+		currentParams=new TurtleParameters(DEAFAULT_X, DEAFAULT_Y, DEAFAULT_HEADING, 
+				DEAFAULT_PENDOWN_POSITION, 
+				DEAFAULT_TURTLE_VISIBILITY);
 		paneSize=new Dimension(height, width);
 		initiateCanvas();
 		initiateTurtle();
@@ -86,18 +91,21 @@ public class TurtleDisplay implements I_FrontEndModule {
 	 */
 	@Override
 	public void updateDisplayedData(FrontEndData data) {
-    	TurtleParameters newTurtleParams=data.getTurtleParameters();
-    	if(newTurtleParams==null){
-    		return;
-    	}
-		GraphicsContext canvasGC=lineCanvas.getGraphicsContext2D();
-    	if(newTurtleParams.isPendown()){
-    		canvasGC.setStroke(penColor);
-            canvasGC.strokeLine(centralizeXPosition(currentParams.getX()), centralizeYPosition(currentParams.getY()), 
-            		centralizeXPosition(newTurtleParams.getX())+turtleSize.getWidth()/2, centralizeYPosition(newTurtleParams.getY())+turtleSize.getHeight()/2);
-    	}
-    	moveTurtle(newTurtleParams);
-    	currentParams=newTurtleParams;
+		Queue<TurtleParameters> patamQ=data.getTurtleParameters();
+		while(patamQ.size()!=0){
+			TurtleParameters newTurtleParams=patamQ.poll();
+	    	if(newTurtleParams==null){
+	    		return;
+	    	}
+			GraphicsContext canvasGC=lineCanvas.getGraphicsContext2D();
+	    	if(newTurtleParams.isPendown()){
+	    		canvasGC.setStroke(penColor);
+	            canvasGC.strokeLine(centralizeXPosition(currentParams.getX()), centralizeYPosition(currentParams.getY()), 
+	            		centralizeXPosition(newTurtleParams.getX())+turtleSize.getWidth()/2, centralizeYPosition(newTurtleParams.getY())+turtleSize.getHeight()/2);
+	    	}
+	    	moveTurtle(newTurtleParams);
+	    	currentParams=newTurtleParams;
+		}
 	}
 
 	/**

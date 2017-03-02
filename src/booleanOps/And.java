@@ -7,7 +7,7 @@ public class And extends A_BooleanOperation {
 
 	@Override
 	public boolean evaluate(ParameterObject params) {
-		return (params.getElement(0)!=0 && params.getElement(1)!=0);
+		return (params.getDoubleAt(0)!=0 && params.getDoubleAt(1)!=0);
 	}
 
 }

@@ -91,9 +91,9 @@ public class TurtleDisplay implements I_FrontEndModule {
 	 */
 	@Override
 	public void updateDisplayedData(FrontEndData data) {
-		Queue<TurtleParameters> patamQ=data.getTurtleParameters();
-		while(patamQ.size()!=0){
-			TurtleParameters newTurtleParams=patamQ.poll();
+		Queue<TurtleParameters> paramQ=data.getTurtleParameters();
+		while(paramQ.size()!=0){
+			TurtleParameters newTurtleParams=paramQ.poll();
 	    	if(newTurtleParams==null){
 	    		return;
 	    	}

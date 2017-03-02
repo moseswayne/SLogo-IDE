@@ -3,12 +3,14 @@ package controlOps;
 import Operations.A_StructureCommand;
 import utils.ParameterObject;
 
-public class If extends A_StructureCommand{
+public class If extends A_StructureCommand {
 
 	@Override
 	public void modifyInstructionStack(ParameterObject params) {
-		// TODO Auto-generated method stub
-		
+		if (params.getDoubleAt(0).intValue() != 0) {
+			addListStack(params.getInstructions());
+		}
+
 	}
 
 }

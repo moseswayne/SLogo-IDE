@@ -20,7 +20,7 @@ public class GUI implements I_GUI{
 	
 //	private final String SHOW_DATA_METHOD_NAME="updateDisplayedData";
 	private final Dimension DEFAULT_SIZE = new Dimension(800, 600);
-	private final Dimension DEAFAULT_TURTLE_DISP_SIZE=new Dimension(500, 500);
+	private final Dimension DEFAULT_TURTLE_DISP_SIZE = new Dimension(300, 300);
 	private Scene myScene;
 	private BorderPane root;
 	private CmdHistoryDisplay cmdHistoryDisplay;
@@ -35,12 +35,10 @@ public class GUI implements I_GUI{
 	 * @param sceneHeight
 	 */
 	public GUI () {
-		root = new BorderPane();
-		cmdHistoryDisplay=new CmdHistoryDisplay();
-		console=new Console();
-		turtleDisplay=new TurtleDisplay((int)DEAFAULT_TURTLE_DISP_SIZE.getWidth(), (int)DEAFAULT_TURTLE_DISP_SIZE.getHeight());
-		varDisplay=new VarDisplay();
-		setupRoot();
+		cmdHistoryDisplay = new CmdHistoryDisplay();
+		console = new Console();
+		turtleDisplay = new TurtleDisplay((int)DEFAULT_TURTLE_DISP_SIZE.getWidth(), (int)DEFAULT_TURTLE_DISP_SIZE.getHeight());
+		varDisplay = new VarDisplay();
 //		 root = new BorderPane();
 //
 //        Canvas canvas = new Canvas(300, 300);
@@ -48,7 +46,8 @@ public class GUI implements I_GUI{
 //        drawLines(gc);
 //
 //        root.getChildren().add(canvas);
-		myScene= new Scene(root, DEFAULT_SIZE.getWidth(), DEFAULT_SIZE.getHeight());
+		root = makeRoot();
+		myScene = new Scene(root, DEFAULT_SIZE.getWidth(), DEFAULT_SIZE.getHeight());
 	}
 
 
@@ -65,13 +64,14 @@ public class GUI implements I_GUI{
 	/**
 	 * populate root with the modules
 	 */
-	private void setupRoot() {
-		root.setRight(varDisplay.getVisualizedContent());
-		root.setBottom(console.getVisualizedContent());
-		root.setLeft(cmdHistoryDisplay.getVisualizedContent());
-		root.setCenter(turtleDisplay.getVisualizedContent());
+	private BorderPane makeRoot() {
+		BorderPane bp = new BorderPane();
+		bp.setRight(varDisplay.getVisualizedContent());
+		bp.setBottom(console.getVisualizedContent());
+		bp.setLeft(cmdHistoryDisplay.getVisualizedContent());
+		bp.setCenter(turtleDisplay.getVisualizedContent());
+		return bp;
 	}
-
 
 	@Override
 	public void show(Collection<FrontEndData> dataCollection) {
@@ -82,7 +82,6 @@ public class GUI implements I_GUI{
 			varDisplay.updateDisplayedData(data);
 			turtleDisplay.updateDisplayedData(data);
 		}
-		
 	}
 	
 	/**
@@ -124,8 +123,6 @@ public class GUI implements I_GUI{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 
 	@Override
 	public Scene getScene() {

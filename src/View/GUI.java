@@ -77,8 +77,10 @@ public class GUI implements I_GUI{
 	public void show(Collection<FrontEndData> dataCollection) {
 		for(FrontEndData data: dataCollection){
 //			Method correspondingShowMethod=findCorrespondingModuleShowMethod(data);
-			I_FrontEndModule correspondingModule=findCorrespondingInstanceModule(data);
-			correspondingModule.updateDisplayedData(data);
+			cmdHistoryDisplay.updateDisplayedData(data);
+			console.updateDisplayedData(data);
+			varDisplay.updateDisplayedData(data);
+			turtleDisplay.updateDisplayedData(data);
 		}
 	}
 	
@@ -88,19 +90,19 @@ public class GUI implements I_GUI{
 	 * @return the instance module of GUI that can show data
 	 */
 	//TODO Any better way to do this?
-	private I_FrontEndModule findCorrespondingInstanceModule(FrontEndData data){
-		if(data.correspondsToModule(cmdHistoryDisplay)){
-			return cmdHistoryDisplay;
-		} else if(data.correspondsToModule(console)){
-			return console;
-		} else if(data.correspondsToModule(varDisplay)){
-			return varDisplay;
-		} else if(data.correspondsToModule(turtleDisplay)){
-			return turtleDisplay;
-		} else {
-			throw new IllegalArgumentException("FrontEndData data does not correspond to any module known by GUI");
-		}
-	}
+//	private I_FrontEndModule findCorrespondingInstanceModule(FrontEndData data){
+//		if(data.correspondsToModule(cmdHistoryDisplay)){
+//			return cmdHistoryDisplay;
+//		} else if(data.correspondsToModule(console)){
+//			return console;
+//		} else if(data.correspondsToModule(varDisplay)){
+//			return varDisplay;
+//		} else if(data.correspondsToModule(turtleDisplay)){
+//			return turtleDisplay;
+//		} else {
+//			throw new IllegalArgumentException("FrontEndData data does not correspond to any module known by GUI");
+//		}
+//	}
 	
 //	/**
 //	 * finds the show method that can properly display the data

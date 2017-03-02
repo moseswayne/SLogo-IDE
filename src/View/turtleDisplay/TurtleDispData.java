@@ -1,13 +1,13 @@
 package View.turtleDisplay;
 
 import View.FrontEndData;
-import utils.TurtlePosition;
+import utils.TurtleParameters;
 
 public class TurtleDispData extends FrontEndData {
-	TurtlePosition position;
+	TurtleParameters position;
 	private boolean penDown;
 	
-	public TurtleDispData(TurtlePosition _position, boolean _penDown) {
+	public TurtleDispData(TurtleParameters _position, boolean _penDown) {
 		super(new TurtleDisplay(5, 5).getClass());
 		position=_position;
 		penDown=_penDown;

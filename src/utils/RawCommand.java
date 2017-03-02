@@ -15,7 +15,16 @@ public class RawCommand {
 		this(_rawStr, null);
 	}
 	
-	public void settranslationMap(Map<String, String> _translationMap){
+	public void setTranslationMap(Map<String, String> _translationMap){
 		translationMap=_translationMap;
 	}
+	
+	public String getCommandString() {
+		return rawStr;
+	}
+	
+	public Map<String, String> getMap() {
+		return translationMap;
+	}
+	
 }

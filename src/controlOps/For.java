@@ -7,7 +7,9 @@ public class For extends A_StructureCommand{
 
 	@Override
 	public void modifyInstructionStack(ParameterObject params) {
-		// TODO Auto-generated method stub
+		for(int i = params.getDoubleAt(1).intValue(); i < params.getDoubleAt(2); i+=params.getDoubleAt(3)) {
+			addListStack(params.getInstructions());
+		}
 		
 	}
 

@@ -98,7 +98,7 @@ public class TurtleModel {
 	 *            is the new y coordinate
 	 * @return a double of the straight line distance
 	 */
-	protected double getDistance(double x, double y) {
+	public double getDistance(double x, double y) {
 		return Math.sqrt((x - this.myX) * (x - this.myX) + (y - this.myY) * (y - this.myY));
 	}
 
@@ -110,15 +110,15 @@ public class TurtleModel {
 	 * @param direction
 	 * @return double representing the new coordinate
 	 */
-	protected double getXCoordinate(double distance, double direction) {
-		return Math.sin(this.getHeading()) * coordinateHelper(distance, direction);
+	public double newXCoordinate(double distance, int direction) {
+		return setX(Math.sin(this.getHeading()) * coordinateHelper(distance, direction));
 	}
 
-	protected double getYCoordinate(double distance, double direction) {
-		return Math.cos(this.getHeading()) * coordinateHelper(distance, direction);
+	public double newYCoordinate(double distance, int direction) {
+		return setY(Math.cos(this.getHeading()) * coordinateHelper(distance, direction));
 	}
 
-	private double coordinateHelper(double distance, double direction) {
+	private double coordinateHelper(double distance, int direction) {
 		if (direction < 0) {
 			direction = -1;
 		} else {

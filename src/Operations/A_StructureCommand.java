@@ -13,9 +13,11 @@ public abstract class A_StructureCommand implements CommandOperation {
 
 	@Override
 	public void execute(ParameterObject params, FrontEndData data) {
-		// TODO Auto-generated method stub
-		//return null;
+		unStackList(params.getInstructions());
+		
 	}
+	
+	public abstract void modifyInstructionStack(ParameterObject params);
 	
 	private void unStackList(Stack<String> inStack) {
 		instructionList = new ArrayList<String>();
@@ -29,4 +31,5 @@ public abstract class A_StructureCommand implements CommandOperation {
 			inStack.push(instruction);
 		}
 	}
+	
 }

@@ -32,7 +32,8 @@ public class ParameterObject {
 	}
 	
 	public Double getDoubleAt(int index) {
-		String val = getRawElement(index);
+		return Double.parseDouble(getRawElement(index));
+		/*String val = getRawElement(index);
 		if(varMap.containsKey(val)) {
 			return varMap.get(val);
 		} else {
@@ -42,7 +43,7 @@ public class ParameterObject {
 				//do something
 			}
 		}
-		return null;
+		return null;*/
 	}
 	
 	public TurtleModel getTurtle() {

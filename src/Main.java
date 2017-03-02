@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import View.FrontEndData;
 import View.GUI;
-import View.turtleDisplay.TurtleDispData;
-import View.varDisplay.VarDispData;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -17,6 +15,7 @@ public class Main extends Application {
 		GUI display=new GUI();
 
 		stage.setTitle(TITLE);
+//        stage.setResizable(false);
 		Scene sc=display.getScene();
 		stage.setScene(sc);
 		stage.show();

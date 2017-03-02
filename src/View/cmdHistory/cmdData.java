@@ -24,6 +24,4 @@ public class cmdData extends FrontEndData {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 }

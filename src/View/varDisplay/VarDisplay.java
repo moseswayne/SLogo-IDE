@@ -44,14 +44,15 @@ public class VarDisplay implements I_FrontEndModule {
 	}
 
 	/**
-	 * Assumes GUI has passed the correct data object
+	 * 
 	 * @return updated myVisualContent
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void updateDisplayedData(FrontEndData data) {
-		data=(VarDispData) data;
-		map=(Map<String, String>) data.getData();
+		map=data.getVars();
+		if(map==null){
+			return;
+		}
 		myVisualContent.getChildren().clear();
 		updateVisualContent();
 	}

@@ -1,5 +1,13 @@
 package booleanOps;
 
-public class Equal {
+import Operations.A_BooleanOperation;
+import utils.ParameterObject;
+
+public class Equal extends A_BooleanOperation{
+
+	@Override
+	public boolean evaluate(ParameterObject params) {
+		return (params.getDoubleAt(0)==params.getDoubleAt(1));
+	}
 
 }

@@ -5,10 +5,11 @@ package utils;
  * @author Yuxiang He
  *
  */
-public class TurtlePosition {
+public class TurtleParameters {
 	private double x;
 	private double y;
 	private double heading;
+	private boolean isPendown;
 	
 	/**
 	 * 
@@ -16,20 +17,22 @@ public class TurtlePosition {
 	 * @param _y
 	 * @param _heading
 	 */
-	public TurtlePosition(double _x, double _y, double _heading) {
+	public TurtleParameters(double _x, double _y, double _heading, boolean _isPendown) {
 		x=_x;
 		y=_y;
 		heading=_heading;
+		isPendown=_isPendown;
 	}
 	
 	/**
 	 * makes a copy of another TurtlePosition
 	 * @param other
 	 */
-	public TurtlePosition(TurtlePosition other){
+	public TurtleParameters(TurtleParameters other){
 		this.x=other.getX();
 		this.y=other.getY();
 		this.heading=other.getHeading();
+		this.isPendown=other.isPendown();
 	}
 	
 	/**
@@ -46,5 +49,9 @@ public class TurtlePosition {
 
 	public double getHeading(){
 		return heading;
+	}
+	
+	public boolean isPendown(){
+		return isPendown;
 	}
 }

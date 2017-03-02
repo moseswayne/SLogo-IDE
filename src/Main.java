@@ -21,9 +21,8 @@ public class Main extends Application {
 		stage.show();
 		
 		ArrayList<FrontEndData> dataCollection=new ArrayList<>();
-		TurtleParameters pos=new TurtleParameters(15, 125, 0, true);
 		FrontEndData data=new FrontEndData(" ");
-		data.setTurtleParameters(pos);
+		data.addTurtleParameters(15, 125, 0, true, true);
 		dataCollection.add(data);
 		display.show(dataCollection);
 	}

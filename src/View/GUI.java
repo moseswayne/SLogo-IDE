@@ -29,6 +29,7 @@ public class GUI implements I_GUI{
 	private Console console;
 	private TurtleDisplay turtleDisplay;
 	private VarDisplay varDisplay;
+	private ControlPanel ctrlPanel;
 	
 	private Collection<I_FrontEndModule> myModules;
 	private Map<String, String> translationMap;
@@ -52,6 +53,7 @@ public class GUI implements I_GUI{
 		console=new Console((int)DEAFAULT_CONSOLE_SIZE.getWidth(), (int)DEAFAULT_CONSOLE_SIZE.getHeight());
 		turtleDisplay=new TurtleDisplay((int)DEAFAULT_TURTLE_DISP_SIZE.getWidth(), (int)DEAFAULT_TURTLE_DISP_SIZE.getHeight());
 		varDisplay=new VarDisplay();
+		ctrlPanel=new ControlPanel();
 		myModules=new ArrayList<>();
 		myModules.add(cmdHistoryDisplay);
 		myModules.add(console);
@@ -68,6 +70,7 @@ public class GUI implements I_GUI{
 		bp.setBottom(console.getVisualizedContent());
 		bp.setLeft(cmdHistoryDisplay.getVisualizedContent());
 		bp.setCenter(turtleDisplay.getVisualizedContent());
+		bp.setTop(ctrlPanel.getContainer());
 		return bp;
 	}
 

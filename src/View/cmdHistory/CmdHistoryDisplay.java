@@ -29,4 +29,10 @@ public class CmdHistoryDisplay implements I_FrontEndModule{
 		return null;
 	}
 
+	@Override
+	public boolean hasBufferedUserInteraction() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

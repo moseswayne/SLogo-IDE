@@ -28,15 +28,17 @@ public class Console implements I_FrontEndModule {
 	private VBox inputContainer;
 	private TextArea inputField;
 	private Dimension consoleSize;
-	private String mostRecentCommand;
-	private ObservableList<String> history;
+	private String bufferedCommandStr;
+	private ObservableList<String> printedLines;
 	private final double OUTPUT_DISP_HEIGHT_RATIO = 0.6;
 	private final String BUTTON_TEXT = "Execute";
 
+	
+	
 	public Console(int width, int height) {
 		consoleSize = new Dimension(width, height);
 		outputDisplay = new VBox();
-		history=  FXCollections.observableArrayList(new ArrayList<String>());
+		printedLines=  FXCollections.observableArrayList(new ArrayList<String>());
 		inputContainer = new VBox();
 		setupOutDisp();
 		setupInputContainer();
@@ -47,7 +49,7 @@ public class Console implements I_FrontEndModule {
 		outputDisplay.setBorder(new Border(new BorderStroke(Color.AQUAMARINE, BorderStrokeStyle.SOLID, new CornerRadii(2.5), new BorderWidths(5.0))));
 		outputDisplay.setPrefSize(consoleSize.getWidth(), consoleSize.getHeight() * OUTPUT_DISP_HEIGHT_RATIO);
 		outputDisplay.setMaxSize(consoleSize.getWidth(), consoleSize.getHeight() * OUTPUT_DISP_HEIGHT_RATIO);
-		history.addListener(new ListChangeListener<String>(){
+		printedLines.addListener(new ListChangeListener<String>(){
 			@Override
 			public void onChanged(Change<? extends String> c) {
 				while(c.next()){
@@ -68,9 +70,9 @@ public class Console implements I_FrontEndModule {
 			String text=inputField.getText();
 			text=text.trim();
 			if (text.length() != 0) {
-				mostRecentCommand=text;
+				bufferedCommandStr=text;
 				//TODO this line will be removed
-				history.add("debug: "+text);
+				printedLines.add("debug: "+text);
 			}
 			inputField.setText("");
 		});
@@ -82,19 +84,25 @@ public class Console implements I_FrontEndModule {
 		if(data.getCommandName()==null){
 			return;
 		}
-		history.add(data.getCommandName());
+		printedLines.add(data.getCommandName());
 	}
 
 	@Override
 	public RawCommand getUserInteractionResult() {
-		// TODO Auto-generated method stub
-		return null;
+		String rawCmdStr=""+bufferedCommandStr;
+		bufferedCommandStr=null;
+		return new RawCommand(rawCmdStr);
 	}
 
 	@Override
 	public Node getVisualizedContent() {
 		// TODO Auto-generated method stub
 		return container;
+	}
+
+	@Override
+	public boolean hasBufferedUserInteraction() {
+		return bufferedCommandStr==null;
 	}
 
 }

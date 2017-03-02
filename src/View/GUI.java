@@ -18,9 +18,9 @@ import utils.RawCommand;
 
 public class GUI implements I_GUI{
 	
-	private final Dimension DEFAULT_SIZE = new Dimension(800, 800);
-	private final Dimension DEAFAULT_TURTLE_DISP_SIZE=new Dimension(500, 500);
-	private final Dimension DEAFAULT_CONSOLE_SIZE=new Dimension(500, 200);
+	private final Dimension DEFAULT_SIZE = new Dimension(1000, 700);
+	private final Dimension DEAFAULT_TURTLE_DISP_SIZE=new Dimension(500, 400);
+	private final Dimension DEAFAULT_CONSOLE_SIZE=new Dimension(1000, 200);
 	private Scene myScene;
 	private BorderPane root;
 	private CmdHistoryDisplay cmdHistoryDisplay;

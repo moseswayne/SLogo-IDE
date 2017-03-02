@@ -6,8 +6,14 @@ import View.FrontEndData;
 import View.I_FrontEndModule;
 import javafx.scene.Node;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import utils.RawCommand;
 
@@ -25,6 +31,8 @@ public class VarDisplay implements I_FrontEndModule {
 		map=new TreeMap<String, String>();
 		fillMap();
 		myVisualContent=new VBox();
+		
+		myVisualContent.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(2.5), new BorderWidths(5.0))));
 		updateVisualContent();
 	}
 	

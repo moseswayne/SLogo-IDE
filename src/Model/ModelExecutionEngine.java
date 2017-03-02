@@ -3,6 +3,7 @@ package Model;
 import java.util.Collection;
 
 import View.FrontEndData;
+import utils.RawCommand;
 
 public class ModelExecutionEngine implements I_ExecutionEngine {
 
@@ -11,7 +12,7 @@ public class ModelExecutionEngine implements I_ExecutionEngine {
 	}
 
 	@Override
-	public Collection<FrontEndData> runOp(Command runCommand) {
+	public FrontEndData runOp(RawCommand runCommand) {
 		// TODO Auto-generated method stub
 		return null;
 	}

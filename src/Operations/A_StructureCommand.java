@@ -12,9 +12,9 @@ public abstract class A_StructureCommand implements CommandOperation {
 	private List<String> instructionList;
 
 	@Override
-	public FrontEndData execute(ParameterObject params, FrontEndData data) {
+	public void execute(ParameterObject params, FrontEndData data) {
 		// TODO Auto-generated method stub
-		return null;
+		//return null;
 	}
 	
 	private void unStackList(Stack<String> inStack) {

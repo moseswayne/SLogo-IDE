@@ -42,6 +42,6 @@ public class Parser {
 	}
 	
 	private boolean isValidCommand(String cmd) {
-		return cmdMap.containsKey(cmd) && cmdMap.get(cmd).length() != 0;
+		return commandsMap.containsKey(cmd) && commandsMap.get(cmd).length() != 0;
 	}
 }

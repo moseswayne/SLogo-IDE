@@ -9,9 +9,12 @@ import java.io.IOException;
 import java.io.File;
 import java.util.ResourceBundle;
 import java.util.ArrayList;
+import java.io.FileInputStream;
+import java.io.File;
+
 
 public class Parser {
-	
+
 	private ResourceBundle myResourceBundle;
 	private String command;
 	private Map<String, String> commandsMap;
@@ -21,8 +24,6 @@ public class Parser {
 	public Parser(Map<String, Double> varMap) {
 		variablesMap = varMap;
 		myResourceBundle = ResourceBundle.getBundle("resources.languages/Syntax.properties");
-		
-		
 	}
 	
 	public ParameterObject getParameters() {

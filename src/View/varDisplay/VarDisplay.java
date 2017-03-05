@@ -9,16 +9,12 @@ import View.ObservedDisplay;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import utils.RawCommand;
 
 /**
@@ -29,8 +25,6 @@ public class VarDisplay implements I_FrontEndModule {
 	private Map<String, String> map;
 	private ObservedDisplay<Button> myVisualContent;
 	private ScrollPane container;
-
-	private final double ENTRY_WIDTH = 50;
 	private final String SEPERATION_STR = " : ";
 	private Dimension size;
 
@@ -108,28 +102,6 @@ public class VarDisplay implements I_FrontEndModule {
 			Button button=createButton(varName, varVal);	
 			myVisualContent.add(button);
 		}
-	}
-
-	/**
-	 * 
-	 * @param string
-	 *            specifies the text displayed in the Text
-	 * @return Text with the string inside, and formatted
-	 */
-	private Text setUpEntryText(String string) {
-		Text txt = new Text(string);
-		txt.setWrappingWidth(ENTRY_WIDTH);
-		return txt;
-	}
-
-	/**
-	 * 
-	 * @return Text with separation string inside, and formatted
-	 */
-	private Text setSepText() {
-		Text txt = new Text(SEPERATION_STR);
-		txt.setWrappingWidth(ENTRY_WIDTH / 2);
-		return txt;
 	}
 
 	@Override

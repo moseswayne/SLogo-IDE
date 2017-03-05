@@ -8,12 +8,13 @@ public class TurtleModel {
 	private static double HOMEX = 0, HOMEY = 0;
 	private double myX, myY, myHeading;
 	private boolean isPenShowing, isTurtleShowing;
+	private int myID;
 
 	/**
 	 * Creates a new TurtleModel at the default HOME position
 	 */
-	public TurtleModel() {
-		this(HOMEX, HOMEY);
+	public TurtleModel(int id) {
+		this(HOMEX, HOMEY, id);
 	}
 
 	/**
@@ -24,12 +25,13 @@ public class TurtleModel {
 	 * @param y
 	 *            is the y coordinate
 	 */
-	public TurtleModel(double x, double y) {
+	public TurtleModel(double x, double y, int id) {
 		myX = x;
 		myY = y;
 		myHeading = 0;
 		isPenShowing = true;
 		isTurtleShowing = true;
+		myID = id;
 	}
 
 	/**
@@ -64,6 +66,11 @@ public class TurtleModel {
 
 	public boolean getTurtleShowing() {
 		return isTurtleShowing;
+	}
+
+	// ID count starts at 1
+	public int getID() {
+		return myID;
 	}
 
 	/**

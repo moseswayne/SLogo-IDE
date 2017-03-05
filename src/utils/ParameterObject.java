@@ -56,11 +56,13 @@ public class ParameterObject implements Iterable<Double> {
 	public Stack<String> getInstructions() {
 		return instructionStack;
 	}
-/**
- * Iterates over the double paramters
- * Useful if there is an unknown number of inputs
- * @return
- */
+
+	/**
+	 * Iterates over the double parameters Useful if there is an unknown number
+	 * of inputs
+	 * 
+	 * @return
+	 */
 	@Override
 	public Iterator<Double> iterator() {
 		return new Iterator<Double>() {
@@ -75,7 +77,7 @@ public class ParameterObject implements Iterable<Double> {
 			public Double next() {
 				return Double.parseDouble(paramsIter.next());
 			}
-			
+
 			@Override
 			public void remove() {
 				throw new UnsupportedOperationException("No removals allowed");

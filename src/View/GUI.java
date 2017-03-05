@@ -24,7 +24,7 @@ public class GUI implements I_GUI{
 	private final Dimension DEFAULT_SIZE = new Dimension(1000, 700);
 	private final Dimension DEAFAULT_TURTLE_DISP_SIZE=new Dimension(500, 400);
 	private final Dimension DEAFAULT_CONSOLE_SIZE=new Dimension(1000, 200);
-	private final Dimension DEAFAULT_VAR_DIST_SIZE=new Dimension(200, 400);
+	private final Dimension DEAFAULT_SIDE_DISP_SIZE=new Dimension(200, 400);
 	
 	
 	private Scene myScene;
@@ -99,10 +99,10 @@ public class GUI implements I_GUI{
 	 * builds the front end modules under GUI
 	 */
 	private void initiateModules() {
-		cmdHistoryDisplay=new CmdHistoryDisplay();
+		cmdHistoryDisplay=new CmdHistoryDisplay(DEAFAULT_SIDE_DISP_SIZE.width, DEAFAULT_SIDE_DISP_SIZE.height);
 		console=new Console((int)DEAFAULT_CONSOLE_SIZE.getWidth(), (int)DEAFAULT_CONSOLE_SIZE.getHeight());
 		turtleDisplay=new TurtleDisplay((int)DEAFAULT_TURTLE_DISP_SIZE.getWidth(), (int)DEAFAULT_TURTLE_DISP_SIZE.getHeight());
-		varDisplay=new VarDisplay();
+		varDisplay=new VarDisplay(DEAFAULT_SIDE_DISP_SIZE.width, DEAFAULT_SIDE_DISP_SIZE.height);
 		ctrlPanel=new ControlPanel();
 		myModules=new ArrayList<>();
 		myModules.add(cmdHistoryDisplay);

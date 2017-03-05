@@ -1,7 +1,5 @@
 package Model;
 
-import java.util.Collection;
-
 import View.FrontEndData;
 import utils.RawCommand;
 

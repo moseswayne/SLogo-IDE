@@ -33,13 +33,17 @@ public class ParameterObject implements Iterable<Double> {
 	}
 
 	public Double getDoubleAt(int index) {
-		return Double.parseDouble(getRawElement(index));
-		/*
-		 * String val = getRawElement(index); if(varMap.containsKey(val)) {
-		 * return varMap.get(val); } else { try { Double.parseDouble(val); }
-		 * catch (Exception NumberFormatException){ //do something } } return
-		 * null;
-		 */
+		String val = getRawElement(index);
+		if(varMap.containsKey(val)) {
+			return varMap.get(val);
+		} else {
+			try {
+				return Double.parseDouble(val);
+			} catch (Exception NumberFormatException){
+				//stuff
+			}
+		}
+		return null;
 	}
 
 	public TurtleModel getTurtle() {

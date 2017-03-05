@@ -7,8 +7,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
-import Model.ModelExecutionEngine;
 import View.cmdHistory.CmdHistoryDisplay;
 import View.console.Console;
 import View.turtleDisplay.TurtleDisplay;
@@ -44,7 +42,6 @@ public class GUI implements I_GUI{
 	private Map<String, String> translationMap;
 	private Properties languageProp;
 	
-	ModelExecutionEngine engine;
 	
 	/**
 	 * 
@@ -55,6 +52,7 @@ public class GUI implements I_GUI{
 		language=DEAFAULT_LANGUAGE;
 		root = new BorderPane();
 		initiateModules();
+		addModulesToCollection();
 		root=makeRoot();
 		myScene= new Scene(root, DEFAULT_SIZE.getWidth(), DEFAULT_SIZE.getHeight());
 		languageProp=new Properties();
@@ -92,7 +90,18 @@ public class GUI implements I_GUI{
 		console=new Console((int)DEAFAULT_CONSOLE_SIZE.getWidth(), (int)DEAFAULT_CONSOLE_SIZE.getHeight());
 		turtleDisplay=new TurtleDisplay((int)DEAFAULT_TURTLE_DISP_SIZE.getWidth(), (int)DEAFAULT_TURTLE_DISP_SIZE.getHeight());
 		varDisplay=new VarDisplay(DEAFAULT_SIDE_DISP_SIZE.width, DEAFAULT_SIDE_DISP_SIZE.height);
-		ctrlPanel=new ControlPanel();
+		ctrlPanel=new ControlPanel(this);
+	}
+	
+	public void setTurtleBgdColor(String color){
+		turtleDisplay.setBackgroudColor(color);
+	}
+	
+	public void setTurtlePenColor(String color){
+		turtleDisplay.setPenColor(color);
+	}
+
+	private void addModulesToCollection() {
 		myModules=new ArrayList<>();
 		myModules.add(cmdHistoryDisplay);
 		myModules.add(console);

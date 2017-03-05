@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.File;
 import java.util.ResourceBundle;
 
-import tree.Node;
+import tree.CommandNode;
 
 import java.util.ArrayList;
 import java.io.FileInputStream;
@@ -33,7 +33,7 @@ public class Parser {
 		return params;
 	}
 	
-	private ArrayList<Node> parseCommand(String cmd) {
+	private ArrayList<CommandNode> parseCommand(String cmd) {
 		command = cmd;
 		String rootCmd = getRootCommand(cmd);
 	}

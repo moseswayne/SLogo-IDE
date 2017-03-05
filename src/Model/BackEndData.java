@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -12,7 +13,8 @@ public class BackEndData {
 	private Queue<TurtleParameters> myTurtleParameters;
 	
 	public BackEndData() {
-		
+		instructionStack = new Stack<String>();
+		myTurtleParameters = new ArrayDeque<TurtleParameters>();
 	}
 	
 	public void setValue(double thisValue) {

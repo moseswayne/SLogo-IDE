@@ -50,13 +50,6 @@ public class TurtleManager implements Iterable<TurtleModel> {
 	}
 
 	/**
-	 * @return int total number of turtles in the list
-	 */
-	public int getTurtleCount() {
-		return myTurtleList.size();
-	}
-
-	/**
 	 * Returns a TurtleModel of the specified ID number
 	 * 
 	 * @param idNumber
@@ -98,6 +91,13 @@ public class TurtleManager implements Iterable<TurtleModel> {
 	 */
 	public List<TurtleModel> getAllTurtles() {
 		return myTurtleList;
+	}
+
+	/**
+	 * @return int total number of turtles in the list
+	 */
+	public int getTurtleCount() {
+		return myTurtleList.size();
 	}
 
 	/**
@@ -166,6 +166,11 @@ public class TurtleManager implements Iterable<TurtleModel> {
 			myTurtleManager.setActiveTurtle(myList.get(0));
 		}
 
+		/**
+		 * Returns the next TurtleModel in the list
+		 * 
+		 * @return
+		 */
 		// will loop around if list is too small
 		@Override
 		public TurtleModel next() {
@@ -175,6 +180,11 @@ public class TurtleManager implements Iterable<TurtleModel> {
 			return nextTurtle;
 		}
 
+		/**
+		 * Returns true if there is a susequent TurtleModel in the list
+		 * 
+		 * @return
+		 */
 		@Override
 		public boolean hasNext() {
 			return currentPosition < myList.size();

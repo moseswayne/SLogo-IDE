@@ -3,6 +3,8 @@ package View;
 import java.io.IOException;
 import java.util.Properties;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
@@ -34,5 +36,14 @@ public class ControlPanel{
 
 	public Node getContainer(){
 		return bar;
+	}
+	
+	public void setTurtleBackGroundButton(Runnable r) {
+		turtleBackGroundButton.setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent arg0) {
+				r.run();
+			}
+		});
 	}
 }

@@ -15,18 +15,15 @@ import View.turtleDisplay.TurtleDisplay;
 import View.varDisplay.VarDisplay;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import utils.RawCommand;
 
 public class GUI implements I_GUI{
 	
 
-	private final Dimension DEFAULT_SIZE = new Dimension(1000, 700);
-	private final Dimension DEAFAULT_TURTLE_DISP_SIZE=new Dimension(500, 400);
+	private final Dimension DEFAULT_SIZE = new Dimension(1000, 750);
+	private final Dimension DEAFAULT_TURTLE_DISP_SIZE=new Dimension(600, 510);
 	private final Dimension DEAFAULT_CONSOLE_SIZE=new Dimension(1000, 200);
 	private final Dimension DEAFAULT_SIDE_DISP_SIZE=new Dimension(200, 400);
-	
-	
 	private Scene myScene;
 	private BorderPane root;
 	private CmdHistoryDisplay cmdHistoryDisplay;
@@ -55,7 +52,6 @@ public class GUI implements I_GUI{
 	 * @param sceneHeight
 	 */
 	public GUI () {
-//		engine=new ModelExecutionEngine();
 		language=DEAFAULT_LANGUAGE;
 		root = new BorderPane();
 		initiateModules();
@@ -68,13 +64,6 @@ public class GUI implements I_GUI{
 			throw new Error("properties file not found or something else created an IO error");
 		}
 		translationMap=buildTranslationMap();
-//		try {
-//			engine.runOp(getUserInput());
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		int x=0;
 	}
 	
 	/**

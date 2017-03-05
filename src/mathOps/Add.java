@@ -1,17 +1,17 @@
 package mathOps;
 
-import Operations.A_MathOperation;
 import utils.ParameterObject;
 /**
  * Adds two values together
  * @author Elbert
  *
  */
-public class Add extends A_MathOperation{
+public class Add extends A_Multiple_Inputs{
+	private double initialValue = 0;
 
 	@Override
 	protected double evaluate(ParameterObject params) {
-		return params.getDoubleAt(0) + params.getDoubleAt(1);
+		return solve(params, initialValue, (changingValue, instance) -> (changingValue + instance));
 	}
 
 }

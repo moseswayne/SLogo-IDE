@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Manages multiple turtles
  * 
- * @author Elbert
+ * @author Kris Elbert
  *
  */
 public class TurtleManager implements Iterable<TurtleModel> {
@@ -181,7 +181,7 @@ public class TurtleManager implements Iterable<TurtleModel> {
 		}
 
 		/**
-		 * Returns true if there is a susequent TurtleModel in the list
+		 * Returns true if there is a subsequent TurtleModel in the list
 		 * 
 		 * @return
 		 */

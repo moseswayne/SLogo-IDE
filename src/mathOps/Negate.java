@@ -5,7 +5,7 @@ import utils.ParameterObject;
 /**
  * Makes the input negative
  * 
- * @author Elbert
+ * @author Kris Elbert
  *
  */
 public class Negate extends A_One_Input {

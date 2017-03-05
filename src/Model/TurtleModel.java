@@ -95,5 +95,4 @@ public class TurtleModel {
 	public boolean setPenShowing(boolean visibility) {
 		return isPenShowing = visibility;
 	}
-
 }

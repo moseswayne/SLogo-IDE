@@ -5,7 +5,7 @@ import utils.ParameterObject;
 /**
  * Retuns the arctangent in degrees of the tangent input
  * 
- * @author Elbert
+ * @author Kris Elbert
  *
  */
 public class Arctangent extends A_One_Input {

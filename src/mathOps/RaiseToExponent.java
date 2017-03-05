@@ -12,7 +12,6 @@ public class RaiseToExponent extends A_Multiple_Inputs {
 
 	@Override
 	protected double evaluate(ParameterObject params) {
-		double initialValue = params.getDoubleAt(0);
-		return solve(params, initialValue, (changingValue, instance) -> (Math.pow(changingValue, instance)));
+		return solve(params, (changingValue, instance) -> (Math.pow(changingValue, instance)));
 	}
 }

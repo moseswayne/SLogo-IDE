@@ -5,7 +5,7 @@ import utils.ParameterObject;
 /**
  * Retuns the cosine of the input
  * 
- * @author Elbert
+ * @author Kris Elbert
  *
  */
 public class Cosine extends A_One_Input {

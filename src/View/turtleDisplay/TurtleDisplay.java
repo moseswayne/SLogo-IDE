@@ -72,6 +72,12 @@ public class TurtleDisplay implements I_FrontEndModule {
 		lineGC.fillRect(0,0,lineCanvas.getWidth(),lineCanvas.getHeight());
 	}
 	
+	public void changeBackgroudColor(Color color){
+		GraphicsContext lineGC=lineCanvas.getGraphicsContext2D();
+		lineGC.setFill(color);
+	}
+	
+	
 	/**
 	 * sets up turtle and turtle container
 	 */

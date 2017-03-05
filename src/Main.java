@@ -32,7 +32,7 @@ public class Main extends Application {
 
 		ArrayList<FrontEndData> dataCollection = new ArrayList<>();
 		FrontEndData data = new FrontEndData(" ");
-		data.addTurtleParameters(15, 125, 0, true, true);
+		data.addTurtleParameters(125, 125, 45, true, true);
 		dataCollection.add(data);
 		display.show(dataCollection);
 

@@ -122,37 +122,62 @@ public class TurtleManager implements Iterable<TurtleModel> {
 	}
 
 	/**
-	 * Allows iteration over the list of turtles
+	 * Can also set an active turtle through its turtleModel
+	 * 
+	 * @param turtle
+	 * @return that same turtleModel
 	 */
-private class TurtleListIterator implements Iterator<TurtleModel>{
-	private List<TurtleModel> myList;
-	private int currentPosition;
-		return new Iterator<TurtleModel>() {
-			private  Iterator<TurtleModel> turtleIter = iterator();
-public void overSubsection(List<TurtleModel> theseTurtles){
-	turtleIter = theseTurtles.iterator();
-}
-			@Override
-			public TurtleModel next() {
-				return setActiveTurtle(turtleIter.next().getID());
-			}
-
-			@Override
-			public boolean hasNext() {
-				return turtleIter.hasNext();
-			}
-		};
+	public TurtleModel setActiveTurtle(TurtleModel turtle) {
+		return setActiveTurtle(turtle.getID());
 	}
 
+	/**
+	 * Creates an iterator over all of the turtles in the list
+	 */
 	@Override
-	public boolean hasNext() {
-		// TODO Auto-generated method stub
-		return false;
+	public Iterator<TurtleModel> iterator() {
+		return this.iterator(myTurtleList);
 	}
 
-	@Override
-	public TurtleModel next() {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Iterates over a subsection of turtles
+	 * 
+	 * @param List
+	 *            turtleList
+	 * @return iterator over this list
+	 */
+	public Iterator<TurtleModel> iterator(List<TurtleModel> turtleList) {
+		return new TurtleIterator(turtleList, this);
 	}
+
+	/**
+	 * Creates an iterator through the list of turtles updates the active turtle
+	 * each time is iterated through
+	 */
+	protected class TurtleIterator implements Iterator<TurtleModel> {
+		private List<TurtleModel> myList;
+		private int currentPosition;
+		private TurtleManager myTurtleManager;
+
+		protected TurtleIterator(List<TurtleModel> theseTurtles, TurtleManager man) {
+			myList = new ArrayList<TurtleModel>(theseTurtles);
+			currentPosition = 0;
+			myTurtleManager = man;
+			myTurtleManager.setActiveTurtle(myList.get(0));
+		}
+
+		// will loop around if list is too small
+		@Override
+		public TurtleModel next() {
+			TurtleModel nextTurtle = myList.get(currentPosition % myList.size());
+			myTurtleManager.setActiveTurtle(nextTurtle);
+			currentPosition += 1;
+			return nextTurtle;
+		}
+
+		@Override
+		public boolean hasNext() {
+			return currentPosition < myList.size();
+		}
+	};
 }

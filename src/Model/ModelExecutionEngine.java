@@ -1,8 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,10 +23,11 @@ public class ModelExecutionEngine implements I_ExecutionEngine {
 
 	@Override
 	public FrontEndData runOp(RawCommand runCommand) throws Exception {
+		
 		String run = runCommand.getCommandString();
 		Map<String, String> language = runCommand.getMap();
 		String[] runArr = run.split(" ");
-		Class<?> clazz = Class.forName("mathOps."+runArr[0]);
+		Class<?> clazz = Class.forName("booleanOps."+runArr[0]);
 		ArrayList<String> myParams = new ArrayList<String>();
 		myParams.add(runArr[1]);
 		myParams.add(runArr[2]);

@@ -19,7 +19,7 @@ public class ModelExecutionEngine implements I_ExecutionEngine {
 	
 	public ModelExecutionEngine() {
 		variableMap = new HashMap<String, Double>();
-		myParser = new Parser(variableMap);
+//		myParser = new Parser(variableMap);
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class ModelExecutionEngine implements I_ExecutionEngine {
 		String run = runCommand.getCommandString();
 		Map<String, String> language = runCommand.getMap();
 		String[] runArr = run.split(" ");
-		Class<?> clazz = Class.forName("booleanOps"+runArr[0]);
+		Class<?> clazz = Class.forName("booleanOps."+runArr[0]);
 		ArrayList<String> myParams = new ArrayList<String>();
 		myParams.add(runArr[1]);
 		myParams.add(runArr[2]);

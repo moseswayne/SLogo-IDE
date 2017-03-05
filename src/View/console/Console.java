@@ -91,10 +91,11 @@ public class Console implements I_FrontEndModule {
 
 	@Override
 	public void updateDisplayedData(FrontEndData data) {
-		if (data.getCommandName() == null) {
+		if (data.getPrintConsole() == null) {
 			return;
 		}
-		printedLines.add(data.getCommandName());
+		double result=data.getPrintConsole();
+		printedLines.add(""+result);
 	}
 
 	@Override
@@ -112,7 +113,7 @@ public class Console implements I_FrontEndModule {
 
 	@Override
 	public boolean hasBufferedUserInteraction() {
-		return bufferedCommandStr == null;
+		return bufferedCommandStr != null;
 	}
 
 }

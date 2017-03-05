@@ -1,5 +1,6 @@
 package View.varDisplay;
 
+import java.awt.Dimension;
 import java.util.Map;
 import java.util.TreeMap;
 import View.FrontEndData;
@@ -25,12 +26,13 @@ public class VarDisplay implements I_FrontEndModule {
 	private VBox myVisualContent;
 	private final double ENTRY_WIDTH=50;
 	private final String SEPERATION_STR=":";
+	private Dimension size;
 	
-	public VarDisplay() {
+	public VarDisplay(int width, int height) {
 		map=new TreeMap<String, String>();
 		fillMap();
 		myVisualContent=new VBox();
-		
+
 		myVisualContent.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(2.5), new BorderWidths(5.0))));
 		updateVisualContent();
 	}

@@ -7,12 +7,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import utils.RawCommand;
-import utils.TurtleParameters;
 
 public class Main extends Application {
 	private final String TITLE = "SLogo Program";
@@ -35,7 +32,7 @@ public class Main extends Application {
 
 		ArrayList<FrontEndData> dataCollection = new ArrayList<>();
 		FrontEndData data = new FrontEndData(" ");
-		data.addTurtleParameters(15, 125, 0, true, true);
+		data.addTurtleParameters(125, 125, 45, true, true);
 		dataCollection.add(data);
 		display.show(dataCollection);
 

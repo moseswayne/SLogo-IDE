@@ -32,18 +32,17 @@ public class ParameterObject {
 	}
 	
 	public Double getDoubleAt(int index) {
-		return Double.parseDouble(getRawElement(index));
-		/*String val = getRawElement(index);
+		String val = getRawElement(index);
 		if(varMap.containsKey(val)) {
 			return varMap.get(val);
 		} else {
 			try {
-				Double.parseDouble(val);
+				return Double.parseDouble(val);
 			} catch (Exception NumberFormatException){
-				//do something
+				//stuff
 			}
 		}
-		return null;*/
+		return null;
 	}
 	
 	public TurtleModel getTurtle() {

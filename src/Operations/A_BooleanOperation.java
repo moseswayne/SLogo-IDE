@@ -1,15 +1,16 @@
 package Operations;
 
+import Model.BackEndData;
 import View.FrontEndData;
 import utils.ParameterObject;
 
 public abstract class A_BooleanOperation implements CommandOperation {
 
-	public void execute(ParameterObject params, FrontEndData data) {
+	public void execute(ParameterObject params, BackEndData data) {
 		if(evaluate(params)) {
-			data.setPrintData(1);
+			data.setValue(1);
 		} else {
-			data.setPrintData(0);
+			data.setValue(0);
 		}
 	}
 	

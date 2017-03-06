@@ -2,8 +2,10 @@ package View.turtleDisplay;
 
 import javafx.scene.paint.Color;
 import java.awt.Dimension;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Queue;
 
+import View.ColorInterpreter;
 import View.FrontEndData;
 import View.I_FrontEndModule;
 import javafx.scene.Node;
@@ -26,8 +28,11 @@ public class TurtleDisplay implements I_FrontEndModule {
 	private TurtleParameters currentParams;
 	private Paint penColor;
 	private Dimension paneSize;
-	private final Dimension turtleSize=new Dimension(20, 20);
+
+	
+	private final Dimension TURTLE_SIZE=new Dimension(20, 20);
 	private final Paint DEAFAULT_PEN_COLOR=Color.BLACK;
+	private final String DEAFAULT_BACKGROUND_COLOR="white";
 	private final double DEAFAULT_X=0;
 	private final double DEAFAULT_Y=0;
 	private final double DEAFAULT_HEADING=0;
@@ -48,6 +53,7 @@ public class TurtleDisplay implements I_FrontEndModule {
 		initiateCanvas();
 		initiateTurtle();
 		container=new StackPane(lineCanvas, turtleContainer);
+		setBackgroudColor(DEAFAULT_BACKGROUND_COLOR);
 		standardizeSize(container);
 	}
 
@@ -68,9 +74,26 @@ public class TurtleDisplay implements I_FrontEndModule {
 	private void initiateCanvas() {
 		lineCanvas=new Canvas(paneSize.getWidth(), paneSize.getHeight());
 		GraphicsContext lineGC=lineCanvas.getGraphicsContext2D();
-		lineGC.setFill(Color.GREY);
+		lineGC.setFill(Color.TRANSPARENT);
 		lineGC.fillRect(0,0,lineCanvas.getWidth(),lineCanvas.getHeight());
 	}
+	
+	/**
+	 * 
+	 * @param color String specifying the color, USE VALID
+	 */
+	public void setBackgroudColor(String color){
+		container.setStyle(String.format("-fx-background-color: %s", color.toLowerCase()));
+	}
+	
+	public void setPenColor(String color){
+		ColorInterpreter cInterpreter=new ColorInterpreter();
+		float r=cInterpreter.getRValue(color.toLowerCase()),
+				g=cInterpreter.getGValue(color.toLowerCase()),
+				b=cInterpreter.getBValue(color.toLowerCase());
+		penColor=Color.color(r, g, b);
+	}
+	
 	
 	/**
 	 * sets up turtle and turtle container
@@ -78,8 +101,8 @@ public class TurtleDisplay implements I_FrontEndModule {
 	private void initiateTurtle() {
 		Image turtleIMG =  new Image("http://www.mosaic.pro/images/products/detail/Turtletopviewlargenatural.JPG");
 		turtle=new ImageView(turtleIMG); 
-		turtle.setFitWidth(turtleSize.getWidth());
-		turtle.setFitHeight(turtleSize.getHeight());
+		turtle.setFitWidth(TURTLE_SIZE.getWidth());
+		turtle.setFitHeight(TURTLE_SIZE.getHeight());
 		turtleContainer=new Pane(turtle);
 		standardizeSize(turtleContainer);
 		moveTurtle(currentParams);
@@ -101,7 +124,7 @@ public class TurtleDisplay implements I_FrontEndModule {
 	    	if(newTurtleParams.isPendown()){
 	    		canvasGC.setStroke(penColor);
 	            canvasGC.strokeLine(centralizeXPosition(currentParams.getX()), centralizeYPosition(currentParams.getY()), 
-	            		centralizeXPosition(newTurtleParams.getX())+turtleSize.getWidth()/2, centralizeYPosition(newTurtleParams.getY())+turtleSize.getHeight()/2);
+	            		centralizeXPosition(newTurtleParams.getX())+TURTLE_SIZE.getWidth()/2, centralizeYPosition(newTurtleParams.getY())+TURTLE_SIZE.getHeight()/2);
 	    	}
 	    	moveTurtle(newTurtleParams);
 	    	currentParams=newTurtleParams;
@@ -113,7 +136,7 @@ public class TurtleDisplay implements I_FrontEndModule {
 	 * i.e. center-aligns every coordinate
 	 */
 	private double centralizeXPosition(double xPos){
-		return xPos+paneSize.getWidth()/2-turtleSize.getWidth()/2;
+		return xPos+paneSize.getWidth()/2-TURTLE_SIZE.getWidth()/2;
 	}
 	
 	/**
@@ -121,7 +144,7 @@ public class TurtleDisplay implements I_FrontEndModule {
 	 * i.e. center-aligns every coordinate
 	 */
 	private double centralizeYPosition(double yPos){
-		return yPos+paneSize.getHeight()/2-turtleSize.getHeight()/2;
+		return yPos+paneSize.getHeight()/2-TURTLE_SIZE.getHeight()/2;
 	}
 
 

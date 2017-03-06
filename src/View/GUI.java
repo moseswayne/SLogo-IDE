@@ -7,24 +7,21 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
-import Model.ModelExecutionEngine;
 import View.cmdHistory.CmdHistoryDisplay;
 import View.console.Console;
 import View.turtleDisplay.TurtleDisplay;
 import View.varDisplay.VarDisplay;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import utils.RawCommand;
 
 public class GUI implements I_GUI{
 	
 
-	private final Dimension DEFAULT_SIZE = new Dimension(1000, 700);
-	private final Dimension DEAFAULT_TURTLE_DISP_SIZE=new Dimension(500, 400);
+	private final Dimension DEFAULT_SIZE = new Dimension(1000, 750);
+	private final Dimension DEAFAULT_TURTLE_DISP_SIZE=new Dimension(600, 510);
 	private final Dimension DEAFAULT_CONSOLE_SIZE=new Dimension(1000, 200);
-	
+	private final Dimension DEAFAULT_SIDE_DISP_SIZE=new Dimension(200, 400);
 	private Scene myScene;
 	private BorderPane root;
 	private CmdHistoryDisplay cmdHistoryDisplay;
@@ -45,7 +42,6 @@ public class GUI implements I_GUI{
 	private Map<String, String> translationMap;
 	private Properties languageProp;
 	
-	ModelExecutionEngine engine;
 	
 	/**
 	 * 
@@ -53,10 +49,10 @@ public class GUI implements I_GUI{
 	 * @param sceneHeight
 	 */
 	public GUI () {
-//		engine=new ModelExecutionEngine();
 		language=DEAFAULT_LANGUAGE;
 		root = new BorderPane();
 		initiateModules();
+		addModulesToCollection();
 		root=makeRoot();
 		myScene= new Scene(root, DEFAULT_SIZE.getWidth(), DEFAULT_SIZE.getHeight());
 		languageProp=new Properties();
@@ -66,13 +62,6 @@ public class GUI implements I_GUI{
 			throw new Error("properties file not found or something else created an IO error");
 		}
 		translationMap=buildTranslationMap();
-//		try {
-//			engine.runOp(getUserInput());
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		int x=0;
 	}
 	
 	/**
@@ -97,11 +86,22 @@ public class GUI implements I_GUI{
 	 * builds the front end modules under GUI
 	 */
 	private void initiateModules() {
-		cmdHistoryDisplay=new CmdHistoryDisplay();
+		cmdHistoryDisplay=new CmdHistoryDisplay(DEAFAULT_SIDE_DISP_SIZE.width, DEAFAULT_SIDE_DISP_SIZE.height);
 		console=new Console((int)DEAFAULT_CONSOLE_SIZE.getWidth(), (int)DEAFAULT_CONSOLE_SIZE.getHeight());
 		turtleDisplay=new TurtleDisplay((int)DEAFAULT_TURTLE_DISP_SIZE.getWidth(), (int)DEAFAULT_TURTLE_DISP_SIZE.getHeight());
-		varDisplay=new VarDisplay();
-		ctrlPanel=new ControlPanel();
+		varDisplay=new VarDisplay(DEAFAULT_SIDE_DISP_SIZE.width, DEAFAULT_SIDE_DISP_SIZE.height);
+		ctrlPanel=new ControlPanel(this);
+	}
+	
+	public void setTurtleBgdColor(String color){
+		turtleDisplay.setBackgroudColor(color);
+	}
+	
+	public void setTurtlePenColor(String color){
+		turtleDisplay.setPenColor(color);
+	}
+
+	private void addModulesToCollection() {
 		myModules=new ArrayList<>();
 		myModules.add(cmdHistoryDisplay);
 		myModules.add(console);

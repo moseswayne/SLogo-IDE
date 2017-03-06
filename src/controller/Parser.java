@@ -4,6 +4,9 @@ import utils.ParameterObject;
 
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import tree.CommandNode;
+
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.List;
@@ -28,18 +31,7 @@ public class Parser {
 		return params;
 	}
 	
-	public void addPatterns (String syntax) {
-        ResourceBundle resources = ResourceBundle.getBundle(syntax);
-        Enumeration<String> iter = resources.getKeys();
-        while (iter.hasMoreElements()) {
-            String key = iter.nextElement();
-            String regex = resources.getString(key);
-            mySymbols.add(new SimpleEntry<>(key,
-                           Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
-        }
-    }
-	
-	private ArrayList<A_Node> parseCommand(String cmd) {
+	private ArrayList<CommandNode> parseCommand(String cmd) {
 		command = cmd;
 		String rootCmd = getRootCommand(cmd);
 	}

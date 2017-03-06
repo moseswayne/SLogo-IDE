@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import Model.BackEndData;
 import View.FrontEndData;
 import utils.ParameterObject;
 
@@ -12,7 +13,7 @@ public abstract class A_StructureCommand implements CommandOperation {
 	private List<String> instructionList;
 
 	@Override
-	public void execute(ParameterObject params, FrontEndData data) {
+	public void execute(ParameterObject params, BackEndData data) {
 		unStackList(params.getInstructions());
 		
 	}

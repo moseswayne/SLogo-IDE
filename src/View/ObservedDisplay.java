@@ -42,8 +42,6 @@ public class ObservedDisplay<N extends Node> {
 				}
 			}
 		});
-		
-
 	}
 	
 	public Node getDisplay(){

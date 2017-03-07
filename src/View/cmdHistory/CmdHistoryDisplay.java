@@ -1,7 +1,6 @@
 package View.cmdHistory;
 
-import java.util.Iterator;
-import java.util.LinkedList;
+
 import java.util.Stack;
 import View.FrontEndData;
 import View.I_FrontEndModule;
@@ -24,6 +23,7 @@ public class CmdHistoryDisplay implements I_FrontEndModule{
 	private ScrollPane container;
 	private Dimension size;
 	private final int SCROLL_BAR_WIDTH = 30;
+	private String bufferedCommandStr;
 	
 	public CmdHistoryDisplay(int width, int height) {
 		size=new Dimension(width, height);
@@ -46,11 +46,10 @@ public class CmdHistoryDisplay implements I_FrontEndModule{
 	 */
 	private void updateVisualContent() {
 		myVisualContent.clear();
-		Stack<String> newHist=new Stack<>();
-		newHist.addAll(history);
-		while(!newHist.isEmpty()){
-			String newCmd=newHist.pop();
-			System.out.println(newCmd);
+		Stack<String> histCopy=new Stack<>();
+		histCopy.addAll(history);
+		while(!histCopy.isEmpty()){
+			String newCmd=histCopy.pop();
 			myVisualContent.add(createButton(newCmd));
 		}
 	}
@@ -64,10 +63,11 @@ public class CmdHistoryDisplay implements I_FrontEndModule{
 
 	private Button createButton(String str) {
 		Button button = new Button(str);
+		System.out.println(button.getText());
 		button.setPrefWidth(size.getWidth()-SCROLL_BAR_WIDTH);
-//		button.setOnMouseClicked(action -> {
-//			but
-//		});
+		button.setOnMouseClicked(action -> {
+			bufferedCommandStr=button.getText();
+		});
 		return button;
 	}
 
@@ -79,14 +79,14 @@ public class CmdHistoryDisplay implements I_FrontEndModule{
 
 	@Override
 	public RawCommand getUserInteractionResult() {
-		// TODO Auto-generated method stub
-		return null;
+		String rawCmdStr = "" + bufferedCommandStr;
+		bufferedCommandStr = null;
+		return new RawCommand(rawCmdStr);
 	}
 
 	@Override
 	public boolean hasBufferedUserInteraction() {
-		// TODO Auto-generated method stub
-		return false;
+		return bufferedCommandStr!=null;
 	}
 
 	@Override

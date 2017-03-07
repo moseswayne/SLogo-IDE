@@ -27,6 +27,7 @@ public class VarDisplay implements I_FrontEndModule {
 	private ObservedDisplay<Button> myVisualContent;
 	private ScrollPane container;
 	private final String SEPERATION_STR = " : ";
+	private String bufferedCommandStr;
 	private Dimension size;
 
 	public VarDisplay(int width, int height) {

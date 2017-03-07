@@ -22,6 +22,7 @@ import utils.RawCommand;
  *
  */
 public class VarDisplay implements I_FrontEndModule {
+	private final int SCROLL_BAR_WIDTH = 30;
 	private Map<String, String> map;
 	private ObservedDisplay<Button> myVisualContent;
 	private ScrollPane container;
@@ -42,7 +43,7 @@ public class VarDisplay implements I_FrontEndModule {
 
 	private Button createButton(String varName, String varVal) {
 		Button button = new Button(String.format("%s%s%s", varName, SEPERATION_STR, varVal));
-		button.setPrefWidth(size.getWidth()-40);
+		button.setPrefWidth(size.getWidth()-SCROLL_BAR_WIDTH);
 //		button.setOnMouseClicked(action -> {
 //			but
 //		});

@@ -31,7 +31,7 @@ public class Main extends Application {
 		stage.show();
 
 		ArrayList<FrontEndData> dataCollection = new ArrayList<>();
-		FrontEndData data = new FrontEndData(" ");
+		FrontEndData data = new FrontEndData("testing command from Main line 34");
 		data.addTurtleParameters(125, 125, 45, true, true);
 		dataCollection.add(data);
 		display.show(dataCollection);

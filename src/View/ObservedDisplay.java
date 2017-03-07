@@ -2,11 +2,17 @@ package View;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
+
+import com.sun.xml.internal.ws.dump.LoggingDumpTube.Position;
+
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 
@@ -26,6 +32,9 @@ public class ObservedDisplay<N extends Node> {
 			@Override
 			public void onChanged(Change<? extends N> change) {
 				while (change.next()) {
+					if(content.size()==0){
+						contentDisplay.getChildren().clear();
+					}
 					List<? extends N> added = change.getAddedSubList();
 					for (N elem : added) {
 						contentDisplay.getChildren().add(elem);
@@ -33,6 +42,8 @@ public class ObservedDisplay<N extends Node> {
 				}
 			}
 		});
+		
+
 	}
 	
 	public Node getDisplay(){
@@ -45,6 +56,15 @@ public class ObservedDisplay<N extends Node> {
 	
 	public void addAll(Collection<N> dataCollection){
 		content.addAll(dataCollection);
+	}
+	
+	public void reverse(){
+		Stack<N> stack=new Stack<>();
+		stack.addAll(content);
+		content.clear();
+		while(!stack.isEmpty()){
+			content.add(stack.pop());
+		}
 	}
 	
 	public void clear(){

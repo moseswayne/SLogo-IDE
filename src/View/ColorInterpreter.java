@@ -10,7 +10,7 @@ public class ColorInterpreter {
 		translationMap.put("blue", new float[]{0.0f, 0.0f, 1.0f});
 		translationMap.put("red", new float[]{1.0f, 0.0f, 0.0f});
 		translationMap.put("green", new float[]{0.0f, 1.0f, 0.0f});
-		translationMap.put("green", new float[]{1.0f, 1.0f, 1.0f});
+		translationMap.put("white", new float[]{1.0f, 1.0f, 1.0f});
 		translationMap.put("bisque", new float[]{1.0f, 0.89411765f, 0.76862746f});
 		translationMap.put("grey", new float[]{0.5019608f, 0.5019608f, 0.5019608f});
 	}

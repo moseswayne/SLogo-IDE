@@ -27,10 +27,13 @@ public class VarDispButton {
 		textField.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent arg0) {
+				String prevVarVal=""+varVal;
 				button.setGraphic(null);
-				varVal=textField.getText();
+				varVal=textField.getText().trim();
 				button.setText(String.format("%s%s%s", varName, SEPERATION_STR, varVal));
-				r.run();
+				if(!prevVarVal.equals(varVal)){
+					r.run();
+				}
 			}
 		});
 	}

@@ -26,7 +26,6 @@ public class VarDisplay implements I_FrontEndModule {
 	private Map<String, String> map;
 	private ObservedDisplay<Button> myVisualContent;
 	private ScrollPane container;
-	private final String SEPERATION_STR = " : ";
 	private String bufferedCommandStr;
 	private Dimension size;
 
@@ -43,42 +42,12 @@ public class VarDisplay implements I_FrontEndModule {
 	}
 
 	private Button createButton(String varName, String varVal) {
-		Button button = new Button(String.format("%s%s%s", varName, SEPERATION_STR, varVal));
+		VarDispButton button=new VarDispButton(varName, varVal);
 		button.setPrefWidth(size.getWidth()-SCROLL_BAR_WIDTH);
-//		button.setOnMouseClicked(action -> {
-//			but
-//		});
-		return button;
-	}
-
-	/**
-	 * TESTING ONLY
-	 */
-	// TODO: remove this
-	private void fillMap() {
-		map.put("x", "12");
-		map.put("y", "13");
-		map.put("z", "14");
-		map.put("a", "15");
-		map.put("b", "17");
-		map.put("c", "129");
-		map.put("d", "22");
-		map.put("e", "156");
-		map.put("as", "12");
-		map.put("sd", "13");
-		map.put("df", "14");
-		map.put("gt", "15");
-		map.put("ere", "17");
-		map.put("uty", "129");
-		map.put("yt", "22");
-		map.put("yryrt", "156");
-		map.put("43", "14");
-		map.put("noname", "15");
-		map.put("lol", "17");
-		map.put("haha", "129");
-		map.put("hey", "22");
-		map.put("testing", "156");
-		
+		button.setTextActionAfterEnter(()->{
+			bufferedCommandStr=button.getVarVal();
+		});
+		return button.getButton();
 	}
 
 	/**
@@ -108,8 +77,9 @@ public class VarDisplay implements I_FrontEndModule {
 
 	@Override
 	public RawCommand getUserInteractionResult() {
-		// TODO Auto-generated method stub
-		return null;
+		String rawCmdStr = ""+bufferedCommandStr;
+		bufferedCommandStr = null;
+		return new RawCommand(rawCmdStr);
 	}
 
 	// TODO pretty dangerous...maybe don't return the instance variable here...
@@ -121,7 +91,38 @@ public class VarDisplay implements I_FrontEndModule {
 	@Override
 	public boolean hasBufferedUserInteraction() {
 		// TODO Auto-generated method stub
-		return false;
+		return bufferedCommandStr!=null;
 	}
+	
+	
+	/**
+	 * TESTING ONLY
+	 */
+	// TODO: remove this
+	private void fillMap() {
+		map.put("x", "12");
+		map.put("y", "13");
+		map.put("z", "14");
+		map.put("a", "15");
+		map.put("b", "17");
+		map.put("c", "129");
+		map.put("d", "22");
+		map.put("e", "156");
+		map.put("as", "12");
+		map.put("sd", "13");
+		map.put("df", "14");
+		map.put("gt", "15");
+		map.put("ere", "17");
+		map.put("uty", "129");
+		map.put("yt", "22");
+		map.put("yryrt", "156");
+		map.put("43", "14");
+		map.put("noname", "15");
+		map.put("lol", "17");
+		map.put("haha", "129");
+		map.put("hey", "22");
+		map.put("testing", "156");
+	}
+
 
 }

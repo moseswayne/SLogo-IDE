@@ -63,7 +63,7 @@ public class CmdHistoryDisplay implements I_FrontEndModule{
 
 	private Button createButton(String str) {
 		Button button = new Button(str);
-		System.out.println(button.getText());
+//		System.out.println(button.getText());
 		button.setPrefWidth(size.getWidth()-SCROLL_BAR_WIDTH);
 		button.setOnMouseClicked(action -> {
 			bufferedCommandStr=button.getText();

@@ -13,6 +13,7 @@ import View.turtleDisplay.TurtleDisplay;
 import View.varDisplay.VarDisplay;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import utils.RawCommand;
 
 public class GUI implements I_GUI{

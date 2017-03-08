@@ -48,7 +48,8 @@ public class TurtleDisplay implements I_FrontEndModule {
 				Double.parseDouble(prop.getProperty("DEAFAULT_Y")),
 				Double.parseDouble(prop.getProperty("DEAFAULT_HEADING")), 
 				Boolean.parseBoolean(prop.getProperty("DEAFAULT_PENDOWN")), 
-				Boolean.parseBoolean(prop.getProperty("DEAFAULT_TURTLE_VISIBILITY"))
+				Boolean.parseBoolean(prop.getProperty("DEAFAULT_TURTLE_VISIBILITY")),
+				Boolean.parseBoolean(prop.getProperty("DEAFAULT_TURTLE_ACTIVE"))
 				);
 		setPenColor(prop.getProperty("DEAFAULT_PEN_COLOR"));
 		paneSize=new Dimension(height, width);
@@ -100,7 +101,7 @@ public class TurtleDisplay implements I_FrontEndModule {
 	public void setTurtleImg(File file){
 		Image turtleImg=new Image(file.toURI().toString());
 		turtle.setImage(turtleImg);
-		moveTurtle(new TurtleParameters(-20,-25, 45, true, true));
+		moveTurtle(new TurtleParameters(-20,-25, 45, true, true, true));
 	}
 	
 	/**

@@ -21,8 +21,8 @@ public class FrontEndData {
 		myPrintValue = data;
 	}
 	
-	public void addTurtleParameters(double x, double y, double heading, boolean isPendown, boolean turtleShow) {
-		myTurtleParameters.add(new TurtleParameters(x, y, heading, isPendown, turtleShow));
+	public void addTurtleParameters(double x, double y, double heading, boolean isPendown, boolean turtleShow, boolean turtleActive) {
+		myTurtleParameters.add(new TurtleParameters(x, y, heading, isPendown, turtleShow, turtleActive));
 	}
 
 	public Double getPrintConsole() {

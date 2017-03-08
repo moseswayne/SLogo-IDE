@@ -40,7 +40,7 @@ public class Main extends Application {
 		
 		ArrayList<FrontEndData> dataCollection = new ArrayList<>();
 		FrontEndData data = new FrontEndData("testing command from Main line 34");
-		data.addTurtleParameters(125, 125, 45, true, true);
+		data.addTurtleParameters(125, 125, 45, true, true, true);
 		dataCollection.add(data);
 		display.show(dataCollection);
 	}

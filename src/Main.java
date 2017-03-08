@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import Model.ModelExecutionEngine;
 import View.FrontEndData;
 import View.GUI;
+import controller.TranslationMapGenerator;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -15,6 +16,7 @@ public class Main extends Application {
 	private final String TITLE = "SLogo Program";
 	GUI display;
 	ModelExecutionEngine engine;
+	private TranslationMapGenerator tmGenerator;
 	
 	public static final int FRAMES_PER_SECOND = 60;
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -22,6 +24,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
+		tmGenerator=new TranslationMapGenerator();
 		 display = new GUI();
 		 engine=new ModelExecutionEngine();
 		stage.setTitle(TITLE);
@@ -29,9 +32,6 @@ public class Main extends Application {
 		Scene sc = display.getScene();
 		stage.setScene(sc);
 		stage.show();
-
-		
-
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
@@ -40,7 +40,7 @@ public class Main extends Application {
 		
 		ArrayList<FrontEndData> dataCollection = new ArrayList<>();
 		FrontEndData data = new FrontEndData("testing command from Main line 34");
-		data.addTurtleParameters(125, 125, 45, true, true, true);
+		data.addTurtleParameters(0, 125, 125, 45, true, true, true);
 		dataCollection.add(data);
 		display.show(dataCollection);
 	}
@@ -50,6 +50,7 @@ public class Main extends Application {
         FrontEndData data=null;
         if(rcmd!=null){
         	  try {
+        		  rcmd.setTranslationMap(tmGenerator.getTranslationMap(rcmd.getLanguage()));
         		  data=engine.runOp(rcmd);
       		} catch (Exception e) {
       			// TODO Auto-generated catch block
@@ -61,6 +62,7 @@ public class Main extends Application {
         }
          
     }
+	
 	/**
 	 * Start of the program.
 	 */

@@ -28,6 +28,7 @@ public class VarDisplay implements I_FrontEndModule {
 	private ScrollPane container;
 	private String bufferedCommandStr;
 	private Dimension size;
+	private final String MY_LANGUAGE="English";
 
 	public VarDisplay(int width, int height) {
 		size=new Dimension(width, height);
@@ -43,11 +44,11 @@ public class VarDisplay implements I_FrontEndModule {
 
 	private Button createButton(String varName, String varVal) {
 		VarDispButton button=new VarDispButton(varName, varVal);
-		button.setPrefWidth(size.getWidth()-SCROLL_BAR_WIDTH);
+		button.setPrefWidthForAll(size.getWidth()-SCROLL_BAR_WIDTH);
 		button.setTextActionAfterEnter(()->{
 			bufferedCommandStr=button.getVarVal();
 		});
-		return button.getButton();
+		return button;
 	}
 
 	/**
@@ -79,7 +80,7 @@ public class VarDisplay implements I_FrontEndModule {
 	public RawCommand getUserInteractionResult() {
 		String rawCmdStr = ""+bufferedCommandStr;
 		bufferedCommandStr = null;
-		return new RawCommand(rawCmdStr);
+		return new RawCommand(rawCmdStr, MY_LANGUAGE);
 	}
 
 	// TODO pretty dangerous...maybe don't return the instance variable here...

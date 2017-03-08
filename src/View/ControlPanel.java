@@ -50,7 +50,6 @@ public class ControlPanel {
 	 * 
 	 */
 	private void initiateListeners() {
-		
 		languageButton.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {

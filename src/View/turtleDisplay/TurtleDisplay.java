@@ -3,9 +3,9 @@ package View.turtleDisplay;
 import javafx.scene.paint.Color;
 import java.awt.Dimension;
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.Queue;
-
 import View.ColorInterpreter;
 import View.FrontEndData;
 import View.I_FrontEndModule;
@@ -29,32 +29,34 @@ public class TurtleDisplay implements I_FrontEndModule {
 	private TurtleParameters currentParams;
 	private Paint penColor;
 	private Dimension paneSize;
-
-	
+	private Properties prop;
 	private final Dimension TURTLE_SIZE=new Dimension(20, 20);
-	private final Paint DEAFAULT_PEN_COLOR=Color.BLACK;
-	private final String DEAFAULT_BACKGROUND_COLOR="white";
-	private final double DEAFAULT_X=0;
-	private final double DEAFAULT_Y=0;
-	private final double DEAFAULT_HEADING=0;
-	private final boolean DEAFAULT_PENDOWN_POSITION=true;
-	private final boolean DEAFAULT_TURTLE_VISIBILITY=true;
-	
 	/**
 	 *  
 	 * @param height height of turtleDisplay
 	 * @param width width of turtleDisplay
 	 */
 	public TurtleDisplay(int height, int width) {
-		penColor=DEAFAULT_PEN_COLOR;
-		currentParams=new TurtleParameters(DEAFAULT_X, DEAFAULT_Y, DEAFAULT_HEADING, 
-				DEAFAULT_PENDOWN_POSITION, 
-				DEAFAULT_TURTLE_VISIBILITY);
+		
+		prop=new Properties();
+		try {
+			prop.load(getClass().getClassLoader().getResourceAsStream("deafaultTurtleDisp.properties"));
+		} catch (IOException e1) {
+			throw new Error("deafaultTurtleDisp file not found or something else created an IO error");
+		}
+		currentParams=new TurtleParameters(0,Double.parseDouble(prop.getProperty("DEAFAULT_X")),
+				Double.parseDouble(prop.getProperty("DEAFAULT_Y")),
+				Double.parseDouble(prop.getProperty("DEAFAULT_HEADING")), 
+				Boolean.parseBoolean(prop.getProperty("DEAFAULT_PENDOWN")), 
+				Boolean.parseBoolean(prop.getProperty("DEAFAULT_TURTLE_VISIBILITY")),
+				Boolean.parseBoolean(prop.getProperty("DEAFAULT_TURTLE_ACTIVE"))
+				);
+		setPenColor(prop.getProperty("DEAFAULT_PEN_COLOR"));
 		paneSize=new Dimension(height, width);
 		initiateCanvas();
 		initiateTurtle();
 		container=new StackPane(lineCanvas, turtleContainer);
-		setBackgroudColor(DEAFAULT_BACKGROUND_COLOR);
+		setBackgroudColor(prop.getProperty("DEAFAULT_BACKGROUND_COLOR"));
 		standardizeSize(container);
 	}
 
@@ -69,11 +71,6 @@ public class TurtleDisplay implements I_FrontEndModule {
 		region.setMinSize(paneSize.getWidth(), paneSize.getHeight());
 	}
 
-	public void setTurtleImg(File file){
-		Image turtleImg=new Image(file.toURI().toString());
-		turtle=new ImageView(turtleImg);
-		moveTurtle(new TurtleParameters(0, 25, 45, true, true));
-	}
 	
 	/**
 	 * sets up the Canvas
@@ -101,12 +98,17 @@ public class TurtleDisplay implements I_FrontEndModule {
 		penColor=Color.color(r, g, b);
 	}
 	
+	public void setTurtleImg(File file){
+		Image turtleImg=new Image(file.toURI().toString());
+		turtle.setImage(turtleImg);
+		moveTurtle(new TurtleParameters(0, -20,-25, 45, true, true, true));
+	}
 	
 	/**
 	 * sets up turtle and turtle container
 	 */
 	private void initiateTurtle() {
-		Image turtleIMG =  new Image("http://www.mosaic.pro/images/products/detail/Turtletopviewlargenatural.JPG");
+		Image turtleIMG =  new Image(getClass().getClassLoader().getResourceAsStream(prop.getProperty("deafaultTurtleImage")));
 		turtle=new ImageView(turtleIMG); 
 		turtle.setFitWidth(TURTLE_SIZE.getWidth());
 		turtle.setFitHeight(TURTLE_SIZE.getHeight());
@@ -127,7 +129,6 @@ public class TurtleDisplay implements I_FrontEndModule {
 	    	if(newTurtleParams==null){
 	    		return;
 	    	}
-			
 	    	moveTurtle(newTurtleParams);
 	    	currentParams=newTurtleParams;
 		}
@@ -159,7 +160,6 @@ public class TurtleDisplay implements I_FrontEndModule {
     private void moveTurtle(TurtleParameters position) {
     	turtle.setRotate(position.getHeading());
     	turtle.setX(centralizeXPosition(position.getX()));
-//    	turtle.setX(centralizeXPosition(currentParams.getX()+20));
     	turtle.setY(centralizeYPosition(position.getY()));
     	GraphicsContext canvasGC=lineCanvas.getGraphicsContext2D();
     	if(position.isPendown()){

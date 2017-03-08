@@ -22,7 +22,8 @@ public class TurtleParameters {
 	 * @param _y
 	 * @param _heading
 	 */
-	public TurtleParameters(double _x, double _y, double _heading, boolean _isPendown, boolean _turtleVisible, boolean _isActive) {
+	public TurtleParameters(int _id, double _x, double _y, double _heading, boolean _isPendown, boolean _turtleVisible, boolean _isActive) {
+		id=_id;
 		x=_x;
 		y=_y;
 		heading=_heading;

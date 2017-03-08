@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Collectors;
+
 import View.cmdHistory.CmdHistoryDisplay;
 import View.console.Console;
 import View.turtleDisplay.TurtleDisplay;
@@ -15,6 +17,7 @@ import View.varDisplay.VarDisplay;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import utils.RawCommand;
+import java.util.stream.Stream;
 
 public class GUI implements I_GUI{
 	

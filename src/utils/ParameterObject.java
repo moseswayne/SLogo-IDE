@@ -4,12 +4,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+
+import Model.TurtleManager;
 import Model.TurtleModel;
 
 public class ParameterObject implements Iterable<Double> {
 
 	private List<String> parameterList;
 	private Map<String, Double> varMap;
+	private TurtleManager myTurtles;
 	private TurtleModel myTurtle;
 	private Stack<String> instructionStack;
 

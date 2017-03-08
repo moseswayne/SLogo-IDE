@@ -44,7 +44,7 @@ public class TurtleDisplay implements I_FrontEndModule {
 		} catch (IOException e1) {
 			throw new Error("deafaultTurtleDisp file not found or something else created an IO error");
 		}
-		currentParams=new TurtleParameters(Double.parseDouble(prop.getProperty("DEAFAULT_X")),
+		currentParams=new TurtleParameters(0,Double.parseDouble(prop.getProperty("DEAFAULT_X")),
 				Double.parseDouble(prop.getProperty("DEAFAULT_Y")),
 				Double.parseDouble(prop.getProperty("DEAFAULT_HEADING")), 
 				Boolean.parseBoolean(prop.getProperty("DEAFAULT_PENDOWN")), 
@@ -101,7 +101,7 @@ public class TurtleDisplay implements I_FrontEndModule {
 	public void setTurtleImg(File file){
 		Image turtleImg=new Image(file.toURI().toString());
 		turtle.setImage(turtleImg);
-		moveTurtle(new TurtleParameters(-20,-25, 45, true, true, true));
+		moveTurtle(new TurtleParameters(0, -20,-25, 45, true, true, true));
 	}
 	
 	/**

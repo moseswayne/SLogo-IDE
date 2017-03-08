@@ -44,11 +44,11 @@ public class VarDisplay implements I_FrontEndModule {
 
 	private Button createButton(String varName, String varVal) {
 		VarDispButton button=new VarDispButton(varName, varVal);
-		button.setPrefWidth(size.getWidth()-SCROLL_BAR_WIDTH);
+		button.setPrefWidthForAll(size.getWidth()-SCROLL_BAR_WIDTH);
 		button.setTextActionAfterEnter(()->{
 			bufferedCommandStr=button.getVarVal();
 		});
-		return button.getButton();
+		return button;
 	}
 
 	/**

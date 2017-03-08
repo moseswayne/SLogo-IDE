@@ -11,9 +11,9 @@ import java.util.List;
  *
  */
 public class TurtleManager implements Iterable<TurtleModel> {
-	private List<TurtleModel> myTurtleList;
+	private List<TurtleModel> myTurtleList = new ArrayList<TurtleModel>();
 	private static double HOMEX = 0, HOMEY = 0;
-	private int myActiveTurtleID;
+	private TurtleModel myActiveTurtle;
 
 	/**
 	 * Adds a turtle to the list at a home position Returns this new TurtleModel
@@ -30,11 +30,9 @@ public class TurtleManager implements Iterable<TurtleModel> {
 	 * @return this new turtle
 	 */
 	public TurtleModel makeTurtle(double x, double y) {
-		if (myTurtleList == null) {
-			myTurtleList = new ArrayList<TurtleModel>();
-		}
 		TurtleModel newTurtle = new TurtleModel(x, y, this.getTurtleCount() + 1);
 		myTurtleList.add(newTurtle);
+		myActiveTurtle = newTurtle;
 		return newTurtle;
 	}
 
@@ -84,6 +82,8 @@ public class TurtleManager implements Iterable<TurtleModel> {
 		return subsection;
 	}
 
+public List<TurtleModel> getTheseTurtles()
+
 	/**
 	 * Return the entire list of turtles
 	 * 
@@ -106,7 +106,16 @@ public class TurtleManager implements Iterable<TurtleModel> {
 	 * @return TurtleModel
 	 */
 	public TurtleModel getActiveTurtle() {
-		return getTurtle(myActiveTurtleID);
+		return myActiveTurtle;
+	}
+
+	/**
+	 * Returns the ID of the active turtle
+	 * 
+	 * @return double
+	 */
+	public double getActiveTurtleID() {
+		return myActiveTurtle.getID();
 	}
 
 	/**
@@ -117,7 +126,7 @@ public class TurtleManager implements Iterable<TurtleModel> {
 	 * @return this newly activated turtle
 	 */
 	public TurtleModel setActiveTurtle(int idNumber) {
-		myActiveTurtleID = idNumber;
+		myActiveTurtle = getTurtle(idNumber);
 		return getActiveTurtle();
 	}
 
@@ -167,7 +176,8 @@ public class TurtleManager implements Iterable<TurtleModel> {
 		}
 
 		/**
-		 * Returns the next TurtleModel in the list
+		 * Returns the next TurtleModel in the list Sets this turtle as the
+		 * active turtle
 		 * 
 		 * @return
 		 */
@@ -183,7 +193,7 @@ public class TurtleManager implements Iterable<TurtleModel> {
 		/**
 		 * Returns true if there is a subsequent TurtleModel in the list
 		 * 
-		 * @return
+		 * @return true if there is another TurtleModel
 		 */
 		@Override
 		public boolean hasNext() {

@@ -1,5 +1,7 @@
 package utils;
 
+import Model.TurtleModel;
+
 /**
  * 
  * @author Yuxiang He
@@ -11,6 +13,7 @@ public class TurtleParameters {
 	private double heading;
 	private boolean isPendown;
 	private boolean turtleVisible;
+	private int id;
 	
 	/**
 	 * 
@@ -24,6 +27,7 @@ public class TurtleParameters {
 		heading=_heading;
 		isPendown=_isPendown;
 		turtleVisible=_turtleVisible;
+		//TODO need to set ID
 	}
 	
 	/**
@@ -35,8 +39,20 @@ public class TurtleParameters {
 		this.y=other.getY();
 		this.heading=other.getHeading();
 		this.isPendown=other.isPendown();
+		this.id=other.getID();
 	}
-	
+	/**
+	 * Makes TurtleParamters from a backend turtle
+	 * @param turtle
+	 */
+	public TurtleParameters(TurtleModel turtle){
+		x=turtle.getX();
+		y=turtle.getY();
+		heading=turtle.getHeading();
+		isPendown=turtle.getPenShowing();
+		turtleVisible=turtle.getTurtleShowing();
+		id=turtle.getID();
+	}
 	/**
 	 * getters
 	 *
@@ -59,5 +75,8 @@ public class TurtleParameters {
 	
 	public boolean turtleVisible(){
 		return turtleVisible;
+	}
+	public int getID(){
+		return id;
 	}
 }

@@ -8,7 +8,7 @@ import utils.ParameterObject;
  * @author Elbert
  *
  */
-public class Logarithm extends A_One_Input {
+public class NaturalLog extends A_One_Input {
 
 	@Override
 	protected double evaluate(ParameterObject params) {

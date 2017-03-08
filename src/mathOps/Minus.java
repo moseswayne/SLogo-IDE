@@ -8,7 +8,7 @@ import utils.ParameterObject;
  * @author Kris Elbert
  *
  */
-public class Negate extends A_One_Input {
+public class Minus extends A_One_Input {
 
 	@Override
 	protected double evaluate(ParameterObject params) {

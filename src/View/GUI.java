@@ -1,12 +1,15 @@
 package View;
 
 import java.awt.Dimension;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Collectors;
+
 import View.cmdHistory.CmdHistoryDisplay;
 import View.console.Console;
 import View.turtleDisplay.TurtleDisplay;
@@ -14,6 +17,7 @@ import View.varDisplay.VarDisplay;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import utils.RawCommand;
+import java.util.stream.Stream;
 
 public class GUI implements I_GUI{
 	
@@ -93,8 +97,12 @@ public class GUI implements I_GUI{
 		ctrlPanel=new ControlPanel(this);
 	}
 	
-	public void setTurtleBgdColor(String color){
+	public void setTurtleBackgroundColor(String color){
 		turtleDisplay.setBackgroudColor(color);
+	}
+	
+	public void setTurtleImage(File file){
+		turtleDisplay.setTurtleImg(file);
 	}
 	
 	public void setTurtlePenColor(String color){

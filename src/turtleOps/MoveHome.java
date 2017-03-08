@@ -4,7 +4,7 @@ import Model.TurtleModel;
 import Operations.A_TurtleCommand;
 import utils.ParameterObject;
 
-public class MoveToHome extends A_TurtleCommand{
+public class MoveHome extends A_TurtleCommand{
 	private final double HOME_X = 0;
 	private final double HOME_Y = 0;
 private double prevX;

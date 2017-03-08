@@ -4,7 +4,7 @@ import Model.TurtleModel;
 import Operations.A_TurtleCommand;
 import utils.ParameterObject;
 
-public class SetPoint extends A_TurtleCommand{
+public class SetPosition extends A_TurtleCommand{
 private double prevX;
 private double prevY;
 /**

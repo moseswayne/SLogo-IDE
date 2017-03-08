@@ -30,17 +30,19 @@ public class Main extends Application {
 		stage.setScene(sc);
 		stage.show();
 
-		ArrayList<FrontEndData> dataCollection = new ArrayList<>();
-		FrontEndData data = new FrontEndData(" ");
-		data.addTurtleParameters(125, 125, 45, true, true);
-		dataCollection.add(data);
-		display.show(dataCollection);
+		
 
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
+		
+		ArrayList<FrontEndData> dataCollection = new ArrayList<>();
+		FrontEndData data = new FrontEndData("testing command from Main line 34");
+		data.addTurtleParameters(125, 125, 45, true, true, true);
+		dataCollection.add(data);
+		display.show(dataCollection);
 	}
 
     private void step (double elapsedTime) {

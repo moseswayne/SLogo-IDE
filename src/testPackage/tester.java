@@ -7,14 +7,14 @@ import java.util.Map;
 
 import Model.BackEndData;
 import Operations.CommandOperation;
-import mathOps.Add;
+import mathOps.Sum;
 import tree.CommandNode;
 
 public class tester {
 	
 	public static void main(String args[]) {
 		tester myTester = new tester();
-		CommandOperation sum = new Add();
+		CommandOperation sum = new Sum();
 		ArrayList<CommandNode> myNodes = new ArrayList<>();
 		myNodes.add(myTester.makeDifLeaf("x"));
 		myNodes.add(myTester.makeLeaf(3.0));

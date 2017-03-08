@@ -5,7 +5,7 @@ import View.FrontEndData;
 import utils.ParameterObject;
 /**
  * Does basic math operations on inputs
- * @author Elbert
+ * @author Kris Elbert
  *
  */
 public abstract class A_MathOperation implements CommandOperation {

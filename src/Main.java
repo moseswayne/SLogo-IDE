@@ -47,10 +47,10 @@ public class Main extends Application {
 
     private void step (double elapsedTime) {
         RawCommand rcmd=display.getUserInput();
-        rcmd.setTranslationMap(tmGenerator.getTranslationMap(rcmd.getLanguage()));
         FrontEndData data=null;
         if(rcmd!=null){
         	  try {
+        		  rcmd.setTranslationMap(tmGenerator.getTranslationMap(rcmd.getLanguage()));
         		  data=engine.runOp(rcmd);
       		} catch (Exception e) {
       			// TODO Auto-generated catch block

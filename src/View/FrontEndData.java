@@ -11,6 +11,7 @@ public class FrontEndData {
 	private Double myPrintValue;
 	private Queue<TurtleParameters> myTurtleParameters;
 	private Map<String, String> variables;
+	private String myLanguage;
 
 	public FrontEndData(String command) {
 		myCommand = command;
@@ -39,5 +40,9 @@ public class FrontEndData {
 
 	public String getCommandName() {
 		return myCommand;
+	}
+
+	public String getMyLanguage(){
+		return myLanguage;
 	}
 }

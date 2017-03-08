@@ -96,7 +96,7 @@ public class Console implements I_FrontEndModule {
 	public RawCommand getUserInteractionResult() {
 		String rawCmdStr = "" + bufferedCommandStr;
 		bufferedCommandStr = null;
-		return new RawCommand(rawCmdStr);
+		return new RawCommand(rawCmdStr, "English");
 	}
 
 	@Override

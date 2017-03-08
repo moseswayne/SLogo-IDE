@@ -18,12 +18,12 @@ import utils.RawCommand;
 import java.awt.Dimension;
 
 public class CmdHistoryDisplay implements I_FrontEndModule{
-	private Stack<String> history;
+	private Stack<RawCommand> history;
 	private ObservedDisplay<Button> myVisualContent;
 	private ScrollPane container;
 	private Dimension size;
 	private final int SCROLL_BAR_WIDTH = 30;
-	private String bufferedCommandStr;
+	private RawCommand bufferedCommand;
 	
 	public CmdHistoryDisplay(int width, int height) {
 		size=new Dimension(width, height);
@@ -35,9 +35,9 @@ public class CmdHistoryDisplay implements I_FrontEndModule{
 		container.setPrefWidth(size.getWidth());
 	}
 
-
+	
 	private void setUpHistory() {
-		history = new Stack<String>();
+		history = new Stack<RawCommand>();
 		fillHistory();
 	}
 	
@@ -46,47 +46,46 @@ public class CmdHistoryDisplay implements I_FrontEndModule{
 	 */
 	private void updateVisualContent() {
 		myVisualContent.clear();
-		Stack<String> histCopy=new Stack<>();
+		Stack<RawCommand> histCopy=new Stack<>();
 		histCopy.addAll(history);
 		while(!histCopy.isEmpty()){
-			String newCmd=histCopy.pop();
+			RawCommand newCmd=histCopy.pop();
 			myVisualContent.add(createButton(newCmd));
 		}
 	}
 	
 	private void fillHistory() {
 		for(int i=0; i<20; i++){
-			history.add(""+i);
+			history.add(new RawCommand(""+i, "English"));
 		}	
 		updateVisualContent();
 	}
 
-	private Button createButton(String str) {
-		Button button = new Button(str);
-//		System.out.println(button.getText());
-		button.setPrefWidth(size.getWidth()-SCROLL_BAR_WIDTH);
-		button.setOnMouseClicked(action -> {
-			bufferedCommandStr=button.getText();
+	private Button createButton(RawCommand str) {
+		CmdHistoryButton cmdHistButton = new CmdHistoryButton(str);
+		cmdHistButton.setPrefWidth(size.getWidth()-SCROLL_BAR_WIDTH);
+		cmdHistButton.setOnMouseClicked(action -> {
+			bufferedCommand=cmdHistButton.getRawCommand();
 		});
-		return button;
+		return cmdHistButton.getButton();
 	}
 
 	@Override
 	public void updateDisplayedData(FrontEndData data) {
-		history.add(data.getCommandName());
+		history.add(new RawCommand(data.getCommandName(), data.getMyLanguage()));
 		updateVisualContent();
 	}
 
 	@Override
 	public RawCommand getUserInteractionResult() {
-		String rawCmdStr = "" + bufferedCommandStr;
-		bufferedCommandStr = null;
-		return new RawCommand(rawCmdStr);
+		RawCommand copy =  new RawCommand(bufferedCommand);
+		bufferedCommand = null;
+		return new RawCommand(copy);
 	}
 
 	@Override
 	public boolean hasBufferedUserInteraction() {
-		return bufferedCommandStr!=null;
+		return bufferedCommand!=null;
 	}
 
 	@Override

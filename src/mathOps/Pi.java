@@ -4,7 +4,7 @@ import Operations.A_MathOperation;
 import utils.ParameterObject;
 
 /**
- * Retuns Pi
+ * Retuns Pi to fifteen digits after the decimal place
  * 
  * @author Elbert
  *

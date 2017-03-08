@@ -1,16 +1,18 @@
 package mathOps;
 
-import Operations.A_MathOperation;
 import utils.ParameterObject;
+
 /**
  * Multiplies two values with each other
- * @author Elbert
+ * 
+ * @author Kris Elbert
  *
  */
-public class Multiply extends A_MathOperation{
+public class Product extends A_Multiple_Inputs {
+
 	@Override
 	protected double evaluate(ParameterObject params) {
-		return params.getDoubleAt(0) * params.getDoubleAt(1);
+		return solve(params, (changingValue, instance) -> (changingValue * instance));
 	}
 
 }

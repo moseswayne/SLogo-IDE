@@ -67,7 +67,7 @@ public class CmdHistoryDisplay implements I_FrontEndModule{
 		cmdHistButton.setOnMouseClicked(action -> {
 			bufferedCommand=cmdHistButton.getRawCommand();
 		});
-		return cmdHistButton.getButton();
+		return cmdHistButton;
 	}
 
 	@Override

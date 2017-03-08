@@ -2,6 +2,7 @@ package View.turtleDisplay;
 
 import javafx.scene.paint.Color;
 import java.awt.Dimension;
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Queue;
 
@@ -68,6 +69,12 @@ public class TurtleDisplay implements I_FrontEndModule {
 		region.setMinSize(paneSize.getWidth(), paneSize.getHeight());
 	}
 
+	public void setTurtleImg(File file){
+		Image turtleImg=new Image(file.toURI().toString());
+		turtle=new ImageView(turtleImg);
+		moveTurtle(new TurtleParameters(0, 25, 45, true, true));
+	}
+	
 	/**
 	 * sets up the Canvas
 	 */
@@ -120,12 +127,7 @@ public class TurtleDisplay implements I_FrontEndModule {
 	    	if(newTurtleParams==null){
 	    		return;
 	    	}
-			GraphicsContext canvasGC=lineCanvas.getGraphicsContext2D();
-	    	if(newTurtleParams.isPendown()){
-	    		canvasGC.setStroke(penColor);
-	            canvasGC.strokeLine(centralizeXPosition(currentParams.getX()), centralizeYPosition(currentParams.getY()), 
-	            		centralizeXPosition(newTurtleParams.getX())+TURTLE_SIZE.getWidth()/2, centralizeYPosition(newTurtleParams.getY())+TURTLE_SIZE.getHeight()/2);
-	    	}
+			
 	    	moveTurtle(newTurtleParams);
 	    	currentParams=newTurtleParams;
 		}
@@ -157,7 +159,14 @@ public class TurtleDisplay implements I_FrontEndModule {
     private void moveTurtle(TurtleParameters position) {
     	turtle.setRotate(position.getHeading());
     	turtle.setX(centralizeXPosition(position.getX()));
+//    	turtle.setX(centralizeXPosition(currentParams.getX()+20));
     	turtle.setY(centralizeYPosition(position.getY()));
+    	GraphicsContext canvasGC=lineCanvas.getGraphicsContext2D();
+    	if(position.isPendown()){
+    		canvasGC.setStroke(penColor);
+            canvasGC.strokeLine(centralizeXPosition(currentParams.getX()), centralizeYPosition(currentParams.getY()), 
+            		centralizeXPosition(position.getX())+TURTLE_SIZE.getWidth()/2, centralizeYPosition(position.getY())+TURTLE_SIZE.getHeight()/2);
+    	}
     }
     
     

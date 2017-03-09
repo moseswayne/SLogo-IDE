@@ -21,7 +21,7 @@ public abstract class A_Multiple_Inputs extends A_MathOperation {
 	 * @param operation
 	 * @return
 	 */
-	protected static double solve(Iterable<Double> source,
+	protected double solve(Iterable<Double> source,
 			BiFunction<Double, Double, Double> operation) {
 		Iterator<Double> sourceIter = source.iterator();
 		Double instance;

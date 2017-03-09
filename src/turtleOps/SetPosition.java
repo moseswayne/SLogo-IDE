@@ -10,7 +10,7 @@ private double prevY;
 /**
  * Moves turtle to an absolute point
  * 
- * @author Elbert
+ * @author Kris Elbert
  */
 private TurtleModel myTurtle;
 	@Override

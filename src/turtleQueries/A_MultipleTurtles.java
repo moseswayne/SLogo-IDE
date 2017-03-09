@@ -15,7 +15,7 @@ import utils.ParameterObject;
  */
 public abstract class A_MultipleTurtles extends A_TurtleQuery {
 
-	protected static List<TurtleModel> check(Iterable<TurtleModel> manager, I_CheckTurtleConditions checker) {
+	public List<TurtleModel> check(Iterable<TurtleModel> manager, I_CheckTurtleConditions checker) {
 		Iterator<TurtleModel> turtleIter = manager.iterator();
 		List<TurtleModel> subsection = new ArrayList<TurtleModel>();
 		while (turtleIter.hasNext()) {

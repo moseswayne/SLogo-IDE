@@ -20,13 +20,14 @@ public class CommandNode {
 	private String myValue;
 	private CommandOperation myOperation;
 	
-	public CommandNode(Collection<CommandNode> nodeChildren) {
+	public CommandNode() {
 		myChildren = new ArrayDeque<CommandNode>();
 		repeatChildren = new Stack<CommandNode>();
+		/*
 		Iterator<CommandNode> iter = nodeChildren.iterator();
 		while(iter.hasNext()) {
 			myChildren.add(iter.next());
-		}
+		}*/
 	}
 	
 	public void addChild(CommandNode child) {

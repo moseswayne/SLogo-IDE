@@ -14,10 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToolBar;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 import utils.Language;
 import utils.RawCommand;
 
@@ -40,11 +37,7 @@ public class ControlPanel implements I_FrontEndModule {
 		language=_language;
 		bar = new ToolBar();
 		prop = new Properties();
-		try {
-			prop.load(getClass().getClassLoader().getResourceAsStream(language.toString()+"Text.properties"));
-		} catch (IOException e1) {
-			throw new Error("properties file not found or something else created an IO error");
-		}
+		loadPropetiesFromFile(language.toString()+"Text.properties");
 		initiateButtons();
 		initiateListeners();
 		bar.getItems().addAll(languageButton, turtleBackGroundSelector, penColorSelector, turtleImgButton);
@@ -163,11 +156,15 @@ public class ControlPanel implements I_FrontEndModule {
 	@Override
 	public void setLanguage(Language lang){
 		language=lang;
+		loadPropetiesFromFile(language.toString()+"Text.properties");
+		setButtonText();
+	}
+	
+	private void loadPropetiesFromFile(String fileName){
 		try {
-			prop.load(getClass().getClassLoader().getResourceAsStream(language.toString()+"Text.properties"));
+			prop.load(getClass().getClassLoader().getResourceAsStream(fileName));
 		} catch (IOException e1) {
 			throw new Error("properties file not found or something else created an IO error");
 		}
-		setButtonText();
 	}
 }

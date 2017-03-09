@@ -33,5 +33,6 @@ public interface I_FrontEndModule {
 	
 	public void setLanguage(Language language);
 	
+	
 
 }

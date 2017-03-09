@@ -22,7 +22,6 @@ import java.util.stream.Stream;
 
 public class GUI implements I_GUI{
 	
-
 	private final Dimension DEFAULT_SIZE = new Dimension(1000, 750);
 	private final Dimension DEAFAULT_TURTLE_DISP_SIZE=new Dimension(600, 510);
 	private final Dimension DEAFAULT_CONSOLE_SIZE=new Dimension(1000, 200);
@@ -35,8 +34,8 @@ public class GUI implements I_GUI{
 	private VarDisplay varDisplay;
 	private ControlPanel ctrlPanel;
 	private Language language;
-	private final Language DEAFAULT_LANGUAGE=Language.English;
 	private Collection<I_FrontEndModule> myModules;
+	private Properties prop;
 	
 	/**
 	 * 
@@ -44,7 +43,9 @@ public class GUI implements I_GUI{
 	 * @param sceneHeight
 	 */
 	public GUI () {
-		language=DEAFAULT_LANGUAGE;
+		prop=new Properties();
+		loadPropetiesFromFile("GeneraGUISettings.properties");
+		language=Language.valueOf(prop.getProperty("DEAFAULT_LANGUAGE"));
 		root = new BorderPane();
 		initiateModules();
 		addModulesToCollection();
@@ -129,6 +130,14 @@ public class GUI implements I_GUI{
 	@Override
 	public Scene getScene() {
 		return myScene;
+	}
+	
+	private void loadPropetiesFromFile(String fileName){
+		try {
+			prop.load(getClass().getClassLoader().getResourceAsStream(fileName));
+		} catch (IOException e1) {
+			throw new Error("properties file not found or something else created an IO error");
+		}
 	}
 
 }

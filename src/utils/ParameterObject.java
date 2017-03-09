@@ -1,16 +1,18 @@
 package utils;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 import Model.TurtleModel;
+import tree.CommandNode;
 
 public class ParameterObject {
 
 	private List<String> parameterList;
 	private Map<String, Double> varMap;
 	private TurtleModel myTurtle;
-	private Stack<String> instructionStack;
+	private Stack<CommandNode> instructionStack;
 	
 	public ParameterObject(List<String> params, Map<String, Double> vars, TurtleModel turt) {
 		this(params, vars);
@@ -49,14 +51,16 @@ public class ParameterObject {
 		return myTurtle;
 	}
 	
-	public void setStack(List<String> instructs) {
-		instructionStack = new Stack<String>();
-		for (String instruction:instructs) {
-			instructionStack.push(instruction);
+	public void setStack(Collection<CommandNode> instructs) {
+		instructionStack = new Stack<CommandNode>();
+		if(!instructs.isEmpty()) {
+			for (CommandNode instruction:instructs) {
+				instructionStack.push(instruction);
+			}
 		}
 	}
 	
-	public Stack<String> getInstructions() {
+	public Stack<CommandNode> getInstructions() {
 		return instructionStack;
 	}
 }

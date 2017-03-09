@@ -35,7 +35,7 @@ public class GUI implements I_GUI{
 	private VarDisplay varDisplay;
 	private ControlPanel ctrlPanel;
 	private Language language;
-	private final Language DEAFAULT_LANGUAGE=Language.Chinese;
+	private final Language DEAFAULT_LANGUAGE=Language.English;
 	private Collection<I_FrontEndModule> myModules;
 	
 	/**

@@ -2,9 +2,7 @@ package controller;
 
 import tree.CommandNode;
 import Operations.CommandOperation;
-
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Collection;
@@ -12,38 +10,39 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.lang.StringBuilder;
 
-public class Parser {
+public class NewParser {
 
-	private final String ARGS_PROPERTIES_FILE = "resources/Arguments.properties";
-	private final String SYNTAX_PROPERTIES_FILE = "resources.languages/Syntax.properties";
-	
-	private final String COMMENT = regex("Comment");
-	private final String CONSTANT = regex("Constant");
-	private final String VARIABLE = regex("Variable");
-	private final String COMMAND = regex("Command");
-	private final String LISTSTART = regex("ListStart");
-	private final String LISTEND = regex("ListEnd");
-	private final String GROUPSTART = regex("GroupStart");
-	private final String GROUPEND = regex("GroupEnd");
-	private final String WHITESPACE = regex("Whitespace");
-	private final String NEWLINE = regex("NewLine");
+	private final String ARGS_PROPERTIES_FILE = "Arguments.properties";
+	private final String SYNTAX_PROPERTIES_FILE = "Syntax.properties";
 	
 	private Properties argProperties;
 	private Properties syntaxProperties;
 	private Map<String, String> commandMap;
-	private Map<String, Double> variableMap;
 	private OperationFactory operationFactory;
 	
-	public Parser(Map<String, Double> varMap, Map<String, String> cmdMap) {
-		variableMap = varMap;
+	private final String COMMENT = getRegex("Comment");
+	private final String CONSTANT = getRegex("Constant");
+	private final String VARIABLE = getRegex("Variable");
+	private final String COMMAND = getRegex("Command");
+	private final String LISTSTART = getRegex("ListStart");
+	private final String LISTEND = getRegex("ListEnd");
+	private final String GROUPSTART = getRegex("GroupStart");
+	private final String GROUPEND = getRegex("GroupEnd");
+	private final String WHITESPACE = getRegex("Whitespace");
+	private final String NEWLINE = getRegex("NewLine");
+	
+	
+	public NewParser(Map<String, String> cmdMap, Map<String, String> translationMap) {
 		commandMap = cmdMap;
 		operationFactory = new OperationFactory(commandMap);
 		argProperties = getPropertiesFile(ARGS_PROPERTIES_FILE);
 		syntaxProperties = getPropertiesFile(SYNTAX_PROPERTIES_FILE);
 	}
 	
+	
+	
 	public Collection<CommandNode> parseCommand(String expression) {
-		ArrayList<CommandNode> cmdTrees = new ArrayList<CommandNode>(0);
+		ArrayList<CommandNode> cmdTrees = new ArrayList<CommandNode>();
 		expression = removeCommentsAndFlatten(expression);
 		Tokenizer tokens = new Tokenizer(expression, WHITESPACE);
 		while (tokens.hasNextToken()) {
@@ -117,22 +116,19 @@ public class Parser {
 		else return 0;
 	}
 	
-	private String regex(String syntax) {
+	private String getRegex(String syntax) {
 		return syntaxProperties.getProperty(syntax);
 	}
 	
-	private boolean isValidVar(String varName) {
-		return variableMap.containsKey(varName) && variableMap.get(varName) != null;
-	}
 	
-	private Properties getPropertiesFile(String filePath) {
+	private Properties getPropertiesFile(String fileName){
 		Properties prop = new Properties();
 		try {
-			prop.load(new FileInputStream(new File(filePath)));
-		} catch (Exception e) {
-			throw new ParserException(ParserException.PROPERTIES_ERROR);
+			prop.load(getClass().getClassLoader().getResourceAsStream(fileName));
+			return prop;
+		} catch (IOException e1) {
+			throw new Error("properties file not found or something else created an IO error");
 		}
-		return prop;
 	}
 }
 
@@ -154,4 +150,4 @@ public class Parser {
 //          | | :  `- \`. ;\_ _/; .'/ /  .' ; |
 //          \  \ `-.   \_\_`. _.'_/_/  -' _.' /
 //===========`-.`___`-.__\ \___/ /__.-'___'.-'===========
-//                        `=---='s
+//                        `=---='

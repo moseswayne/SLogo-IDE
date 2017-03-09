@@ -18,6 +18,10 @@ public abstract class CommandNode implements ExpressionNode{
 		myChildren = new ArrayDeque<ExpressionNode>();
 	}
 	
+	/**
+	 * Note: must be added in the exact parsing order
+	 * @param child - expression node child of this command node
+	 */
 	public void addChild(ExpressionNode child) {
 		myChildren.add(child);
 	}

@@ -7,11 +7,12 @@ import java.util.Stack;
 import Model.BackEndData;
 import View.FrontEndData;
 import tree.CommandNode;
+import tree.ExpressionNode;
 import utils.ParameterObject;
 
 public abstract class A_StructureCommand implements CommandOperation {
 
-	private List<CommandNode> instructionList;
+	private List<ExpressionNode> instructionList;
 	private BackEndData myData;
 
 	@Override
@@ -23,16 +24,16 @@ public abstract class A_StructureCommand implements CommandOperation {
 	
 	public abstract void modifyInstructionStack(ParameterObject params);
 	
-	private void unStackList(Stack<CommandNode> inStack) {
-		instructionList = new ArrayList<CommandNode>();
+	private void unStackList(Stack<ExpressionNode> inStack) {
+		instructionList = new ArrayList<ExpressionNode>();
 		while(!inStack.isEmpty()) {
 			instructionList.add(inStack.pop());
 		}
 	}
 	
 	public void addListStack() {
-		for (CommandNode instruction:instructionList) {
-			myData.setInstructions(instruction.clone());
+		for (ExpressionNode instruction:instructionList) {
+			myData.setInstructions(instruction.cloneNode());
 		}
 	}
 	

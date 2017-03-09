@@ -9,58 +9,50 @@ import Model.BackEndData;
 import Operations.CommandOperation;
 import controlOps.Repeat;
 import mathOps.Sum;
+import tree.BaseCommandNode;
 import tree.CommandNode;
+import tree.ControlCommandNode;
+import tree.ExpressionNode;
+import tree.LeafNode;
 
 public class tester {
 	
 	public static void main(String args[]) {
 		tester myTester = new tester();
 		CommandOperation sum = new Sum();
-		ArrayList<CommandNode> myNodes = new ArrayList<>();
-		myNodes.add(myTester.makeDifLeaf("x"));
-		myNodes.add(myTester.makeLeaf(3.0));
-		ArrayList<CommandNode> otherNodes = new ArrayList<>();
-		otherNodes.add(myTester.makeLeaf(5.0));
-		otherNodes.add(myTester.makeLeaf(6.0));
-		CommandNode a = myTester.makeBranch(sum, myNodes);
-		CommandNode b = myTester.makeBranch(sum, otherNodes);
-		CommandNode c = new CommandNode();
+		ExpressionNode leafA = myTester.makeLeaf("x");
+		ExpressionNode leafB = myTester.makeLeaf("3.0");
+		ExpressionNode leafC = myTester.makeLeaf("5.0");
+		ExpressionNode leafD = myTester.makeLeaf("6.0");
+		BaseCommandNode a = new BaseCommandNode();
+		a.setOp(sum);
+		a.addChild(leafA);
+		a.addChild(leafB);
+		BaseCommandNode b = new BaseCommandNode();
+		b.setOp(sum);
+		b.addChild(leafC);
+		b.addChild(leafD);
+		BaseCommandNode c = new BaseCommandNode();
 		c.addChild(a);
 		c.addChild(b);
 		c.setOp(sum);
 		BackEndData myData = new BackEndData();
 		Map<String, Double> varMap = new HashMap<>();
 		varMap.put("x", 5.0);
+		//System.out.println(c.getValue(myData, varMap));
 		CommandOperation repeat = new Repeat();
-		CommandNode d = new CommandNode();
-		ArrayList<CommandNode> randList = new ArrayList<>();
-		randList.add(c);
+		ControlCommandNode d = new ControlCommandNode();
 		d.setOp(repeat);
-		d.addLoopInstructions(randList);
-		CommandNode e = myTester.makeLeaf(2.0);
-		d.addChild(e);
-		d.initiateExpression(myData, varMap);
+		d.addLoopInstruction(c);
+		ExpressionNode leafE = myTester.makeLeaf("10.0");
+		d.addChild(leafE);
+		d.getValue(myData, varMap);
 		//System.out.println(myData.getMyValue());
 	}
-	
-	private CommandNode makeDifLeaf(String myKey) {
-		CommandNode leafNode = new CommandNode();
-		leafNode.setMyValue(myKey);
-		return leafNode;
-	}
 
-	public CommandNode makeLeaf(Double val) {
-		CommandNode leafNode = new CommandNode();
-		leafNode.setMyValue(val.toString());
+	public ExpressionNode makeLeaf(String val) {
+		LeafNode leafNode = new LeafNode();
+		leafNode.setMyValue(val);
 		return leafNode;
-	}
-	
-	public CommandNode makeBranch(CommandOperation myOp, List<CommandNode> myLeaves) {
-		CommandNode branchNode = new CommandNode();
-		for(CommandNode leaf : myLeaves) {
-			branchNode.addChild(leaf);
-		}
-		branchNode.setOp(myOp);
-		return branchNode;
 	}
 }

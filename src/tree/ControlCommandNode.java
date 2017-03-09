@@ -1,8 +1,6 @@
 package tree;
 
 import java.util.ArrayDeque;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Queue;
 
@@ -18,6 +16,7 @@ public class ControlCommandNode extends CommandNode{
 		repeatChildren = new ArrayDeque<ExpressionNode>();
 	}
 	
+	@Override
 	public String getValue(BackEndData startData, Map<String, Double> varMap) {
 		getOp().execute(getModifiedParameters(startData, varMap), startData);
 		for(ExpressionNode command:startData.getInstructions()) {
@@ -27,10 +26,6 @@ public class ControlCommandNode extends CommandNode{
 	}
 	
 	public void addLoopInstruction(ExpressionNode node) {
-		/*Iterator<CommandNode> iter = nodes.iterator();
-		while(iter.hasNext()) {
-			repeatChildren.add(iter.next());
-		}*/
 		repeatChildren.add(node);
 	}
 	

@@ -24,7 +24,7 @@ public class Parser {
 	public Parser(Map<String, Double> varMap, Map<String, String> cmdMap) {
 		variableMap = varMap;
 		commandMap = cmdMap;
-		operationFactory = new OperationFactory();
+		operationFactory = new OperationFactory(commandMap);
 		properties = getPropertiesFile();
 	}
 	

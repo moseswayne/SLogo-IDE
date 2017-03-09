@@ -5,6 +5,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Constructor;
 import java.util.Map;
 
+/**
+ * Given a command name, 
+ * churns out the corresponding command object
+ * @author Justin Yang
+ * @author Yuxiang He
+ *
+ */
 public class OperationFactory {
 	
 	private Map<String, String> commandMap;

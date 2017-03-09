@@ -36,8 +36,6 @@ public class GUI implements I_GUI{
 	private String language;
 	private final String DEAFAULT_LANGUAGE="English";
 	private Collection<I_FrontEndModule> myModules;
-
-	
 	
 	/**
 	 * 

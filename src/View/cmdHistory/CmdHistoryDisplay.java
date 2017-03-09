@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import utils.Language;
 import utils.RawCommand;
 import java.awt.Dimension;
 
@@ -56,7 +57,7 @@ public class CmdHistoryDisplay implements I_FrontEndModule{
 	
 	private void fillHistory() {
 		for(int i=0; i<20; i++){
-			history.add(new RawCommand(""+i, "English"));
+			history.add(new RawCommand(""+i, Language.English));
 		}	
 		updateVisualContent();
 	}

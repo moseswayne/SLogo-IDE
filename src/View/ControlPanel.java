@@ -80,7 +80,6 @@ public class ControlPanel {
 	                new FileChooser.ExtensionFilter("PNG", "*.png")
 	            );
 			File file=fileChooser.showOpenDialog(null);
-			int x=0;
 			if(file!=null){
 				myGUI.setTurtleImage(file);
 			}

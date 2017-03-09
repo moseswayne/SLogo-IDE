@@ -95,4 +95,10 @@ public class CmdHistoryDisplay implements I_FrontEndModule{
 		return container;
 	}
 
+
+	@Override
+	public void setLanguage(Language language) {
+		return;
+	}
+
 }

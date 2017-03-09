@@ -27,19 +27,22 @@ public class Console implements I_FrontEndModule {
 	private ObservedDisplay<Text> outputDisp;
 	private VBox inputContainer;
 	private TextArea inputField;
-	private final Language DEAFAULT_LANGUAGE=Language.English;
+	private Language language;
 	private Dimension consoleSize;
 	private String bufferedCommandStr;
 	private Properties prop;
+	Button executeButton;
 	private final double OUTPUT_DISP_HEIGHT_RATIO = 0.6;
 
-	public Console(int width, int height) {
+	public Console(int width, int height, Language _language) {
+		language=_language;
 		consoleSize = new Dimension(width, height);
 		inputContainer = new VBox();
 		outputContainer = new ScrollPane();
 		prop = new Properties();
 		try {
-			prop.load(getClass().getClassLoader().getResourceAsStream("buttonEnglishText.properties"));
+			System.out.println(language.toString());
+			prop.load(getClass().getClassLoader().getResourceAsStream(language.toString()+"Text.properties"));
 		} catch (IOException e1) {
 			throw new Error("properties file not found or something else created an IO error");
 		}
@@ -48,6 +51,22 @@ public class Console implements I_FrontEndModule {
 		container = new VBox(outputContainer, inputContainer);
 	}
 
+	/**
+	 * sets the language of the console and the text on execute button
+	 */
+	public void setLanguage(Language lang){
+		language=lang;
+		try {
+			System.out.println(language.toString());
+			prop.load(getClass().getClassLoader().getResourceAsStream(language.toString()+"Text.properties"));
+		} catch (IOException e1) {
+			throw new Error("properties file not found or something else created an IO error");
+		}
+		executeButton.setText(prop.getProperty("TextInputButton"));
+	}
+	/**
+	 * 
+	 */
 	private void setupOutDisp() {		
 		outputDisp=new ObservedDisplay<Text>();
 		outputContainer.setBorder(new Border(new BorderStroke(Color.AQUAMARINE, BorderStrokeStyle.SOLID,
@@ -58,11 +77,14 @@ public class Console implements I_FrontEndModule {
 		outputContainer.vvalueProperty().bind(outputDisp.heightProperty());
 	}
 
+	/**
+	 * 
+	 */
 	private void setupInputContainer() {
 		inputContainer.setPrefSize(consoleSize.getWidth(), consoleSize.getHeight() * (1 - OUTPUT_DISP_HEIGHT_RATIO));
 		inputField = new TextArea();
-		Button button = new Button(prop.getProperty("TextInputButton"));
-		button.setOnMouseClicked(action -> {
+		 executeButton = new Button(prop.getProperty("TextInputButton"));
+		executeButton.setOnMouseClicked(action -> {
 			String text = inputField.getText().trim();
 			if (text.length() != 0) {
 				bufferedCommandStr = text;
@@ -71,9 +93,13 @@ public class Console implements I_FrontEndModule {
 			}
 			clearInputField();
 		});
-		inputContainer.getChildren().addAll(inputField, button);
+		inputContainer.getChildren().addAll(inputField, executeButton);
 	}
 	
+	/**
+	 * 
+	 * @param data
+	 */
 	private void printToOutput(String data){
 		outputDisp.add(new Text(data));
 	}
@@ -91,11 +117,12 @@ public class Console implements I_FrontEndModule {
 		printToOutput(""+result);
 	}
 
+	
 	@Override
 	public RawCommand getUserInteractionResult() {
 		String rawCmdStr = "" + bufferedCommandStr;
 		bufferedCommandStr = null;
-		return new RawCommand(rawCmdStr, DEAFAULT_LANGUAGE);
+		return new RawCommand(rawCmdStr, language);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package View;
 
 import javafx.scene.Node;
+import utils.Language;
 import utils.RawCommand;
 
 public interface I_FrontEndModule {
@@ -28,6 +29,9 @@ public interface I_FrontEndModule {
 	 * @return Node to be positioned in GUI
 	 */
 	public Node getVisualizedContent();
+	
+	
+	public void setLanguage(Language language);
 	
 
 }

@@ -16,6 +16,7 @@ import View.turtleDisplay.TurtleDisplay;
 import View.varDisplay.VarDisplay;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import utils.Language;
 import utils.RawCommand;
 import java.util.stream.Stream;
 
@@ -33,8 +34,8 @@ public class GUI implements I_GUI{
 	private TurtleDisplay turtleDisplay;
 	private VarDisplay varDisplay;
 	private ControlPanel ctrlPanel;
-	private String language;
-	private final String DEAFAULT_LANGUAGE="English";
+	private Language language;
+	private final Language DEAFAULT_LANGUAGE=Language.Chinese;
 	private Collection<I_FrontEndModule> myModules;
 	
 	/**
@@ -57,10 +58,10 @@ public class GUI implements I_GUI{
 	 */
 	private void initiateModules() {
 		cmdHistoryDisplay=new CmdHistoryDisplay(DEAFAULT_SIDE_DISP_SIZE.width, DEAFAULT_SIDE_DISP_SIZE.height);
-		console=new Console((int)DEAFAULT_CONSOLE_SIZE.getWidth(), (int)DEAFAULT_CONSOLE_SIZE.getHeight());
+		console=new Console((int)DEAFAULT_CONSOLE_SIZE.getWidth(), (int)DEAFAULT_CONSOLE_SIZE.getHeight(), language);
 		turtleDisplay=new TurtleDisplay((int)DEAFAULT_TURTLE_DISP_SIZE.getWidth(), (int)DEAFAULT_TURTLE_DISP_SIZE.getHeight());
 		varDisplay=new VarDisplay(DEAFAULT_SIDE_DISP_SIZE.width, DEAFAULT_SIDE_DISP_SIZE.height);
-		ctrlPanel=new ControlPanel(this);
+		ctrlPanel=new ControlPanel(this, language);
 	}
 	
 	public void setTurtleBackgroundColor(String color){
@@ -74,6 +75,13 @@ public class GUI implements I_GUI{
 	public void setTurtlePenColor(String color){
 		turtleDisplay.setPenColor(color);
 	}
+	
+	public void setLanguage(Language lang){
+		language=lang;
+		for(I_FrontEndModule module: myModules){
+			module.setLanguage(lang);
+		}
+	}
 
 	private void addModulesToCollection() {
 		myModules=new ArrayList<>();
@@ -81,6 +89,7 @@ public class GUI implements I_GUI{
 		myModules.add(console);
 		myModules.add(turtleDisplay);
 		myModules.add(varDisplay);
+		myModules.add(ctrlPanel);
 	}
     
 	/**

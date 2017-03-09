@@ -41,7 +41,6 @@ public class Console implements I_FrontEndModule {
 		outputContainer = new ScrollPane();
 		prop = new Properties();
 		try {
-			System.out.println(language.toString());
 			prop.load(getClass().getClassLoader().getResourceAsStream(language.toString()+"Text.properties"));
 		} catch (IOException e1) {
 			throw new Error("properties file not found or something else created an IO error");
@@ -57,7 +56,6 @@ public class Console implements I_FrontEndModule {
 	public void setLanguage(Language lang){
 		language=lang;
 		try {
-			System.out.println(language.toString());
 			prop.load(getClass().getClassLoader().getResourceAsStream(language.toString()+"Text.properties"));
 		} catch (IOException e1) {
 			throw new Error("properties file not found or something else created an IO error");

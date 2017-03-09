@@ -5,11 +5,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
+import View.ControlPanel.ControlPanel;
 import View.cmdHistory.CmdHistoryDisplay;
 import View.console.Console;
 import View.turtleDisplay.TurtleDisplay;
@@ -18,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import utils.Language;
 import utils.RawCommand;
-import java.util.stream.Stream;
 
 public class GUI implements I_GUI{
 	
@@ -46,7 +43,6 @@ public class GUI implements I_GUI{
 		prop=new Properties();
 		loadPropetiesFromFile("GeneraGUISettings.properties");
 		language=Language.valueOf(prop.getProperty("DEAFAULT_LANGUAGE"));
-		root = new BorderPane();
 		initiateModules();
 		addModulesToCollection();
 		root=makeRoot();

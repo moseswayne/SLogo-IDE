@@ -1,9 +1,13 @@
-package View;
+package View.ControlPanel;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
+
+import View.FrontEndData;
+import View.GUI;
+import View.I_FrontEndModule;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,7 +25,7 @@ import utils.RawCommand;
 public class ControlPanel implements I_FrontEndModule {
 	ComboBox<Language> languageButton;
 	private ComboBox<String> turtleBackGroundSelector, penColorSelector;
-	private Button turtleImgButton;
+	private Button turtleImgButton, newWorkspaceButton;
 	private ToolBar bar;
 	private Properties prop;
 	private GUI myGUI;
@@ -40,7 +44,7 @@ public class ControlPanel implements I_FrontEndModule {
 		loadPropetiesFromFile(language.toString()+"Text.properties");
 		initiateButtons();
 		initiateListeners();
-		bar.getItems().addAll(languageButton, turtleBackGroundSelector, penColorSelector, turtleImgButton);
+		bar.getItems().addAll(languageButton, turtleBackGroundSelector, penColorSelector, turtleImgButton);//, newWorkspaceButton);
 		myGUI=_myGUI;
 	}
 
@@ -85,6 +89,10 @@ public class ControlPanel implements I_FrontEndModule {
 				myGUI.setTurtleImage(file);
 			}
 		});
+		
+		newWorkspaceButton.setOnMouseClicked(action->{
+			
+		});
 	}
 	
 	/**
@@ -97,6 +105,7 @@ public class ControlPanel implements I_FrontEndModule {
 		turtleBackGroundSelector = new ComboBox<String>(COLOR_BUTTON_OPTIONS);
 		penColorSelector = new ComboBox<String>(COLOR_BUTTON_OPTIONS);
 		turtleImgButton = new Button(prop.getProperty("turtleImgButton"));
+		newWorkspaceButton=new Button("New workspace");
 		setButtonText();
 	}
 

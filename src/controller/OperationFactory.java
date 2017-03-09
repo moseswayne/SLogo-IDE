@@ -14,7 +14,7 @@ public class OperationFactory {
 	}
 	
 	public CommandOperation getOp(String cmdName) {
-		if (!isValidCommand(cmdName)) {
+		if (!isValidOp(cmdName)) {
 			throw new ParserException(ParserException.INVALID_CMD, cmdName);
 		}
 		CommandOperation cmdOp;
@@ -31,7 +31,7 @@ public class OperationFactory {
 		return cmdOp;
 	}
 	
-	private boolean isValidCommand(String cmd) {
+	public boolean isValidOp(String cmd) {
 		return commandMap.containsKey(cmd) && commandMap.get(cmd).length() != 0;
 	}
 }

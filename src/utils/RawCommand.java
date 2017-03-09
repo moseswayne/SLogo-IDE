@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class RawCommand {
 	private String rawStr;
-	private String language;
+	private Language language;
 	private Map<String, String> translationMap;
 	
 	public RawCommand(RawCommand other){
@@ -13,13 +13,13 @@ public class RawCommand {
 		this.translationMap=other.getMap();
 	}
 	
-	public RawCommand(String _rawStr, Map<String, String> _translationMap, String _language) {
+	public RawCommand(String _rawStr, Map<String, String> _translationMap, Language _language) {
 		rawStr=_rawStr;
 		translationMap=_translationMap;
 		language=_language;
 	}
 	
-	public RawCommand(String _rawStr,  String _language) {
+	public RawCommand(String _rawStr,  Language _language) {
 		this(_rawStr, null, _language);
 	}
 	
@@ -35,7 +35,7 @@ public class RawCommand {
 		return translationMap;
 	}
 	
-	public String getLanguage(){
+	public Language getLanguage(){
 		return language;
 	}
 	

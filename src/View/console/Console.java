@@ -18,17 +18,16 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import utils.Language;
 import utils.RawCommand;
 
 public class Console implements I_FrontEndModule {
 	private VBox container;
-	
 	private ScrollPane outputContainer;
 	private ObservedDisplay<Text> outputDisp;
-	
 	private VBox inputContainer;
 	private TextArea inputField;
-	
+	private final Language DEAFAULT_LANGUAGE=Language.English;
 	private Dimension consoleSize;
 	private String bufferedCommandStr;
 	private Properties prop;
@@ -96,7 +95,7 @@ public class Console implements I_FrontEndModule {
 	public RawCommand getUserInteractionResult() {
 		String rawCmdStr = "" + bufferedCommandStr;
 		bufferedCommandStr = null;
-		return new RawCommand(rawCmdStr, "English");
+		return new RawCommand(rawCmdStr, DEAFAULT_LANGUAGE);
 	}
 
 	@Override

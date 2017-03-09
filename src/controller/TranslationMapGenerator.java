@@ -1,19 +1,21 @@
 package controller;
 
 import java.io.IOException;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import utils.Language;
+
 public class TranslationMapGenerator {
 	private Properties languageProp;
-	private final String[] LANGUAGES={"Chinese", "English", "French", "German", "Italian", "Portuguese", "Russian", "Spanish"};
-	private Map<String, Map<String, String>> translationMaps;
+	private Map<Language, Map<String, String>> translationMaps;
 	
 	
 	public TranslationMapGenerator() {
 		languageProp=new Properties();
-		translationMaps=new HashMap<>();
+		translationMaps=new EnumMap<Language, Map<String, String>>(Language.class);
 		buildMaps();
 	}
 
@@ -22,7 +24,7 @@ public class TranslationMapGenerator {
 	 * @param language
 	 * @return
 	 */
-	public Map<String, String> getTranslationMap(String language){
+	public Map<String, String> getTranslationMap(Language language){
 		if(translationMaps.get(language)!=null){
 			return translationMaps.get(language);
 		} else {
@@ -34,7 +36,7 @@ public class TranslationMapGenerator {
 	 * build the translation maps of the different strings
 	 */
 	private void buildMaps() {
-		for(String language: LANGUAGES){
+		for(Language language: Language.values()){
 			translationMaps.put(language, buildTranslationMap(language));
 		}
 	}
@@ -45,9 +47,9 @@ public class TranslationMapGenerator {
 	 * helps back end implementation
 	 * @return
 	 */
-	private Map<String, String> buildTranslationMap(String language){
+	private Map<String, String> buildTranslationMap(Language language){
 		try {
-			languageProp.load(getClass().getClassLoader().getResourceAsStream(language+".properties"));
+			languageProp.load(getClass().getClassLoader().getResourceAsStream(language.toString()+".properties"));
 		} catch (IOException e1) {
 			throw new Error("Language property file not found or something else created an IO error");
 		}

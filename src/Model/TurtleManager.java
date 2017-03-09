@@ -60,7 +60,9 @@ public class TurtleManager implements Iterable<TurtleModel> {
 	 */
 	public TurtleModel getTurtle(int idNumber) {
 		try {
-			return myTurtleList.get(idNumber);
+			TurtleModel turtle = myTurtleList.get(idNumber);
+			myActiveTurtleList.add(turtle);
+			return turtle;
 		} catch (NullPointerException e) {
 			// TODO create turtleNotFound exception
 			return null;

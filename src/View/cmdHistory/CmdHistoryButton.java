@@ -8,7 +8,7 @@ public class CmdHistoryButton extends Button{
 	
 	public CmdHistoryButton(RawCommand _myCommand) {
 		myCommand=_myCommand;
-		this.setText(myCommand.getCommandString());
+		this.setText(String.format("%s", myCommand.getCommandString()));
 	}
 
 	public RawCommand getRawCommand(){

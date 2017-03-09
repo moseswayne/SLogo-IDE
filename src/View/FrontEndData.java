@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Map;
 import java.util.Queue;
 
+import utils.Language;
 import utils.TurtleParameters;
 
 public class FrontEndData {
@@ -11,7 +12,7 @@ public class FrontEndData {
 	private Double myPrintValue;
 	private Queue<TurtleParameters> myTurtleParameters;
 	private Map<String, String> variables;
-	private String myLanguage;
+	private Language myLanguage;
 
 	public FrontEndData(String command) {
 		myCommand = command;
@@ -42,7 +43,7 @@ public class FrontEndData {
 		return myCommand;
 	}
 
-	public String getMyLanguage(){
+	public Language getMyLanguage(){
 		return myLanguage;
 	}
 }

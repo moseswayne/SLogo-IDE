@@ -15,6 +15,7 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import utils.Language;
 import utils.RawCommand;
 
 /**
@@ -28,7 +29,7 @@ public class VarDisplay implements I_FrontEndModule {
 	private ScrollPane container;
 	private String bufferedCommandStr;
 	private Dimension size;
-	private final String MY_LANGUAGE="English";
+	private final Language MY_LANGUAGE=Language.English;
 
 	public VarDisplay(int width, int height) {
 		size=new Dimension(width, height);

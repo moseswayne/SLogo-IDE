@@ -1,6 +1,4 @@
 package mathOps;
-
-import Operations.A_MathOperation;
 import utils.ParameterObject;
 
 /**
@@ -9,10 +7,10 @@ import utils.ParameterObject;
  * @author Elbert
  *
  */
-public class Tangent extends A_MathOperation {
+public class Tangent extends A_One_Input {
 
 	@Override
 	protected double evaluate(ParameterObject params) {
-		return Math.tan(Math.toRadians(params.getDoubleAt(0)));
+		return solve(params, (value) -> Math.tan(value));
 	}
 }

@@ -1,6 +1,5 @@
 package mathOps;
 
-import Operations.A_MathOperation;
 import utils.ParameterObject;
 
 /**
@@ -9,10 +8,10 @@ import utils.ParameterObject;
  * @author Elbert
  *
  */
-public class RaiseToExponent extends A_MathOperation {
+public class Power extends A_Multiple_Inputs {
 
 	@Override
 	protected double evaluate(ParameterObject params) {
-		return Math.pow(params.getDoubleAt(0), params.getDoubleAt(1));
+		return solve(params, (changingValue, instance) -> (Math.pow(changingValue, instance)));
 	}
 }

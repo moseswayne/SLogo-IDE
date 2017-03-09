@@ -1,5 +1,8 @@
 package utils;
 
+
+import java.util.Collection;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +18,7 @@ public class ParameterObject implements Iterable<Double> {
 	private Map<String, Double> varMap;
 	private TurtleManager myTurtles;
 	private TurtleModel myTurtle;
-	private Stack<String> instructionStack;
+	private Stack<CommandNode> instructionStack;
 
 	public ParameterObject(List<String> params, Map<String, Double> vars, TurtleModel turtle) {
 		this(params, vars);
@@ -62,7 +65,7 @@ public class ParameterObject implements Iterable<Double> {
 			}
 		}
 	}
-	
+
 	public Stack<CommandNode> getInstructions() {
 		return instructionStack;
 	}

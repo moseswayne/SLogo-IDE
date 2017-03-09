@@ -126,5 +126,13 @@ public class VarDisplay implements I_FrontEndModule {
 		map.put("testing", "156");
 	}
 
+	/**
+	 * shows no text, does nothing
+	 */
+	@Override
+	public void setLanguage(Language language) {
+		return;
+	}
+
 
 }

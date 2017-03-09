@@ -1,7 +1,7 @@
 package utils;
 
 /**
- * specifies all the supported languages we have in SLogo
+ * specifies all the supported languages in SLogo
  * @author Yuxiang He
  *
  */

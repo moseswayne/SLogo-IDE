@@ -2,6 +2,7 @@ package View;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Properties;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,36 +14,36 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToolBar;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.stage.Window;
+import utils.Language;
+import utils.RawCommand;
 
-public class ControlPanel {
-	private ComboBox<String> languageButton, turtleBackGroundSelector, penColorSelector;
+public class ControlPanel implements I_FrontEndModule {
+	ComboBox<Language> languageButton;
+	private ComboBox<String> turtleBackGroundSelector, penColorSelector;
 	private Button turtleImgButton;
 	private ToolBar bar;
 	private Properties prop;
 	private GUI myGUI;
 	private final ObservableList<String> COLOR_BUTTON_OPTIONS = FXCollections.observableArrayList("White", "Bisque", "Red", "Green",
 			"Blue", "Grey");
+	private final ObservableList<Language> LANG_BUTTON_OPTIONS = FXCollections.observableArrayList(Arrays.asList(Language.values()));
+	private Language language;
 
 	/**
 	 * 
 	 */
-	public ControlPanel(GUI _myGUI) {
+	public ControlPanel(GUI _myGUI, Language _language) {
+		language=_language;
 		bar = new ToolBar();
 		prop = new Properties();
-		try {
-			prop.load(getClass().getClassLoader().getResourceAsStream("buttonEnglishText.properties"));
-		} catch (IOException e1) {
-			throw new Error("properties file not found or something else created an IO error");
-		}
+		loadPropetiesFromFile(language.toString()+"Text.properties");
 		initiateButtons();
 		initiateListeners();
 		bar.getItems().addAll(languageButton, turtleBackGroundSelector, penColorSelector, turtleImgButton);
 		myGUI=_myGUI;
 	}
+
 
 	/**
 	 * 
@@ -50,10 +51,10 @@ public class ControlPanel {
 	 * 
 	 */
 	private void initiateListeners() {
-		languageButton.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+		languageButton.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Language>() {
 			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				
+			public void changed(ObservableValue<? extends Language> observable, Language oldValue, Language newValue) {
+				myGUI.setLanguage(newValue);
 			}
 		});
 		
@@ -61,7 +62,7 @@ public class ControlPanel {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				myGUI.setTurtleBackgroundColor(newValue);
-			}
+			}				
 		});
 		
 		penColorSelector.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -92,13 +93,18 @@ public class ControlPanel {
 	 * 
 	 */
 	private void initiateButtons() {
-		languageButton = new ComboBox<String>();
-		languageButton.setPromptText(prop.getProperty("languageButton"));
+		languageButton = new ComboBox<Language>(LANG_BUTTON_OPTIONS);
 		turtleBackGroundSelector = new ComboBox<String>(COLOR_BUTTON_OPTIONS);
-		turtleBackGroundSelector.setPromptText(prop.getProperty("turtleBackGroundButton"));
 		penColorSelector = new ComboBox<String>(COLOR_BUTTON_OPTIONS);
-		penColorSelector.setPromptText(prop.getProperty("penColorButton"));
 		turtleImgButton = new Button(prop.getProperty("turtleImgButton"));
+		setButtonText();
+	}
+
+	private void setButtonText() {
+		languageButton.setPromptText(prop.getProperty("languageButton"));
+		turtleBackGroundSelector.setPromptText(prop.getProperty("turtleBackGroundButton"));
+		penColorSelector.setPromptText(prop.getProperty("penColorButton"));
+		turtleImgButton.setText(prop.getProperty("turtleImgButton"));
 	}
 
 	/**
@@ -121,5 +127,44 @@ public class ControlPanel {
 				r.run();
 			}
 		});
+	}
+
+	@Override
+	public void updateDisplayedData(FrontEndData data) {
+		return;
+	}
+
+	@Override
+	public RawCommand getUserInteractionResult() {
+		return null;
+	}
+
+	/**
+	 * Has #NO# user interaction buffered
+	 * Always return false
+	 */
+	@Override
+	public boolean hasBufferedUserInteraction() {
+		return false;
+	}
+
+	@Override
+	public Node getVisualizedContent() {
+		return null;
+	}
+	
+	@Override
+	public void setLanguage(Language lang){
+		language=lang;
+		loadPropetiesFromFile(language.toString()+"Text.properties");
+		setButtonText();
+	}
+	
+	private void loadPropetiesFromFile(String fileName){
+		try {
+			prop.load(getClass().getClassLoader().getResourceAsStream(fileName));
+		} catch (IOException e1) {
+			throw new Error("properties file not found or something else created an IO error");
+		}
 	}
 }

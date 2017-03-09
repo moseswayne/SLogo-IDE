@@ -18,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
+import utils.Language;
 import utils.RawCommand;
 import utils.TurtleParameters;
 
@@ -187,4 +188,11 @@ public class TurtleDisplay implements I_FrontEndModule {
 		return false;
 	}
 
+	/**
+	 * Has no displayed language components
+	 */
+	@Override
+	public void setLanguage(Language language) {
+		return;
+	}
 }

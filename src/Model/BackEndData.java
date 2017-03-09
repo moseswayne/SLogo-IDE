@@ -42,7 +42,11 @@ public class BackEndData {
 		return (!instructionStack.isEmpty());
 	}
 	
-	public CommandNode getNextInstruction() {
-		return instructionStack.pop();
+	public Queue<CommandNode> getInstructions() {
+		Queue<CommandNode> instructionQueue = new ArrayDeque<>();
+		while(hasNextInstruction()) {
+			instructionQueue.add(instructionStack.pop());
+		}
+		return instructionQueue;
 	}
 }

@@ -8,13 +8,14 @@ import java.util.Map;
 import java.util.Stack;
 import Model.TurtleModel;
 import tree.CommandNode;
+import tree.ExpressionNode;
 
 public class ParameterObject implements Iterable<Double> {
 
 	private List<String> parameterList;
 	private Map<String, Double> varMap;
 	private TurtleModel myTurtle;
-	private Stack<CommandNode> instructionStack;
+	private Stack<ExpressionNode> instructionStack;
 
 	public ParameterObject(List<String> params, Map<String, Double> vars, TurtleModel turtle) {
 		this(params, vars);
@@ -53,16 +54,16 @@ public class ParameterObject implements Iterable<Double> {
 		return myTurtle;
 	}
 
-	public void setStack(Collection<CommandNode> instructs) {
-		instructionStack = new Stack<CommandNode>();
+	public void setStack(Collection<ExpressionNode> instructs) {
+		instructionStack = new Stack<ExpressionNode>();
 		if (!instructs.isEmpty()) {
-			for (CommandNode instruction : instructs) {
+			for (ExpressionNode instruction : instructs) {
 				instructionStack.push(instruction);
 			}
 		}
 	}
 
-	public Stack<CommandNode> getInstructions() {
+	public Stack<ExpressionNode> getInstructions() {
 		return instructionStack;
 	}
 
@@ -84,22 +85,27 @@ public class ParameterObject implements Iterable<Double> {
 
 			@Override
 			public Double next() {
-				String val = paramsIter.next();
-				if (varMap.containsKey(val)) {
-					return varMap.get(val);
+				String rawValue = nextString();
+				Double retValue = null;
+				if (varMap.containsKey(rawValue)) {
+					retValue = varMap.get(rawValue);
 				} else {
 					try {
-						return Double.parseDouble(val);
+						retValue = Double.parseDouble(rawValue);
 					} catch (Exception NumberFormatException) {
 						// stuff
 					}
 				}
-				return null;
+				return retValue;
 			}
 
 			@Override
 			public void remove() {
 				throw new UnsupportedOperationException("No removals allowed");
+			}
+			
+			private String nextString() {
+				return paramsIter.next();
 			}
 		};
 	}

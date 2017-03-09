@@ -23,7 +23,7 @@ public class CommandNode {
 	public CommandNode() {
 		myChildren = new ArrayDeque<CommandNode>();
 		repeatChildren = new Stack<CommandNode>();
-		/*
+		/* not needed now
 		Iterator<CommandNode> iter = nodeChildren.iterator();
 		while(iter.hasNext()) {
 			myChildren.add(iter.next());

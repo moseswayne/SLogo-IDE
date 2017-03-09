@@ -29,15 +29,14 @@ public class ControlPanel implements I_FrontEndModule {
 	private ToolBar bar;
 	private Properties prop;
 	private GUI myGUI;
-	private final ObservableList<String> COLOR_BUTTON_OPTIONS = FXCollections.observableArrayList("White", "Bisque", "Red", "Green",
-			"Blue", "Grey");
-	private final ObservableList<Language> LANG_BUTTON_OPTIONS = FXCollections.observableArrayList(Arrays.asList(Language.values()));
 	private Language language;
 
 	/**
 	 * 
 	 */
 	public ControlPanel(GUI _myGUI, Language _language) {
+		myGUI=_myGUI;
+		myGUI.addColor(120, 13, 0, "1 (added in controlPanel constructor)");
 		language=_language;
 		bar = new ToolBar();
 		prop = new Properties();
@@ -45,7 +44,7 @@ public class ControlPanel implements I_FrontEndModule {
 		initiateButtons();
 		initiateListeners();
 		bar.getItems().addAll(languageButton, turtleBackGroundSelector, penColorSelector, turtleImgButton);//, newWorkspaceButton);
-		myGUI=_myGUI;
+		
 	}
 
 
@@ -101,9 +100,13 @@ public class ControlPanel implements I_FrontEndModule {
 	 * 
 	 */
 	private void initiateButtons() {
-		languageButton = new ComboBox<Language>(LANG_BUTTON_OPTIONS);
-		turtleBackGroundSelector = new ComboBox<String>(COLOR_BUTTON_OPTIONS);
-		penColorSelector = new ComboBox<String>(COLOR_BUTTON_OPTIONS);
+		languageButton = new ComboBox<Language>();
+		turtleBackGroundSelector = new ComboBox<String>();
+		turtleBackGroundSelector.setItems(myGUI.getColorNames());
+		
+		penColorSelector = new ComboBox<String>();
+		penColorSelector.setItems(myGUI.getColorNames());
+		
 		turtleImgButton = new Button(prop.getProperty("turtleImgButton"));
 		newWorkspaceButton=new Button("New workspace");
 		setButtonText();

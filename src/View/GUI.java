@@ -6,14 +6,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Properties;
-
 import View.ControlPanel.ControlPanel;
 import View.cmdHistory.CmdHistoryDisplay;
 import View.console.Console;
 import View.turtleDisplay.TurtleDisplay;
 import View.varDisplay.VarDisplay;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import utils.ColorManager;
 import utils.Language;
 import utils.RawCommand;
 
@@ -33,6 +35,7 @@ public class GUI implements I_GUI{
 	private Language language;
 	private Collection<I_FrontEndModule> myModules;
 	private Properties prop;
+	private ColorManager colorManager;
 	
 	/**
 	 * 
@@ -42,21 +45,38 @@ public class GUI implements I_GUI{
 	public GUI () {
 		prop=new Properties();
 		loadPropetiesFromFile("GeneraGUISettings.properties");
+		colorManager=new ColorManager();
 		language=Language.valueOf(prop.getProperty("DEAFAULT_LANGUAGE"));
 		initiateModules();
 		addModulesToCollection();
 		root=makeRoot();
+		
 		myScene= new Scene(root, DEFAULT_SIZE.getWidth(), DEFAULT_SIZE.getHeight());
 	}
 
+	public Color getColor(String name){
+		return colorManager.getColor(name);
+	}
+	
+	public ObservableList<String> getColorNames(){
+		return colorManager.getColorNames();
+	}
 
+	/**
+	 * adds a color using r, g, b values from 0-255
+	 */
+	@Override
+	public void addColor(double r, double g, double b, String name) {
+		colorManager.addColor(r, g, b, name);
+	}
+	
 	/**
 	 * builds the front end modules under GUI
 	 */
 	private void initiateModules() {
 		cmdHistoryDisplay=new CmdHistoryDisplay(DEAFAULT_SIDE_DISP_SIZE.width, DEAFAULT_SIDE_DISP_SIZE.height);
 		console=new Console((int)DEAFAULT_CONSOLE_SIZE.getWidth(), (int)DEAFAULT_CONSOLE_SIZE.getHeight(), language);
-		turtleDisplay=new TurtleDisplay((int)DEAFAULT_TURTLE_DISP_SIZE.getWidth(), (int)DEAFAULT_TURTLE_DISP_SIZE.getHeight());
+		turtleDisplay=new TurtleDisplay((int)DEAFAULT_TURTLE_DISP_SIZE.getWidth(), (int)DEAFAULT_TURTLE_DISP_SIZE.getHeight(), this);
 		varDisplay=new VarDisplay(DEAFAULT_SIDE_DISP_SIZE.width, DEAFAULT_SIDE_DISP_SIZE.height);
 		ctrlPanel=new ControlPanel(this, language);
 	}
@@ -135,5 +155,6 @@ public class GUI implements I_GUI{
 			throw new Error("properties file not found or something else created an IO error");
 		}
 	}
+
 
 }

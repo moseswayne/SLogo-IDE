@@ -6,8 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.Queue;
-import View.ColorInterpreter;
 import View.FrontEndData;
+import View.GUI;
 import View.I_FrontEndModule;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
@@ -32,13 +32,14 @@ public class TurtleDisplay implements I_FrontEndModule {
 	private Dimension paneSize;
 	private Properties prop;
 	private final Dimension TURTLE_SIZE=new Dimension(20, 20);
+	private GUI myGUI;
 	/**
 	 *  
 	 * @param height height of turtleDisplay
 	 * @param width width of turtleDisplay
 	 */
-	public TurtleDisplay(int height, int width) {
-		
+	public TurtleDisplay(int height, int width, GUI _myGUI) {
+		myGUI=_myGUI;
 		prop=new Properties();
 		try {
 			prop.load(getClass().getClassLoader().getResourceAsStream("deafaultTurtleDisp.properties"));
@@ -88,15 +89,15 @@ public class TurtleDisplay implements I_FrontEndModule {
 	 * @param color String specifying the color, USE VALID
 	 */
 	public void setBackgroudColor(String color){
-		container.setStyle(String.format("-fx-background-color: %s", color.toLowerCase()));
+		Color trueColor=myGUI.getColor(color);
+		int blue=(int) (255*trueColor.getBlue()),
+				red=(int) (255*trueColor.getRed()),
+				green=(int) (255*trueColor.getGreen());
+		container.setStyle(String.format("-fx-background-color: rgb(%d, %d, %d)", red, green, blue));
 	}
 	
 	public void setPenColor(String color){
-		ColorInterpreter cInterpreter=new ColorInterpreter();
-		float r=cInterpreter.getRValue(color.toLowerCase()),
-				g=cInterpreter.getGValue(color.toLowerCase()),
-				b=cInterpreter.getBValue(color.toLowerCase());
-		penColor=Color.color(r, g, b);
+		penColor=myGUI.getColor(color);
 	}
 	
 	public void setTurtleImg(File file){

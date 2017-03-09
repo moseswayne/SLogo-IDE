@@ -2,39 +2,77 @@ package utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.TreeMap;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.paint.Color;
 
 
 public class ColorManager {
 
-	private Map<String, SLogoColor> deafaultColors;
-	
-	private Collection<SLogoColor> colors;
-	private HashSet<String> existingNames;
+	private Map<String, Color> deafaultPalettes;
+	private Map<String, Color> userDefinedPalettes;
+	private ObservableList<String> content;
 	
 	
 	public ColorManager() {
-		colors=new ArrayList<>();
+		deafaultPalettes=new HashMap<>();
+		userDefinedPalettes=new TreeMap<>();
+		content = FXCollections.observableArrayList(new ArrayList<String>());
 		fillInDeafaultValues();
 	}
 
 	private void fillInDeafaultValues() {
-		addColor(0.0f, 0.0f, 1.0f, "blue");
-		addColor(1.0f, 0.0f, 0.0f, "red");
-		addColor(0.0f, 1.0f, 0.0f, "green");
-		addColor(1.0f, 1.0f, 1.0f, "white");
-		addColor(0.0f, 0.0f, 0.0f, "black");
-		addColor(1.0f, 0.89411765f, 0.76862746f, "bisque");
-		addColor(0.5019608f, 0.5019608f, 0.5019608f, "grey");
+		addColorToMap(0.0f, 0.0f, 1.0f, "blue", deafaultPalettes);
+		addColorToMap(1.0f, 0.0f, 0.0f, "red", deafaultPalettes);
+		addColorToMap(0.0f, 1.0f, 0.0f, "green", deafaultPalettes);
+		addColorToMap(1.0f, 1.0f, 1.0f, "white", deafaultPalettes);
+		addColorToMap(0.0f, 0.0f, 0.0f, "black", deafaultPalettes);
+		addColorToMap(1.0f, 0.89411765f, 0.76862746f, "bisque", deafaultPalettes);
+		addColorToMap(0.5019608f, 0.5019608f, 0.5019608f, "grey", deafaultPalettes);
 	}
 	
-	public void addColor(double r, double g, double b, String name){
-		if(existingNames.contains(name)){
+	private void addColorToMap(double r, double g, double b, String name, Map<String, Color> map){
+		if(map.keySet().contains(name)){
 			throw new IllegalArgumentException("Name for the color is already taken");
 		} else {
-			colors.add(new SLogoColor(r, g, b, name));
+			map.put(name, Color.color(r, g, b));
+			content.add(name);
+		}
+	}
+	
+	/**
+	 * add a new color to the existing colors using r g b 0-255
+	 * @param r
+	 * @param g
+	 * @param name
+	 * @param b
+	 */
+	public void addColor(double r, double g, double b, String name){
+		double redNorm=r/255, greenNorm=g/255, blueNorm=b/255;
+		addColorToMap(redNorm, greenNorm, blueNorm, name, userDefinedPalettes);
+	}
+	
+	/**
+	 * get the color with the specified name
+	 * @param name
+	 * @return
+	 */
+	public Color getColor(String name){
+		if(deafaultPalettes.keySet().contains(name)){
+			return deafaultPalettes.get(name);
+		} else if(userDefinedPalettes.keySet().contains(name)){
+			return userDefinedPalettes.get(name);
+		} else {
+			throw new IllegalArgumentException("Color name does not exist");
 		}
 	}
 
+	public ObservableList<String> getColorNames(){
+		return content;
+	}
 }

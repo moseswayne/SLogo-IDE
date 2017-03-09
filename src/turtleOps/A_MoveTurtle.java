@@ -11,19 +11,16 @@ import utils.ParameterObject;
  *
  */
 public abstract class A_MoveTurtle extends A_ManipulateTurtle {
-	private int OFFSET;
-	private double DISTANCE;
 
-	public TurtleModel updateTurtle(ParameterObject params) {
-		TurtleModel myTurtle = params.getTurtle();
-		DISTANCE = returnValue(params);
-		OFFSET = setOffset();
-		myTurtle.setX(myTurtle.getX() + changeInX(myTurtle.getHeading(), DISTANCE));
-		myTurtle.setY(myTurtle.getY() + changeInY(myTurtle.getHeading(), DISTANCE));
-		return myTurtle;
+	double updateX(Double oldX, ParameterObject params) {
+		return oldX + changeInX(params.getTurtle().getHeading(), params.getDoubleAt(0));
 	}
 
-	abstract protected int setOffset();
+	double updateY(Double oldY, ParameterObject params) {
+		return oldY + changeInY(params.getTurtle().getHeading(), params.getDoubleAt(1));
+	}
+
+	abstract protected int getOffset();
 
 	/**
 	 * Gets x and y coordinates based on total distance traveled and the
@@ -34,10 +31,10 @@ public abstract class A_MoveTurtle extends A_ManipulateTurtle {
 	 * @return double representing the new coordinate
 	 */
 	private double changeInX(double heading, double distance) {
-		return Math.sin(Math.toRadians(heading + OFFSET)) * distance;
+		return Math.sin(Math.toRadians(heading + getOffset())) * distance;
 	}
 
 	private double changeInY(double heading, double distance) {
-		return Math.cos(Math.toRadians(heading) + OFFSET) * distance;
+		return Math.cos(Math.toRadians(heading + getOffset())) * distance;
 	}
 }

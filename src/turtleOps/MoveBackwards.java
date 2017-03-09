@@ -6,7 +6,7 @@ package turtleOps;
  */
 public class MoveBackwards extends A_MoveTurtle {
 	@Override
-	protected int setOffset() {
+	protected int getOffset() {
 		return -180;
 	}
 }

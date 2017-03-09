@@ -9,6 +9,7 @@ import utils.ParameterObject;
  * @author Kris Elbert
  *
  */
+//TODO may not want to extend manipulate turtle
 public abstract class A_TurnTurtle extends A_ManipulateTurtle {
 	private static int FULL_CIRCLE = 360;
 

@@ -1,9 +1,7 @@
 package utils;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -20,7 +18,7 @@ public class ColorManager {
 	
 	
 	public ColorManager() {
-		deafaultPalettes=new HashMap<>();
+		deafaultPalettes=new TreeMap<>();
 		userDefinedPalettes=new TreeMap<>();
 		content = FXCollections.observableArrayList(new ArrayList<String>());
 		fillInDeafaultValues();
@@ -41,7 +39,9 @@ public class ColorManager {
 			throw new IllegalArgumentException("Name for the color is already taken");
 		} else {
 			map.put(name, Color.color(r, g, b));
-			content.add(name);
+			content.clear();
+			content.addAll(deafaultPalettes.keySet());
+			content.addAll(userDefinedPalettes.keySet());
 		}
 	}
 	

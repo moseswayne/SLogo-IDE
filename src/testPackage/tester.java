@@ -17,7 +17,7 @@ public class tester {
 		tester myTester = new tester();
 		CommandOperation sum = new Sum();
 		ArrayList<CommandNode> myNodes = new ArrayList<>();
-		myNodes.add(myTester.makeLeaf(5.0));
+		myNodes.add(myTester.makeDifLeaf("x"));
 		myNodes.add(myTester.makeLeaf(3.0));
 		ArrayList<CommandNode> otherNodes = new ArrayList<>();
 		otherNodes.add(myTester.makeLeaf(5.0));
@@ -37,7 +37,7 @@ public class tester {
 		randList.add(c);
 		d.setOp(repeat);
 		d.addLoopInstructions(randList);
-		CommandNode e = myTester.makeLeaf(3.0);
+		CommandNode e = myTester.makeLeaf(2.0);
 		d.addChild(e);
 		d.initiateExpression(myData, varMap);
 		//System.out.println(myData.getMyValue());

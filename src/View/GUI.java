@@ -1,12 +1,15 @@
 package View;
 
 import java.awt.Dimension;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Collectors;
+
 import View.cmdHistory.CmdHistoryDisplay;
 import View.console.Console;
 import View.turtleDisplay.TurtleDisplay;
@@ -14,6 +17,7 @@ import View.varDisplay.VarDisplay;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import utils.RawCommand;
+import java.util.stream.Stream;
 
 public class GUI implements I_GUI{
 	
@@ -31,17 +35,7 @@ public class GUI implements I_GUI{
 	private ControlPanel ctrlPanel;
 	private String language;
 	private final String DEAFAULT_LANGUAGE="English";
-	private final String CHINESE="Chinese";
-	private final String FRENCH="French";
-	private final String GERMAN="German";
-	private final String ITALIAN="Italian";
-	private final String PORTUGUESE="Portuguese";
-	private final String RUSSIAN="Russian";
-	private final String SPANISH="Spanish";
 	private Collection<I_FrontEndModule> myModules;
-	private Map<String, String> translationMap;
-	private Properties languageProp;
-	
 	
 	/**
 	 * 
@@ -55,32 +49,8 @@ public class GUI implements I_GUI{
 		addModulesToCollection();
 		root=makeRoot();
 		myScene= new Scene(root, DEFAULT_SIZE.getWidth(), DEFAULT_SIZE.getHeight());
-		languageProp=new Properties();
-		try {
-			languageProp.load(getClass().getClassLoader().getResourceAsStream(language+".properties"));
-		} catch (IOException e1) {
-			throw new Error("properties file not found or something else created an IO error");
-		}
-		translationMap=buildTranslationMap();
 	}
-	
-	/**
-	 * loop through the property file to get reverse of the mapping, 
-	 * helps back end implementation
-	 * @return
-	 */
-	private Map<String, String> buildTranslationMap(){
-		HashMap<String, String> out=new HashMap<>();
-		for(Object command: languageProp.keySet()){
-			String cmdString=(String) command;
-			String match=languageProp.getProperty(cmdString);
-			String[] matches=match.split("\\|");
-			for(String m: matches){
-				out.put(m, cmdString);
-			}
-		}
-		return out;
-	}
+
 
 	/**
 	 * builds the front end modules under GUI
@@ -93,8 +63,12 @@ public class GUI implements I_GUI{
 		ctrlPanel=new ControlPanel(this);
 	}
 	
-	public void setTurtleBgdColor(String color){
+	public void setTurtleBackgroundColor(String color){
 		turtleDisplay.setBackgroudColor(color);
+	}
+	
+	public void setTurtleImage(File file){
+		turtleDisplay.setTurtleImg(file);
 	}
 	
 	public void setTurtlePenColor(String color){
@@ -137,7 +111,6 @@ public class GUI implements I_GUI{
 		for(I_FrontEndModule module: myModules){
 			if(module.hasBufferedUserInteraction()){
 				RawCommand rcmd=module.getUserInteractionResult();
-				rcmd.setTranslationMap(translationMap);
 				return rcmd;
 			}
 		}

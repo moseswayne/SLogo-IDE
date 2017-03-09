@@ -1,18 +1,17 @@
 package mathOps;
 
-import Operations.A_MathOperation;
 import utils.ParameterObject;
 
 /**
  * Retuns the cosine of the input
  * 
- * @author Elbert
+ * @author Kris Elbert
  *
  */
-public class Cosine extends A_MathOperation {
+public class Cosine extends A_One_Input {
 
 	@Override
 	protected double evaluate(ParameterObject params) {
-		return Math.cos(Math.toRadians(params.getDoubleAt(0)));
+		return solve(params, (value) -> Math.cos(value));
 	}
 }

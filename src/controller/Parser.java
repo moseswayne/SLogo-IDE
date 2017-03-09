@@ -1,50 +1,75 @@
 package controller;
 
-import utils.ParameterObject;
+import tree.CommandNode;
+import Operations.CommandOperation;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Map;
 import java.util.Properties;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.File;
-import java.util.ResourceBundle;
-
-import tree.CommandNode;
-
+import java.util.Collection;
 import java.util.ArrayList;
-import java.io.FileInputStream;
-import java.io.File;
-
+import java.util.List;
+import java.util.Map.Entry;
 
 public class Parser {
 
-	private ResourceBundle myResourceBundle;
-	private String command;
-	private Map<String, String> commandsMap;
-	private Map<String, Double> variablesMap;
-	private ParameterObject params;
+	private final String PROPERTIES_FILE = "resources/Arguments.properties";
 	
-	public Parser(Map<String, Double> varMap) {
-		variablesMap = varMap;
-		myResourceBundle = ResourceBundle.getBundle("resources.languages/Syntax.properties");
+	private Properties properties;
+	private Map<String, String> commandMap;
+	private Map<String, Double> variableMap;
+	private OperationFactory operationFactory;
+	
+	public Parser(Map<String, Double> varMap, Map<String, String> cmdMap) {
+		variableMap = varMap;
+		commandMap = cmdMap;
+		operationFactory = new OperationFactory(commandMap);
+		properties = getPropertiesFile();
 	}
 	
-	public ParameterObject getParameters() {
-		return params;
+	private Collection<CommandNode> parseCommand(String expression) {
+		String rootCmd = getRootCommand(expression);
+		CommandNode rootNode = new CommandNode(getExpressionTree(rootCmd, expression));
+		rootNode.setMyValue(rootCmd);
 	}
 	
-	private ArrayList<CommandNode> parseCommand(String cmd) {
-		command = cmd;
-		String rootCmd = getRootCommand(cmd);
+	private Collection<CommandNode> getExpressionTree(String rootCmd, String cmdBody) {
+		ArrayList<CommandNode> rootNodes = new ArrayList<CommandNode>();
+		
 	}
 	
-	private String getRootCommand(String cmd) {
-		String rootCmd = cmd.split(" ")[0];
-		if (!isValidCommand(rootCmd)) throw new ParserException(ParserException.INVALID_CMD);
+	private CommandOperation getOp(String cmdName) {
+		return operationFactory.getOp(cmdName);
+	}
+	
+	private String getRootCommand(String expression) {
+		String rootCmd = expression.split(" ")[0];
+		if (!isValidCommand(rootCmd)) {
+			throw new ParserException(ParserException.INVALID_CMD, rootCmd);
+		}
 		return rootCmd;
 	}
 	
+	private int numArgs(String cmdName) {
+		return Integer.parseInt(properties.getProperty(cmdName));
+	}
+	
+	private Properties getPropertiesFile() {
+		Properties prop = new Properties();
+		try {
+			prop.load(new FileInputStream(new File(PROPERTIES_FILE)));
+		} catch (Exception e) {
+			throw new ParserException(ParserException.PROPERTIES_ERROR);
+		}
+		return prop;
+	}
+	
 	private boolean isValidCommand(String cmd) {
-		return cmdMap.containsKey(cmd) && cmdMap.get(cmd).length() != 0;
+		return commandMap.containsKey(cmd) && commandMap.get(cmd).length() != 0;
+	}
+	
+	private boolean isValidVariable(String var) {
+		return variableMap.containsKey(var) && variableMap.get(var) != null;
 	}
 }

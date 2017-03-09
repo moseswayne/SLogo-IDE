@@ -4,7 +4,7 @@ import Model.TurtleModel;
 import Operations.A_TurtleCommand;
 import utils.ParameterObject;
 
-public class TowardsPoint extends A_TurtleCommand {
+public class SetTowards extends A_TurtleCommand {
 	private TurtleModel myTurtle;
 	private double previousHeading;
 

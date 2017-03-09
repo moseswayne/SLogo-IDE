@@ -3,15 +3,15 @@ package turtleQueries;
 import Model.TurtleModel;
 import Operations.A_TurtleQuery;
 /**
- * Returns 1 if the turtle is visible or showing or 0 if it is hidden
+ * Returns 1 if the pen is down or showing or 0 if it is up
  * @author Elbert
  *
  */
-public class TurtleShowing extends A_TurtleQuery{
+public class IsPenDown extends A_TurtleQuery{
 
 	@Override
 	protected double returnQuery(TurtleModel turtle) {
-		if(turtle.getTurtleShowing()){
+		if(turtle.getPenShowing()){
 			return 1;
 		}
 		return 0;

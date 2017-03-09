@@ -1,5 +1,6 @@
 package View;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 import javafx.beans.value.ChangeListener;
@@ -12,6 +13,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToolBar;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class ControlPanel {
 	private ComboBox<String> languageButton, turtleBackGroundSelector, penColorSelector;
@@ -45,7 +50,6 @@ public class ControlPanel {
 	 * 
 	 */
 	private void initiateListeners() {
-		
 		languageButton.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -56,7 +60,7 @@ public class ControlPanel {
 		turtleBackGroundSelector.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				myGUI.setTurtleBgdColor(newValue);
+				myGUI.setTurtleBackgroundColor(newValue);
 			}
 		});
 		
@@ -64,6 +68,20 @@ public class ControlPanel {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				myGUI.setTurtlePenColor(newValue);
+			}
+		});
+		
+		turtleImgButton.setOnMouseClicked(action->{
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Open Resource File");
+			fileChooser.getExtensionFilters().addAll(
+	                new FileChooser.ExtensionFilter("All Images", "*.*"),
+	                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+	                new FileChooser.ExtensionFilter("PNG", "*.png")
+	            );
+			File file=fileChooser.showOpenDialog(null);
+			if(file!=null){
+				myGUI.setTurtleImage(file);
 			}
 		});
 	}

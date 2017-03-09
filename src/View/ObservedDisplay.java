@@ -3,6 +3,7 @@ package View;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Stack;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -26,6 +27,9 @@ public class ObservedDisplay<N extends Node> {
 			@Override
 			public void onChanged(Change<? extends N> change) {
 				while (change.next()) {
+					if(content.size()==0){
+						contentDisplay.getChildren().clear();
+					}
 					List<? extends N> added = change.getAddedSubList();
 					for (N elem : added) {
 						contentDisplay.getChildren().add(elem);
@@ -45,6 +49,15 @@ public class ObservedDisplay<N extends Node> {
 	
 	public void addAll(Collection<N> dataCollection){
 		content.addAll(dataCollection);
+	}
+	
+	public void reverse(){
+		Stack<N> stack=new Stack<>();
+		stack.addAll(content);
+		content.clear();
+		while(!stack.isEmpty()){
+			content.add(stack.pop());
+		}
 	}
 	
 	public void clear(){

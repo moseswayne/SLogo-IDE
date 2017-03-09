@@ -3,17 +3,15 @@ package turtleQueries;
 import Model.TurtleModel;
 import Operations.A_TurtleQuery;
 /**
- * Returns 1 if the pen is down or showing or 0 if it is up
+ * Returns the heading of the turtle
  * @author Elbert
  *
  */
-public class PenShowing extends A_TurtleQuery{
+public class Heading extends A_TurtleQuery{
 
 	@Override
 	protected double returnQuery(TurtleModel turtle) {
-		if(turtle.getPenShowing()){
-			return 1;
-		}
-		return 0;
+		return turtle.getHeading();
 	}
+
 }

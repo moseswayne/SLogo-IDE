@@ -1,6 +1,5 @@
 package mathOps;
 
-import Operations.A_MathOperation;
 import utils.ParameterObject;
 
 /**
@@ -9,10 +8,10 @@ import utils.ParameterObject;
  * @author Elbert
  *
  */
-public class Logarithm extends A_MathOperation {
+public class NaturalLog extends A_One_Input {
 
 	@Override
 	protected double evaluate(ParameterObject params) {
-		return Math.log(params.getDoubleAt(0));
+		return solve(params, (value) -> Math.log(value));
 	}
 }

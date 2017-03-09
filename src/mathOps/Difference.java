@@ -8,7 +8,7 @@ import utils.ParameterObject;
  * @author Kris Elbert
  *
  */
-public class Difference extends A_Multiple_Inputs {
+public class Difference extends A_Two_Inputs {
 
 	@Override
 	protected double evaluate(ParameterObject params) {

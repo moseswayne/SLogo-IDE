@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import turtleQueries.I_CheckTurtleConditions;
+
 /**
- * Manages multiple turtles
+ * Manages multiple turtles Makes and returns TurtleModels according to
+ * specifications
  * 
  * @author Kris Elbert
  *
  */
 public class TurtleManager implements Iterable<TurtleModel> {
 	private List<TurtleModel> myTurtleList = new ArrayList<TurtleModel>();
+	private List<TurtleModel> myActiveTurtleList = new ArrayList<TurtleModel>();
 	private static double HOMEX = 0, HOMEY = 0;
 	private TurtleModel myActiveTurtle;
 
@@ -23,7 +27,8 @@ public class TurtleManager implements Iterable<TurtleModel> {
 	}
 
 	/**
-	 * Creates a turtle at the specified location and adds it to the list
+	 * Creates a turtle at the specified location and adds it to the list Note
+	 * that ID numbers start at 1, not 0.
 	 * 
 	 * @param x
 	 * @param y
@@ -63,13 +68,14 @@ public class TurtleManager implements Iterable<TurtleModel> {
 	}
 
 	/**
-	 * Gets a list of certain turtles that match the given ID numbers
+	 * Gets a list of certain turtles that match the given ID numbers Note: does
+	 * not reset the active turtle
 	 * 
 	 * @param idNumbers
 	 * @return list of TurtleModels
 	 */
 	public List<TurtleModel> getTheseTurtles(List<Integer> idNumbers) {
-		List<TurtleModel> subsection = new ArrayList<TurtleModel>();
+		myActiveTurtleList.clear();
 		for (int i : idNumbers) {
 			TurtleModel thisTurtle;
 			try {
@@ -77,12 +83,26 @@ public class TurtleManager implements Iterable<TurtleModel> {
 			} catch (NullPointerException e) {
 				thisTurtle = makeTurtle();
 			}
-			subsection.add(thisTurtle);
+			myActiveTurtleList.add(thisTurtle);
 		}
-		return subsection;
+		return myActiveTurtleList;
 	}
 
-public List<TurtleModel> getTheseTurtles()
+	/**
+	 * Gets a list of turtleModels corresponding to a specific condition
+	 * 
+	 * @param checker
+	 * @return
+	 */
+	public List<TurtleModel> getTheseTurtles(I_CheckTurtleConditions checker) {
+		myActiveTurtleList.clear();
+		for (TurtleModel t : myTurtleList) {
+			if (checker.check(t)) {
+				myActiveTurtleList.add(t);
+			}
+		}
+		return myActiveTurtleList;
+	}
 
 	/**
 	 * Return the entire list of turtles
@@ -98,6 +118,18 @@ public List<TurtleModel> getTheseTurtles()
 	 */
 	public int getTurtleCount() {
 		return myTurtleList.size();
+	}
+
+	/**
+	 * Returns the list of active turtles
+	 * 
+	 * @return list of TurtleModels
+	 */
+	public List<TurtleModel> getActiveTurtles() {
+		if (myActiveTurtleList.isEmpty()) {
+			myActiveTurtleList.add(myActiveTurtle);
+		}
+		return myActiveTurtleList;
 	}
 
 	/**

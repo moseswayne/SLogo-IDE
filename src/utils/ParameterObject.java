@@ -1,14 +1,11 @@
 package utils;
 
-
 import java.util.Collection;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
-
-import Model.TurtleManager;
 import Model.TurtleModel;
 import tree.CommandNode;
 
@@ -16,7 +13,6 @@ public class ParameterObject implements Iterable<Double> {
 
 	private List<String> parameterList;
 	private Map<String, Double> varMap;
-	private TurtleManager myTurtles;
 	private TurtleModel myTurtle;
 	private Stack<CommandNode> instructionStack;
 
@@ -41,13 +37,13 @@ public class ParameterObject implements Iterable<Double> {
 
 	public Double getDoubleAt(int index) {
 		String val = getRawElement(index);
-		if(varMap.containsKey(val)) {
+		if (varMap.containsKey(val)) {
 			return varMap.get(val);
 		} else {
 			try {
 				return Double.parseDouble(val);
-			} catch (Exception NumberFormatException){
-				//stuff
+			} catch (Exception NumberFormatException) {
+				// stuff
 			}
 		}
 		return null;
@@ -56,11 +52,11 @@ public class ParameterObject implements Iterable<Double> {
 	public TurtleModel getTurtle() {
 		return myTurtle;
 	}
-	
+
 	public void setStack(Collection<CommandNode> instructs) {
 		instructionStack = new Stack<CommandNode>();
-		if(!instructs.isEmpty()) {
-			for (CommandNode instruction:instructs) {
+		if (!instructs.isEmpty()) {
+			for (CommandNode instruction : instructs) {
 				instructionStack.push(instruction);
 			}
 		}
@@ -88,7 +84,17 @@ public class ParameterObject implements Iterable<Double> {
 
 			@Override
 			public Double next() {
-				return Double.parseDouble(paramsIter.next());
+				String val = paramsIter.next();
+				if (varMap.containsKey(val)) {
+					return varMap.get(val);
+				} else {
+					try {
+						return Double.parseDouble(val);
+					} catch (Exception NumberFormatException) {
+						// stuff
+					}
+				}
+				return null;
 			}
 
 			@Override

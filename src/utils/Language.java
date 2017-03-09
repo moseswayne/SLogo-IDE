@@ -28,6 +28,7 @@ public enum Language {
 	 * ONLY USE THIS FOR getting a resource file
 	 * DO NOT use for other purposes
 	 */
+	@Override
 	public String toString(){
 		return stringName;
 	}

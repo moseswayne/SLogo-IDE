@@ -39,16 +39,20 @@ public class Console implements I_FrontEndModule {
 		consoleSize = new Dimension(width, height);
 		inputContainer = new VBox();
 		outputContainer = new ScrollPane();
-		prop = new Properties();
-		try {
-			System.out.println(language.toString());
-			prop.load(getClass().getClassLoader().getResourceAsStream(language.toString()+"Text.properties"));
-		} catch (IOException e1) {
-			throw new Error("properties file not found or something else created an IO error");
-		}
+		prop=loadPropertiesFromFile(language.toString()+"Text.properties");
 		setupOutDisp();
 		setupInputContainer();
 		container = new VBox(outputContainer, inputContainer);
+	}
+
+	private Properties loadPropertiesFromFile(String fileName) throws Error {
+		Properties properties = new Properties();
+		try {
+			properties.load(getClass().getClassLoader().getResourceAsStream(fileName));
+			return properties;
+		} catch (IOException e1) {
+			throw new Error("properties file not found or something else created an IO error");
+		}
 	}
 
 	/**
@@ -56,12 +60,7 @@ public class Console implements I_FrontEndModule {
 	 */
 	public void setLanguage(Language lang){
 		language=lang;
-		try {
-			System.out.println(language.toString());
-			prop.load(getClass().getClassLoader().getResourceAsStream(language.toString()+"Text.properties"));
-		} catch (IOException e1) {
-			throw new Error("properties file not found or something else created an IO error");
-		}
+		prop=loadPropertiesFromFile(language.toString()+"Text.properties");
 		executeButton.setText(prop.getProperty("TextInputButton"));
 	}
 	/**

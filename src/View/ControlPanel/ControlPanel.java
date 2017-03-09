@@ -1,9 +1,13 @@
-package View;
+package View.ControlPanel;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
+
+import View.FrontEndData;
+import View.GUI;
+import View.I_FrontEndModule;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,27 +25,27 @@ import utils.RawCommand;
 public class ControlPanel implements I_FrontEndModule {
 	ComboBox<Language> languageButton;
 	private ComboBox<String> turtleBackGroundSelector, penColorSelector;
-	private Button turtleImgButton;
+	private Button turtleImgButton, newWorkspaceButton;
 	private ToolBar bar;
 	private Properties prop;
 	private GUI myGUI;
-	private final ObservableList<String> COLOR_BUTTON_OPTIONS = FXCollections.observableArrayList("White", "Bisque", "Red", "Green",
-			"Blue", "Grey");
-	private final ObservableList<Language> LANG_BUTTON_OPTIONS = FXCollections.observableArrayList(Arrays.asList(Language.values()));
 	private Language language;
-
+	private final ObservableList<Language> LANG_BUTTON_OPTIONS = FXCollections.observableArrayList(Arrays.asList(Language.values()));
+	
+	
 	/**
 	 * 
 	 */
 	public ControlPanel(GUI _myGUI, Language _language) {
+		myGUI=_myGUI;
+		myGUI.addColor(120, 13, 0, "1 (added in controlPanel constructor)");
 		language=_language;
 		bar = new ToolBar();
 		prop = new Properties();
 		loadPropetiesFromFile(language.toString()+"Text.properties");
 		initiateButtons();
 		initiateListeners();
-		bar.getItems().addAll(languageButton, turtleBackGroundSelector, penColorSelector, turtleImgButton);
-		myGUI=_myGUI;
+		bar.getItems().addAll(languageButton, turtleBackGroundSelector, penColorSelector, turtleImgButton);//, newWorkspaceButton);
 	}
 
 
@@ -85,6 +89,10 @@ public class ControlPanel implements I_FrontEndModule {
 				myGUI.setTurtleImage(file);
 			}
 		});
+		
+		newWorkspaceButton.setOnMouseClicked(action->{
+			
+		});
 	}
 	
 	/**
@@ -94,9 +102,14 @@ public class ControlPanel implements I_FrontEndModule {
 	 */
 	private void initiateButtons() {
 		languageButton = new ComboBox<Language>(LANG_BUTTON_OPTIONS);
-		turtleBackGroundSelector = new ComboBox<String>(COLOR_BUTTON_OPTIONS);
-		penColorSelector = new ComboBox<String>(COLOR_BUTTON_OPTIONS);
+		turtleBackGroundSelector = new ComboBox<String>();
+		turtleBackGroundSelector.setItems(myGUI.getObservedColorNames());
+		
+		penColorSelector = new ComboBox<String>();
+		penColorSelector.setItems(myGUI.getObservedColorNames());
+		
 		turtleImgButton = new Button(prop.getProperty("turtleImgButton"));
+		newWorkspaceButton=new Button("New workspace");
 		setButtonText();
 	}
 

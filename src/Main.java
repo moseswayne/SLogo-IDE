@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import utils.Language;
 import utils.RawCommand;
 
 public class Main extends Application {
@@ -39,7 +40,7 @@ public class Main extends Application {
 		animation.play();
 		
 		ArrayList<FrontEndData> dataCollection = new ArrayList<>();
-		FrontEndData data = new FrontEndData("testing command from Main line 34");
+		FrontEndData data = new FrontEndData("测试 main 43行", Language.Chinese);
 		data.addTurtleParameters(0, 125, 125, 45, true, true, true);
 		dataCollection.add(data);
 		display.show(dataCollection);

@@ -30,7 +30,9 @@ public class ControlPanel implements I_FrontEndModule {
 	private Properties prop;
 	private GUI myGUI;
 	private Language language;
-
+	private final ObservableList<Language> LANG_BUTTON_OPTIONS = FXCollections.observableArrayList(Arrays.asList(Language.values()));
+	
+	
 	/**
 	 * 
 	 */
@@ -44,7 +46,6 @@ public class ControlPanel implements I_FrontEndModule {
 		initiateButtons();
 		initiateListeners();
 		bar.getItems().addAll(languageButton, turtleBackGroundSelector, penColorSelector, turtleImgButton);//, newWorkspaceButton);
-		
 	}
 
 
@@ -100,12 +101,12 @@ public class ControlPanel implements I_FrontEndModule {
 	 * 
 	 */
 	private void initiateButtons() {
-		languageButton = new ComboBox<Language>();
+		languageButton = new ComboBox<Language>(LANG_BUTTON_OPTIONS);
 		turtleBackGroundSelector = new ComboBox<String>();
-		turtleBackGroundSelector.setItems(myGUI.getColorNames());
+		turtleBackGroundSelector.setItems(myGUI.getObservedColorNames());
 		
 		penColorSelector = new ComboBox<String>();
-		penColorSelector.setItems(myGUI.getColorNames());
+		penColorSelector.setItems(myGUI.getObservedColorNames());
 		
 		turtleImgButton = new Button(prop.getProperty("turtleImgButton"));
 		newWorkspaceButton=new Button("New workspace");

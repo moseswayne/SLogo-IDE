@@ -1,10 +1,8 @@
 package utils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
@@ -14,24 +12,24 @@ public class ColorManager {
 
 	private Map<String, Color> deafaultPalettes;
 	private Map<String, Color> userDefinedPalettes;
-	private ObservableList<String> content;
+	private ObservableList<String> names;
 	
 	
 	public ColorManager() {
 		deafaultPalettes=new TreeMap<>();
 		userDefinedPalettes=new TreeMap<>();
-		content = FXCollections.observableArrayList(new ArrayList<String>());
+		names = FXCollections.observableArrayList(new ArrayList<String>());
 		fillInDeafaultValues();
 	}
 
 	private void fillInDeafaultValues() {
-		addColorToMap(0.0f, 0.0f, 1.0f, "blue", deafaultPalettes);
-		addColorToMap(1.0f, 0.0f, 0.0f, "red", deafaultPalettes);
-		addColorToMap(0.0f, 1.0f, 0.0f, "green", deafaultPalettes);
-		addColorToMap(1.0f, 1.0f, 1.0f, "white", deafaultPalettes);
-		addColorToMap(0.0f, 0.0f, 0.0f, "black", deafaultPalettes);
-		addColorToMap(1.0f, 0.89411765f, 0.76862746f, "bisque", deafaultPalettes);
-		addColorToMap(0.5019608f, 0.5019608f, 0.5019608f, "grey", deafaultPalettes);
+		addColorToMap(0.0, 0.0, 1.0, "blue", deafaultPalettes);
+		addColorToMap(1.0, 0.0, 0.0, "red", deafaultPalettes);
+		addColorToMap(0.0, 1.0, 0.0, "green", deafaultPalettes);
+		addColorToMap(1.0, 1.0, 1.0, "white", deafaultPalettes);
+		addColorToMap(0.0, 0.0, 0.0, "black", deafaultPalettes);
+		addColorToMap(1.0, 0.89411765, 0.76862746, "bisque", deafaultPalettes);
+		addColorToMap(0.5019608, 0.5019608, 0.5019608, "grey", deafaultPalettes);
 	}
 	
 	private void addColorToMap(double r, double g, double b, String name, Map<String, Color> map){
@@ -39,9 +37,9 @@ public class ColorManager {
 			throw new IllegalArgumentException("Name for the color is already taken");
 		} else {
 			map.put(name, Color.color(r, g, b));
-			content.clear();
-			content.addAll(deafaultPalettes.keySet());
-			content.addAll(userDefinedPalettes.keySet());
+			names.clear();
+			names.addAll(deafaultPalettes.keySet());
+			names.addAll(userDefinedPalettes.keySet());
 		}
 	}
 	
@@ -72,7 +70,7 @@ public class ColorManager {
 		}
 	}
 
-	public ObservableList<String> getColorNames(){
-		return content;
+	public ObservableList<String> getObservedColorNames(){
+		return names;
 	}
 }

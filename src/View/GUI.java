@@ -1,5 +1,17 @@
 package View;
 
+//TODO multiple turtles
+//TODO show/hide turtles
+//TODO drag-able turtles
+//TODO see state of multiple turtles (probably a window)
+//TODO Multiple workspaces
+//TODO display error messages (probably pop up a notification window)
+//TODO animation
+//TODO Display active turtles
+//TODO show user defined commands
+//TODO Help page
+//TODO save preferences to file
+
 import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
@@ -58,8 +70,8 @@ public class GUI implements I_GUI{
 		return colorManager.getColor(name);
 	}
 	
-	public ObservableList<String> getColorNames(){
-		return colorManager.getColorNames();
+	public ObservableList<String> getObservedColorNames(){
+		return colorManager.getObservedColorNames();
 	}
 
 	/**

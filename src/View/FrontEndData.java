@@ -14,7 +14,8 @@ public class FrontEndData {
 	private Map<String, String> variables;
 	private Language myLanguage;
 
-	public FrontEndData(String command) {
+	public FrontEndData(String command, Language lang) {
+		myLanguage=lang;
 		myCommand = command;
 		myTurtleParameters = new ArrayDeque<TurtleParameters>();
 	}

@@ -5,10 +5,11 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class VarDispButton {
-	private Button button;
+public class VarDispButton extends Button {
 	private TextField textField;
 	private final String SEPERATION_STR = " : ";
+	private final String DEAFAULT_VALUE = "0";
+	private final double TEXT_FIELD_LENGTH_OFFSET=18;
 	private String varName;
 	private String varVal;
 	
@@ -16,10 +17,10 @@ public class VarDispButton {
 		varName=_varName;
 		varVal=_varVal;
 		textField=new TextField();
-		button=new Button(String.format("%s%s%s", varName, SEPERATION_STR, varVal));
-		button.setOnMouseClicked(action->{
+		this.setText(String.format("%s%s%s", varName, SEPERATION_STR, varVal));
+		this.setOnMouseClicked(action->{
 			textField.setText(varVal);
-			button.setGraphic(textField);
+			this.setGraphic(textField);
 		});
 	}
 
@@ -28,26 +29,26 @@ public class VarDispButton {
 			@Override
 			public void handle(ActionEvent arg0) {
 				String prevVarVal=""+varVal;
-				button.setGraphic(null);
+				setGraphic(null);
 				varVal=textField.getText().trim();
-				button.setText(String.format("%s%s%s", varName, SEPERATION_STR, varVal));
+				setText(String.format("%s%s%s", varName, SEPERATION_STR, varVal));
+				if(varVal.length()==0){
+					varVal=DEAFAULT_VALUE;
+				}
 				if(!prevVarVal.equals(varVal)){
 					r.run();
 				}
+				setText(String.format("%s%s%s", varName, SEPERATION_STR, varVal));
 			}
 		});
 	}
 	
-	public void setPrefWidth(double width){
-		button.setPrefWidth(width);
-		textField.setMaxWidth(width-10);
+	public void setPrefWidthForAll(double width){
+		this.setPrefWidth(width);
+		textField.setMaxWidth(width-TEXT_FIELD_LENGTH_OFFSET);
 	}
 	
 	public String getVarVal(){
 		return varVal;
-	}
-	
-	public Button getButton(){
-		return button;
 	}
 }

@@ -7,6 +7,7 @@ import java.util.Stack;
 
 import Model.TurtleManager;
 import Model.TurtleModel;
+import tree.CommandNode;
 
 public class ParameterObject implements Iterable<Double> {
 
@@ -52,15 +53,17 @@ public class ParameterObject implements Iterable<Double> {
 	public TurtleModel getTurtle() {
 		return myTurtle;
 	}
-
-	public void setStack(List<String> instructs) {
-		instructionStack = new Stack<String>();
-		for (String instruction : instructs) {
-			instructionStack.push(instruction);
+	
+	public void setStack(Collection<CommandNode> instructs) {
+		instructionStack = new Stack<CommandNode>();
+		if(!instructs.isEmpty()) {
+			for (CommandNode instruction:instructs) {
+				instructionStack.push(instruction);
+			}
 		}
 	}
-
-	public Stack<String> getInstructions() {
+	
+	public Stack<CommandNode> getInstructions() {
 		return instructionStack;
 	}
 

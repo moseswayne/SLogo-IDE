@@ -4,16 +4,17 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Stack;
 
+import tree.CommandNode;
 import utils.TurtleParameters;
 
 public class BackEndData {
 
 	private Double myValue;
-	private Stack<String> instructionStack;
+	private Stack<CommandNode> instructionStack;
 	private Queue<TurtleParameters> myTurtleParameters;
 	
 	public BackEndData() {
-		instructionStack = new Stack<String>();
+		instructionStack = new Stack<CommandNode>();
 		myTurtleParameters = new ArrayDeque<TurtleParameters>();
 	}
 	
@@ -33,7 +34,7 @@ public class BackEndData {
 		return myTurtleParameters;
 	}
 	
-	public void setInstructions(String instruction) {
+	public void setInstructions(CommandNode instruction) {
 		instructionStack.push(instruction);
 	}
 	
@@ -41,7 +42,7 @@ public class BackEndData {
 		return (!instructionStack.isEmpty());
 	}
 	
-	public String getNextInstruction() {
+	public CommandNode getNextInstruction() {
 		return instructionStack.pop();
 	}
 }

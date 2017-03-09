@@ -6,30 +6,33 @@ import java.util.Stack;
 
 import Model.BackEndData;
 import View.FrontEndData;
+import tree.CommandNode;
 import utils.ParameterObject;
 
 public abstract class A_StructureCommand implements CommandOperation {
 
-	private List<String> instructionList;
+	private List<CommandNode> instructionList;
+	private BackEndData myData;
 
 	@Override
 	public void execute(ParameterObject params, BackEndData data) {
+		myData = data;
 		unStackList(params.getInstructions());
-		
+		modifyInstructionStack(params);
 	}
 	
 	public abstract void modifyInstructionStack(ParameterObject params);
 	
-	private void unStackList(Stack<String> inStack) {
-		instructionList = new ArrayList<String>();
+	private void unStackList(Stack<CommandNode> inStack) {
+		instructionList = new ArrayList<CommandNode>();
 		while(!inStack.isEmpty()) {
 			instructionList.add(inStack.pop());
 		}
 	}
 	
-	public void addListStack(Stack<String> inStack) {
-		for (String instruction:instructionList) {
-			inStack.push(instruction);
+	public void addListStack() {
+		for (CommandNode instruction:instructionList) {
+			myData.setInstructions(instruction.clone());
 		}
 	}
 	

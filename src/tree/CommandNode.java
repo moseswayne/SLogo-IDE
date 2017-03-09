@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Queue;
-import java.util.Stack;
 
 import Model.BackEndData;
 import Operations.CommandOperation;
@@ -16,13 +15,13 @@ public class CommandNode {
 
 	private BackEndData myData;
 	private Queue<CommandNode> myChildren;
-	private Stack<CommandNode> repeatChildren;
+	private Queue<CommandNode> repeatChildren;
 	private String myValue;
 	private CommandOperation myOperation;
 	
 	public CommandNode() {
 		myChildren = new ArrayDeque<CommandNode>();
-		repeatChildren = new Stack<CommandNode>();
+		repeatChildren = new ArrayDeque<CommandNode>();
 		/*
 		Iterator<CommandNode> iter = nodeChildren.iterator();
 		while(iter.hasNext()) {
@@ -68,6 +67,23 @@ public class CommandNode {
 	
 	public void setOp(CommandOperation op) {
 		myOperation = op;
+	}
+	
+	public void addLoopInstructions(Collection<CommandNode> nodes) {
+		Iterator<CommandNode> iter = nodes.iterator();
+		while(iter.hasNext()) {
+			repeatChildren.add(iter.next());
+		}
+	}
+	
+	public CommandNode clone() {
+		CommandNode ret = new CommandNode();
+		ret.setOp(myOperation);
+		ret.setMyValue(myValue);
+		for (CommandNode child:myChildren) {
+			ret.addChild(child.clone());
+		}
+		return ret;
 	}
 	
 }

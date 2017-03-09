@@ -27,7 +27,7 @@ public class BackEndData {
 	}
 	
 	public void addTurtleParameters(double x, double y, double heading, boolean isPendown, boolean turtleShow) {
-		myTurtleParameters.add(new TurtleParameters(x, y, heading, isPendown, turtleShow));
+		myTurtleParameters.add(new TurtleParameters(0, x, y, heading, isPendown, turtleShow, turtleShow));
 	}
 	
 	public Queue<TurtleParameters> transferQueue() {

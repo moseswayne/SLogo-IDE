@@ -18,21 +18,22 @@ public class SLogoMain extends Application {
 	GUI display;
 	ModelExecutionEngine engine;
 	private TranslationMapGenerator tmGenerator;
-	
+
 	public static final int FRAMES_PER_SECOND = 60;
-    public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+
 	@Override
 	public void start(Stage stage) {
 		// TODO Auto-generated method stub
-		tmGenerator=new TranslationMapGenerator();
-		 display = new GUI();
-		 display.setNewWindowButton(()->{
-			 (new SLogoMain()).start(new Stage());
-		 });
-		 engine=new ModelExecutionEngine();
+		tmGenerator = new TranslationMapGenerator();
+		display = new GUI();
+		display.setNewWindowButton(() -> {
+			(new SLogoMain()).start(new Stage());
+		});
+		engine = new ModelExecutionEngine();
 		stage.setTitle(TITLE);
-		 stage.setResizable(false);
+		stage.setResizable(false);
 		Scene sc = display.getScene();
 		stage.setScene(sc);
 		stage.show();
@@ -41,7 +42,8 @@ public class SLogoMain extends Application {
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
-		
+
+		//TODO hard coded testing code, to be removed
 		ArrayList<FrontEndData> dataCollection = new ArrayList<>();
 		FrontEndData data = new FrontEndData("test main 43", Language.Chinese);
 		data.addTurtleParameters(0, 125, 125, 45, true, true, true);
@@ -49,24 +51,24 @@ public class SLogoMain extends Application {
 		display.show(dataCollection);
 	}
 
-    private void step (double elapsedTime) {
-        RawCommand rcmd=display.getUserInput();
-        FrontEndData data=null;
-        if(rcmd!=null){
-        	  try {
-        		  rcmd.setTranslationMap(tmGenerator.getTranslationMap(rcmd.getLanguage()));
-        		  data=engine.runOp(rcmd);
-      		} catch (Exception e) {
-      			// TODO Auto-generated catch block
-      			e.printStackTrace();
-      		}
-        	  ArrayList<FrontEndData> collec=new ArrayList<>();
-              collec.add(data);
-             display.show(collec);
-        }
-         
-    }
-	
+	private void step(double elapsedTime) {
+		RawCommand rcmd = display.getUserInput();
+		FrontEndData data = null;
+		if (rcmd != null) {
+			try {
+				rcmd.setTranslationMap(tmGenerator.getTranslationMap(rcmd.getLanguage()));
+				data = engine.runOp(rcmd);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			ArrayList<FrontEndData> collec = new ArrayList<>();
+			collec.add(data);
+			display.show(collec);
+		}
+
+	}
+
 	/**
 	 * Start of the program.
 	 */

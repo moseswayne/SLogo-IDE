@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
 
-import turtleQueries.I_CheckTurtleConditions;
+import Model.operations.commandOps.turtleOps.I_CheckTurtleConditions;
 
 /**
  * Manages multiple turtles Makes and returns TurtleModels according to

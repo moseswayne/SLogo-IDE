@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import Model.BackEndData;
-import Operations.CommandOperation;
-import controlOps.Repeat;
-import mathOps.Sum;
+import Model.backEndUtils.BackEndData;
+import Model.operations.CommandOperation;
+import Model.operations.commandOps.basicOps.Sum;
+import Model.operations.commandOps.controlOps.Repeat;
 import tree.BaseCommandNode;
 import tree.CommandNode;
 import tree.ControlCommandNode;

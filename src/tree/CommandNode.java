@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Queue;
 
-import Model.BackEndData;
-import Operations.CommandOperation;
-import utils.ParameterObject;
+import Model.backEndUtils.BackEndData;
+import Model.backEndUtils.ParameterObject;
+import Model.operations.CommandOperation;
 
 public abstract class CommandNode implements ExpressionNode{
 

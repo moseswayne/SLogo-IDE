@@ -3,6 +3,7 @@ package Model;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Function;
 
 import turtleQueries.I_CheckTurtleConditions;
 
@@ -100,19 +101,22 @@ public class TurtleManager implements Iterable<TurtleModel> {
 	}
 
 	/**
-	 * Gets a list of turtleModels corresponding to a specific condition
+	 * Gets a list of turtleModels corresponding to a specific condition Can use
+	 * with ask or tell depending on check
 	 * 
 	 * @param checker
 	 * @return
 	 */
-	public List<TurtleModel> getTheseTurtles(I_CheckTurtleConditions checker) {
-		myActiveTurtleList.clear();
+	public List<TurtleModel> getTheseTurtles(I_CheckTurtleConditions checker,
+			Function<Iterable<Double>, List<TurtleModel>> operation) {
+		Iterable<Double> idNumbers = new ArrayList<Double>();
 		for (TurtleModel t : myTurtleList) {
+			// sorry for the casting
 			if (checker.check(t)) {
-				myActiveTurtleList.add(t);
+				((ArrayList<Double>) idNumbers).add((double) t.getID());
 			}
 		}
-		return myActiveTurtleList;
+		return operation.apply(idNumbers);
 	}
 
 	/**
@@ -211,11 +215,18 @@ public class TurtleManager implements Iterable<TurtleModel> {
 		private int currentPosition;
 		private TurtleManager myTurtleManager;
 
+		/**
+		 * Iterates through a specific list of turtles
+		 * 
+		 * @param theseTurtles
+		 *            is the specific subsection, or whole
+		 * @param TurtleManager
+		 *            that holds all turtles
+		 */
 		protected TurtleIterator(List<TurtleModel> theseTurtles, TurtleManager man) {
 			myList = new ArrayList<TurtleModel>(theseTurtles);
-			currentPosition = 0;
 			myTurtleManager = man;
-			myTurtleManager.setActiveTurtle(myList.get(0));
+			reset();
 		}
 
 		/**
@@ -241,6 +252,15 @@ public class TurtleManager implements Iterable<TurtleModel> {
 		@Override
 		public boolean hasNext() {
 			return currentPosition < myList.size();
+		}
+
+		/**
+		 * Resets position and active turtle back to the beginning of the
+		 * specific list
+		 */
+		public void reset() {
+			currentPosition = 0;
+			myTurtleManager.setActiveTurtle(myList.get(0));
 		}
 	};
 }

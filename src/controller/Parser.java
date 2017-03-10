@@ -48,7 +48,7 @@ public class Parser {
 		Tokenizer tokens = new Tokenizer(expression, WHITESPACE);
 		while (tokens.hasNextToken()) {
 			String rootCmd = tokens.nextToken();
-			if (!operationFactory.isValidOp(rootCmd)) {
+			if (!isValidOp(rootCmd)) {
 				throw new ParserException(ParserException.INVALID_CMD, rootCmd);
 			}
 			cmdTrees.add(buildTreeForCommand(rootCmd, tokens));
@@ -57,6 +57,9 @@ public class Parser {
 	}
 	
 	private CommandNode buildTreeForCommand(String cmdName, Tokenizer tokens) {
+		if (!isValidOp(cmdName)) {
+			throw new ParserException(ParserException.INVALID_CMD, cmdName);
+		}
 		int numArgs = numArgs(cmdName);
 		CommandNode rootNode = new CommandNode();
 		rootNode.setMyValue(cmdName);
@@ -75,9 +78,6 @@ public class Parser {
 				numArgs--;
 			}
 			else if (Pattern.matches(COMMAND, currentToken)) {
-				if (!operationFactory.isValidOp(currentToken)) {
-					throw new ParserException(ParserException.INVALID_CMD, currentToken);
-				}
 				rootNode.addChild(buildTreeForCommand(currentToken, tokens));
 				numArgs--;
 			}
@@ -111,7 +111,7 @@ public class Parser {
 	}
 	
 	private int numArgs(String cmdName) {
-		if (operationFactory.isValidOp(cmdName)) {
+		if (isValidOp(cmdName)) {
 			return Integer.parseInt(argProperties.getProperty(cmdName));
 		}
 		else return 0;
@@ -123,6 +123,10 @@ public class Parser {
 	
 	private boolean isValidVar(String varName) {
 		return variableMap.containsKey(varName) && variableMap.get(varName) != null;
+	}
+	
+	public boolean isValidOp(String cmd) {
+		return commandMap.containsKey(cmd) && commandMap.get(cmd).length() != 0;
 	}
 	
 	private Properties getPropertiesFile(String filePath) {

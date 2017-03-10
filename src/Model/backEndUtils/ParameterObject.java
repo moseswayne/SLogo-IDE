@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 import Model.TurtleModel;
-import tree.ExpressionNode;
+import Model.expressionTree.ExpressionNode;
 
 public class ParameterObject {
 

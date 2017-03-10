@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import Model.backEndUtils.BackEndData;
+import Model.expressionTree.ExpressionNode;
+import Model.expressionTree.LeafNode;
+import Model.expressionTree.commandNode.BaseCommandNode;
+import Model.expressionTree.commandNode.CommandNode;
+import Model.expressionTree.commandNode.ControlCommandNode;
 import Model.operations.CommandOperation;
 import Model.operations.commandOps.basicOps.Sum;
 import Model.operations.commandOps.controlOps.Repeat;
-import tree.BaseCommandNode;
-import tree.CommandNode;
-import tree.ControlCommandNode;
-import tree.ExpressionNode;
-import tree.LeafNode;
 
 public class tester {
 	

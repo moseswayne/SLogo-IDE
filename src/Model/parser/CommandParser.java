@@ -1,4 +1,4 @@
-package parser;
+package Model.parser;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.Queue;
 import java.util.regex.Pattern;
 
 import Model.TurtleManager;
-import tree.ExpressionNode;
+import Model.expressionTree.ExpressionNode;
 import utils.Language;
 import utils.PropertyUtility;
 

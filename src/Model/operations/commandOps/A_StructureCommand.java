@@ -6,10 +6,10 @@ import java.util.Stack;
 
 import Model.backEndUtils.BackEndData;
 import Model.backEndUtils.ParameterObject;
+import Model.expressionTree.ExpressionNode;
+import Model.expressionTree.commandNode.CommandNode;
 import Model.operations.CommandOperation;
 import View.viewUtils.FrontEndData;
-import tree.CommandNode;
-import tree.ExpressionNode;
 
 public abstract class A_StructureCommand implements CommandOperation {
 

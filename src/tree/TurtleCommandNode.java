@@ -1,64 +1,38 @@
-package tree;
-
-import java.util.List;
 import java.util.Map;
 
 import Model.BackEndData;
 import Model.TurtleManager;
 import Model.TurtleModel;
-import Operations.A_MultipleTurtles;
-import Operations.A_StructureCommand;
-import Operations.CommandOperation;
 import utils.ParameterObject;
 
-/**
- * Get and set turtles in backend data that operating on then perform operations
- * iterating through them
- * 
- * @author Elbert
- *
- */
-public class TurtleCommandNode extends A_StructureCommand implements ExpressionNode {
-	private TurtleManager myTurtleManager;
-	private A_MultipleTurtles myOperation;
-	private List<TurtleModel> myTurtleList;
+public class TurtleCommandNode extends CommandNode {
 
-	public TurtleCommandNode() {
-		myTurtleManager = new TurtleManager();
-	}
+	TurtleManager myManager;
 
-	protected List<TurtleModel> getTurtleList() {
-		myTurtles = myOperation.execute(myTurtleManager);
-		for (TurtleModel t : myTurtles) {
-			data.addTurtleParameters(t);
-		}
-	}
-
-	public BackEndData setTurtles() {
-		BackEndData bed = new BackEndData();
-		for (TurtleModel t : myOperation.execute(myTurtleManager)) {
-			bed.addTurtleParameters(t);
-		}
-		return bed;
+	public TurtleCommandNode(TurtleManager manager) {
+		super();
+		myManager = manager;
 	}
 
 	@Override
 	public String getValue(BackEndData startData, Map<String, Double> varMap) {
-		// TODO Auto-generated method stub
-		return null;
+		for (TurtleModel turtle : myManager.getActiveTurtles()) {
+			getOp().execute(getTurtleParameters(startData, varMap, turtle), startData);
+		}
+		System.out.println(startData.getMyValue().toString());
+		return startData.getMyValue().toString();
 	}
 
 	@Override
 	public ExpressionNode cloneNode() {
-		new TurtleCommandNode = 
+		TurtleCommandNode thisNode = new TurtleCommandNode(myManager);
+		cloneContents(thisNode);
+		return thisNode;
 	}
 
-	@Override
-	public void modifyInstructionStack(ParameterObject params) {
-		for (TurtleModel t : myTurtleList) {
-			params.addListStack();
-		}
-
+	private ParameterObject getTurtleParameters(BackEndData data, Map<String, Double> vars, TurtleModel turtle) {
+		ParameterObject turtParameters = getParameters(data, vars);
+		turtParameters.setTurtle(turtle);
+		return turtParameters;
 	}
-
 }

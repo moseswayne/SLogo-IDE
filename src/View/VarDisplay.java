@@ -1,11 +1,12 @@
-package View.varDisplay;
+package View;
 
 import java.awt.Dimension;
 import java.util.Map;
 import java.util.TreeMap;
-import View.FrontEndData;
-import View.I_FrontEndModule;
-import View.ObservedDisplay;
+
+import View.viewUtils.FrontEndData;
+import View.viewUtils.ObservedDisplay;
+import View.viewUtils.VarDispButton;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -47,7 +48,7 @@ public class VarDisplay implements I_FrontEndModule {
 		VarDispButton button=new VarDispButton(varName, varVal);
 		button.setPrefWidthForAll(size.getWidth()-SCROLL_BAR_WIDTH);
 		button.setTextActionAfterEnter(()->{
-			bufferedCommandStr=button.getVarVal();
+			bufferedCommandStr=String.format("set :%s %s", button.getVarName(), button.getVarVal());
 		});
 		return button;
 	}
@@ -84,7 +85,7 @@ public class VarDisplay implements I_FrontEndModule {
 		return new RawCommand(rawCmdStr, MY_LANGUAGE);
 	}
 
-	// TODO pretty dangerous...maybe don't return the instance variable here...
+
 	@Override
 	public Node getVisualizedContent() {
 		return container;
@@ -126,13 +127,8 @@ public class VarDisplay implements I_FrontEndModule {
 		map.put("testing", "156");
 	}
 
-	/**
-	 * shows no text, does nothing
-	 */
 	@Override
 	public void setLanguage(Language language) {
 		return;
 	}
-
-
 }

@@ -1,7 +1,5 @@
-package View.varDisplay;
+package View.viewUtils;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -25,9 +23,7 @@ public class VarDispButton extends Button {
 	}
 
 	public void setTextActionAfterEnter(Runnable r){
-		textField.setOnAction(new EventHandler<ActionEvent>(){
-			@Override
-			public void handle(ActionEvent arg0) {
+		textField.setOnAction(e->{
 				String prevVarVal=""+varVal;
 				setGraphic(null);
 				varVal=textField.getText().trim();
@@ -39,7 +35,6 @@ public class VarDispButton extends Button {
 					r.run();
 				}
 				setText(String.format("%s%s%s", varName, SEPERATION_STR, varVal));
-			}
 		});
 	}
 	
@@ -50,5 +45,9 @@ public class VarDispButton extends Button {
 	
 	public String getVarVal(){
 		return varVal;
+	}
+	
+	public String getVarName(){
+		return varName;
 	}
 }

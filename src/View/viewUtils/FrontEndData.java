@@ -1,4 +1,4 @@
-package View;
+package View.viewUtils;
 
 import java.util.ArrayDeque;
 import java.util.Map;
@@ -26,8 +26,8 @@ public class FrontEndData {
 		myPrintValue = data;
 	}
 	
-	public void addTurtleParameters(int id, double x, double y, double heading, boolean isPendown, boolean turtleShow, boolean turtleActive) {
-		myTurtleParameters.add(new TurtleParameters(id, x, y, heading, isPendown, turtleShow, turtleActive));
+	public void addTurtleParameters(TurtleParameters turtleParams) {
+		myTurtleParameters.add(turtleParams);
 	}
 	
 	public void addError(ErrorMessage _errMsg){
@@ -40,6 +40,10 @@ public class FrontEndData {
 
 	public Queue<TurtleParameters> getTurtleParameters() {
 		return myTurtleParameters;
+	}
+	
+	public void setVars(Map<String,String> vars) {
+		variables = vars;
 	}
 	
 	public Map<String, String> getVars() {

@@ -2,7 +2,7 @@ package Operations;
 
 import Model.BackEndData;
 import Model.TurtleModel;
-import View.FrontEndData;
+import View.viewUtils.FrontEndData;
 import utils.ParameterObject;
 /**
  * Updates a turtle's state according to a command

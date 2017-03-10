@@ -87,6 +87,5 @@ public class TurtleParameters {
 	public int getID(){
 		return id;
 	}
-	
 
 }

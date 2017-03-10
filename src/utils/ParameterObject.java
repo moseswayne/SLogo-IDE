@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 import Model.TurtleModel;
-import tree.CommandNode;
 import tree.ExpressionNode;
 
 public class ParameterObject implements Iterable<Double> {
@@ -48,6 +47,10 @@ public class ParameterObject implements Iterable<Double> {
 			}
 		}
 		return null;
+	}
+	
+	public void setTurtle(TurtleModel turt) {
+		myTurtle = turt;
 	}
 
 	public TurtleModel getTurtle() {

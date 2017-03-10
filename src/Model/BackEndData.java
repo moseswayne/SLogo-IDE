@@ -4,7 +4,6 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Stack;
 
-import tree.CommandNode;
 import tree.ExpressionNode;
 import utils.TurtleParameters;
 
@@ -27,16 +26,16 @@ public class BackEndData {
 		return myValue;
 	}
 
-	public void addTurtleParameters(double x, double y, double heading, boolean isPendown, boolean turtleShow) {
-		myTurtleParameters.add(new TurtleParameters(0, x, y, heading, isPendown, turtleShow, turtleShow));
-	}
-
 	public void addTurtleParameters(TurtleModel turtle) {
 		myTurtleParameters.add(new TurtleParameters(turtle));
 	}
 
-	public Queue<TurtleParameters> transferQueue() {
-		return myTurtleParameters;
+	public boolean hasNextTurtleParameter() {
+		return (!myTurtleParameters.isEmpty());
+	}
+
+	public TurtleParameters transferParameter() {
+		return myTurtleParameters.poll();
 	}
 
 	public void setInstructions(ExpressionNode instruction) {

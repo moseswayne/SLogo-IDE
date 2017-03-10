@@ -13,7 +13,6 @@ package View;
 
 import java.awt.Dimension;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Properties;
@@ -31,6 +30,7 @@ import javafx.scene.paint.Color;
 import utils.ColorManager;
 import utils.ErrorMessage;
 import utils.Language;
+import utils.PropertyUtility;
 import utils.RawCommand;
 
 public class GUI implements I_GUI{
@@ -48,7 +48,6 @@ public class GUI implements I_GUI{
 	private ControlPanel ctrlPanel;
 	private Language language;
 	private Collection<I_FrontEndModule> myModules;
-	private Properties prop;
 	private ColorManager colorManager;
 	
 	/**
@@ -57,7 +56,7 @@ public class GUI implements I_GUI{
 	 * @param sceneHeight
 	 */
 	public GUI () {
-		prop=loadPropetiesFromFile("GeneraGUISettings.properties");
+		Properties prop=new PropertyUtility("GeneraGUISettings.properties").getProperties();
 		colorManager=new ColorManager();
 		language=Language.valueOf(prop.getProperty("DEAFAULT_LANGUAGE"));
 		initiateModules();
@@ -155,11 +154,11 @@ public class GUI implements I_GUI{
 	}
 
 	private void showError(ErrorMessage error) {
-		Properties errProp=loadPropetiesFromFile(language+"Text.properties");
+		Properties errProp=new PropertyUtility(language+"Text.properties").getProperties();
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle(errProp.getProperty("alertTitle"));
-		alert.setHeaderText(header);
-		alert.setContentText(content);
+		alert.setHeaderText(errProp.getProperty("alertHeader"));
+		alert.setContentText(error.getMessage());
 		alert.show();
 	}
 
@@ -177,16 +176,6 @@ public class GUI implements I_GUI{
 	@Override
 	public Scene getScene() {
 		return myScene;
-	}
-	
-	private Properties loadPropetiesFromFile(String fileName){
-		Properties properties=new Properties();
-		try {
-			prop.load(getClass().getClassLoader().getResourceAsStream(fileName));
-			return properties;
-		} catch (IOException e1) {
-			throw new Error("properties file not found or something else created an IO error");
-		}
 	}
 
 

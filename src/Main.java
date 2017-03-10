@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import Model.ModelExecutionEngine;
 import View.FrontEndData;
@@ -10,14 +11,14 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import utils.ErrorMessage;
 import utils.Language;
 import utils.RawCommand;
 
-public class SLogoMain extends Application {
+public class Main extends Application {
 	private final String TITLE = "SLogo Program";
 	GUI display;
 	ModelExecutionEngine engine;
-	private TranslationMapGenerator tmGenerator;
 
 	public static final int FRAMES_PER_SECOND = 60;
 	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -26,10 +27,9 @@ public class SLogoMain extends Application {
 	@Override
 	public void start(Stage stage) {
 		// TODO Auto-generated method stub
-		tmGenerator = new TranslationMapGenerator();
 		display = new GUI();
 		display.setNewWindowButton(() -> {
-			(new SLogoMain()).start(new Stage());
+			(new Main()).start(new Stage());
 		});
 		engine = new ModelExecutionEngine();
 		stage.setTitle(TITLE);
@@ -49,6 +49,14 @@ public class SLogoMain extends Application {
 		data.addTurtleParameters(0, 125, 125, 45, true, true, true);
 		dataCollection.add(data);
 		display.show(dataCollection);
+		
+
+		
+		dataCollection = new ArrayList<>();
+		data = new FrontEndData("test main 60", Language.Chinese);
+		data.addError(new ErrorMessage("test error", "this is its extra info"));
+		dataCollection.add(data);
+		display.show(dataCollection);
 	}
 
 	private void step(double elapsedTime) {
@@ -56,7 +64,6 @@ public class SLogoMain extends Application {
 		FrontEndData data = null;
 		if (rcmd != null) {
 			try {
-				rcmd.setTranslationMap(tmGenerator.getTranslationMap(rcmd.getLanguage()));
 				data = engine.runOp(rcmd);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

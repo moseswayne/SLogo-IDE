@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.Properties;
+
 /**
  * Class that contains information about errors to be shown on front end
  * @author Yuxiang He
@@ -19,12 +21,12 @@ public class ErrorMessage {
 	}
 	
 	public String getMessage(){
+		Properties prop=new PropertyUtility("GeneraGUISettings.properties").getProperties();
 		if(extraInfo!=null){
-			return String.format("%s: %s", errorType, extraInfo);
+			return String.format(prop.getProperty("extraInfoErrorMsgTemplate"), errorType, extraInfo);
 		} else {
-			return String.format("%s", errorType);
+			return String.format(prop.getProperty("deafaultErrorMsgTemplate"), errorType);
 		}
-		
 	}
 	
 

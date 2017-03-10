@@ -1,6 +1,6 @@
 package Model;
 
-import View.FrontEndData;
+import View.viewUtils.FrontEndData;
 import utils.RawCommand;
 
 public interface I_ExecutionEngine {

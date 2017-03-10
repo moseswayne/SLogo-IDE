@@ -1,7 +1,7 @@
 package Operations;
 
 import Model.BackEndData;
-import View.FrontEndData;
+import View.viewUtils.FrontEndData;
 import utils.ParameterObject;
 /**
  * Does basic math operations on inputs

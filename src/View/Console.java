@@ -1,11 +1,11 @@
-package View.console;
+package View;
 
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.Properties;
-import View.FrontEndData;
-import View.I_FrontEndModule;
-import View.ObservedDisplay;
+
+import View.viewUtils.FrontEndData;
+import View.viewUtils.ObservedDisplay;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

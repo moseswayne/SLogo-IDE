@@ -1,4 +1,4 @@
-package View.turtleDisplay;
+package View;
 
 import javafx.scene.paint.Color;
 import java.awt.Dimension;
@@ -6,9 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.Queue;
-import View.FrontEndData;
-import View.GUI;
-import View.I_FrontEndModule;
+
+import View.viewUtils.FrontEndData;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -19,6 +18,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import utils.Language;
+import utils.PropertyUtility;
 import utils.RawCommand;
 import utils.TurtleParameters;
 
@@ -40,12 +40,7 @@ public class TurtleDisplay implements I_FrontEndModule {
 	 */
 	public TurtleDisplay(int height, int width, GUI _myGUI) {
 		myGUI=_myGUI;
-		prop=new Properties();
-		try {
-			prop.load(getClass().getClassLoader().getResourceAsStream("deafaultTurtleDisp.properties"));
-		} catch (IOException e1) {
-			throw new Error("deafaultTurtleDisp file not found or something else created an IO error");
-		}
+		prop=new PropertyUtility("deafaultTurtleDisp.properties").getProperties();
 		currentParams=new TurtleParameters(0,Double.parseDouble(prop.getProperty("DEAFAULT_X")),
 				Double.parseDouble(prop.getProperty("DEAFAULT_Y")),
 				Double.parseDouble(prop.getProperty("DEAFAULT_HEADING")), 

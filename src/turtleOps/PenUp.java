@@ -10,23 +10,11 @@ import utils.ParameterObject;
  * @author Elbert
  *
  */
-public class PenUp extends A_TurtleCommand {
-	private final boolean DOWN = false;
-	private final int RETURN = 0;
-	private TurtleModel myTurtle;
+public class PenUp extends A_ToggleVisibility {
+	private final boolean VISIBLE = false;
 
 	@Override
 	protected TurtleModel updateTurtle(ParameterObject params) {
-		myTurtle = params.getTurtle();
-		myTurtle.setPenShowing(DOWN);
-		return myTurtle;
-	}
-
-	/**
-	 * Returns 0 if the pen is now up
-	 */
-	@Override
-	protected double returnValue(ParameterObject params) {
-		return RETURN;
+		return updateTurtleState(params, (turtle) -> (turtle.setPenShowing(VISIBLE)));
 	}
 }

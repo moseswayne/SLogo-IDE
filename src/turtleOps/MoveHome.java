@@ -4,39 +4,44 @@ import Model.TurtleModel;
 import Operations.A_TurtleCommand;
 import utils.ParameterObject;
 
-public class MoveHome extends A_TurtleCommand{
+public class MoveHome extends A_ManipulateTurtle {
 	private final double HOME_X = 0;
 	private final double HOME_Y = 0;
-private double prevX;
-private double prevY;
-/**
- * Moves turtle to an absolute point
- * 
- * @author Elbert
- */
-private TurtleModel myTurtle;
-	@Override
-	protected TurtleModel updateTurtle(ParameterObject params) {
-		myTurtle = params.getTurtle();
-		prevX = myTurtle.getX();
-		prevY = myTurtle.getY();
-		myTurtle.setX(HOME_X);
-		myTurtle.setY(HOME_Y);
-		return myTurtle;
+	private double prevX;
+	private double prevY;
+
+	/**
+	 * Moves turtle to an absolute point
+	 * 
+	 * @author Elbert
+	 */
+
+	double updateX(Double oldX, ParameterObject params) {
+		prevX = params.getTurtle().getX();
+		return HOME_X;
 	}
-/**
- * Returns the straight-line distance moved between points in the update
- */
+
+	double updateY(Double oldY, ParameterObject params) {
+		prevY = params.getTurtle().getY();
+		return HOME_Y;
+
+	}
+
+	/**
+	 * Returns the straight-line distance moved between points in the update
+	 */
 	@Override
 	protected double returnValue(ParameterObject params) {
-		//if updateTurtle called before
-		try{
+		// if updateTurtle called before
+		TurtleModel myTurtle = params.getTurtle();
+		try {
 			return getDistance(myTurtle.getX(), myTurtle.getY(), prevX, prevY);
-		} catch (NullPointerException e){
+		} catch (NullPointerException e) {
 			myTurtle = params.getTurtle();
 			return getDistance(HOME_X, HOME_Y, myTurtle.getX(), myTurtle.getY());
 		}
 	}
+
 	/**
 	 * Gets distance from current point to new input point
 	 * 

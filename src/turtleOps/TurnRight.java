@@ -1,43 +1,27 @@
 package turtleOps;
 
-import Model.TurtleModel;
-import Operations.A_TurtleCommand;
 import utils.ParameterObject;
 
-public class TurnRight extends A_TurtleCommand {
-	private double degrees;
-	private static int DIRECTION = 1;
-	private static int FULL_CIRCLE = 360;
-	private TurtleModel myTurtle;
+/**
+ * Rotates turtle clockwise
+ * 
+ * @author Elbert
+ *
+ */
+public class TurnRight extends A_TurnTurtle {
 
-	// corresponds to counter-clockwise
 	@Override
-	public TurtleModel updateTurtle(ParameterObject params) {
-		myTurtle = params.getTurtle();
-		degrees = returnValue(params);
-		myTurtle.setHeading(newHeading(myTurtle, degrees));
-		return myTurtle;
+	protected int setDirection() {
+		return 1;
 	}
 
 	@Override
-	public double returnValue(ParameterObject params) {
-		return params.getDoubleAt(0);
+	double updateX(Double oldX, ParameterObject params) {
+		return oldX;
 	}
 
-	private double newHeading(TurtleModel turtle, double degreeChange) {
-		double newHeading = turtle.getHeading() + degreeChange * DIRECTION;
-		int temp = 1;
-		while (temp != 0) {
-			if (newHeading > FULL_CIRCLE) {
-				temp = 1;
-			} else if (newHeading < 0) {
-				temp = -1;
-			} else {
-				temp = 0;
-			}
-			newHeading += FULL_CIRCLE * temp;
-		}
-		return newHeading;
+	@Override
+	double updateY(Double oldY, ParameterObject params) {
+		return oldY;
 	}
 }
-

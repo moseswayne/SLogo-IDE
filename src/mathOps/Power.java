@@ -8,7 +8,7 @@ import utils.ParameterObject;
  * @author Elbert
  *
  */
-public class Power extends A_Two_Inputs {
+public class Power extends A_Multiple_Inputs {
 
 	@Override
 	protected double evaluate(ParameterObject params) {

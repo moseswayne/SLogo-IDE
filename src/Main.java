@@ -29,7 +29,7 @@ public class Main extends Application {
 		});
 		engine = new ModelExecutionEngine();
 		stage.setTitle(TITLE);
-		stage.setResizable(false);
+//		stage.setResizable(false);
 		Scene sc = display.getScene();
 		stage.setScene(sc);
 		stage.show();

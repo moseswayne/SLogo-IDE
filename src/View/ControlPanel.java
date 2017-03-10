@@ -1,13 +1,10 @@
-package View.ControlPanel;
+package View;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
-
-import View.FrontEndData;
-import View.GUI;
-import View.I_FrontEndModule;
+import View.viewUtils.FrontEndData;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,7 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToolBar;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import utils.Language;
 import utils.RawCommand;
 

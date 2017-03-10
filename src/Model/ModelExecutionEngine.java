@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Operations.CommandOperation;
-import View.FrontEndData;
+import View.viewUtils.FrontEndData;
 import controller.CommandParser;
 import utils.ParameterObject;
 import utils.RawCommand;

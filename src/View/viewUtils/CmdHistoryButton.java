@@ -1,4 +1,4 @@
-package View.cmdHistory;
+package View.viewUtils;
 
 import javafx.scene.control.Button;
 import utils.RawCommand;

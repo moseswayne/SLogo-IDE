@@ -21,6 +21,7 @@ public interface I_GUI {
 	 * @param data
 	 */
 	public void show(Collection<FrontEndData> dataCollection);
+
 	
 	/**
 	 * For front end package classes

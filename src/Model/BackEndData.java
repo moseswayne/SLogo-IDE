@@ -5,16 +5,17 @@ import java.util.Queue;
 import java.util.Stack;
 
 import tree.CommandNode;
+import tree.ExpressionNode;
 import utils.TurtleParameters;
 
 public class BackEndData {
 
 	private Double myValue;
-	private Stack<CommandNode> instructionStack;
+	private Stack<ExpressionNode> instructionStack;
 	private Queue<TurtleParameters> myTurtleParameters;
 	
 	public BackEndData() {
-		instructionStack = new Stack<CommandNode>();
+		instructionStack = new Stack<ExpressionNode>();
 		myTurtleParameters = new ArrayDeque<TurtleParameters>();
 	}
 	
@@ -34,7 +35,7 @@ public class BackEndData {
 		return myTurtleParameters;
 	}
 	
-	public void setInstructions(CommandNode instruction) {
+	public void setInstructions(ExpressionNode instruction) {
 		instructionStack.push(instruction);
 	}
 	
@@ -42,8 +43,8 @@ public class BackEndData {
 		return (!instructionStack.isEmpty());
 	}
 	
-	public Queue<CommandNode> getInstructions() {
-		Queue<CommandNode> instructionQueue = new ArrayDeque<>();
+	public Queue<ExpressionNode> getInstructions() {
+		Queue<ExpressionNode> instructionQueue = new ArrayDeque<>();
 		while(hasNextInstruction()) {
 			instructionQueue.add(instructionStack.pop());
 		}

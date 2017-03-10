@@ -4,9 +4,8 @@ import Model.TurtleModel;
 import Model.backEndUtils.ParameterObject;
 import Model.operations.commandOps.A_TurtleCommand;
 
-public class MoveHome extends A_ManipulateTurtle {
-	private final double HOME_X = 0;
-	private final double HOME_Y = 0;
+public class MoveHome extends A_MoveTurtle {
+	private final double[] HOME_COORDINATES = { 0, 0 };
 	private double prevX;
 	private double prevY;
 
@@ -15,16 +14,11 @@ public class MoveHome extends A_ManipulateTurtle {
 	 * 
 	 * @author Elbert
 	 */
-
-	double updateX(Double oldX, ParameterObject params) {
-		prevX = params.getTurtle().getX();
-		return HOME_X;
-	}
-
-	double updateY(Double oldY, ParameterObject params) {
-		prevY = params.getTurtle().getY();
-		return HOME_Y;
-
+	@Override
+	double[] updateCoordinates(Double oldX, Double oldY, ParameterObject params) {
+		prevX = oldX;
+		prevY = oldY;
+		return HOME_COORDINATES;
 	}
 
 	/**
@@ -38,7 +32,7 @@ public class MoveHome extends A_ManipulateTurtle {
 			return getDistance(myTurtle.getX(), myTurtle.getY(), prevX, prevY);
 		} catch (NullPointerException e) {
 			myTurtle = params.getTurtle();
-			return getDistance(HOME_X, HOME_Y, myTurtle.getX(), myTurtle.getY());
+			return getDistance(HOME_COORDINATES[0], HOME_COORDINATES[1], myTurtle.getX(), myTurtle.getY());
 		}
 	}
 
@@ -54,4 +48,10 @@ public class MoveHome extends A_ManipulateTurtle {
 	private double getDistance(double newX, double newY, double currentX, double currentY) {
 		return Math.sqrt((newX - currentX) * (newX - currentX) + (newY - currentY) * (newY - currentY));
 	}
+
+	@Override
+	protected int getOffset() {
+		return 0;
+	}
+
 }

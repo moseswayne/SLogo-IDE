@@ -1,5 +1,7 @@
 package Model.operations.commandOps.turtleOps;
 
+import java.util.function.Function;
+
 import Model.TurtleModel;
 import Model.backEndUtils.ParameterObject;
 
@@ -11,13 +13,18 @@ import Model.backEndUtils.ParameterObject;
  *
  */
 public abstract class A_MoveTurtle extends A_ManipulateTurtle {
-
-	double updateX(Double oldX, ParameterObject params) {
-		return oldX + changeInX(params.getTurtle().getHeading(), params.getDoubleAt(0));
+	protected TurtleModel updateTurtle(ParameterObject params) {
+		TurtleModel turtle = params.getTurtle();
+		double[] coordinateArray = updateCoordinates(turtle.getX(), turtle.getY(), params);
+		turtle.setX(coordinateArray[0]);
+		turtle.setY(coordinateArray[1]);
+		return turtle;
 	}
 
-	double updateY(Double oldY, ParameterObject params) {
-		return oldY + changeInY(params.getTurtle().getHeading(), params.getDoubleAt(1));
+	double[] updateCoordinates(Double oldX, Double oldY, ParameterObject params) {
+		double[] array = { (oldX + changeInX(params.getTurtle().getHeading(), params.next())),
+				(oldY + changeInY(params.getTurtle().getHeading(), params.next())) };
+		return array;
 	}
 
 	abstract protected int getOffset();
@@ -30,11 +37,15 @@ public abstract class A_MoveTurtle extends A_ManipulateTurtle {
 	 * @param direction
 	 * @return double representing the new coordinate
 	 */
+	private double change(double heading, double distance, Function<Double, Double> operation) {
+		return operation.apply(Math.toRadians(heading + getOffset())) * distance;
+	}
+
 	private double changeInX(double heading, double distance) {
-		return Math.sin(Math.toRadians(heading + getOffset())) * distance;
+		return change(heading, distance, (value) -> Math.sin(value));
 	}
 
 	private double changeInY(double heading, double distance) {
-		return Math.cos(Math.toRadians(heading + getOffset())) * distance;
+		return change(heading, distance, (value) -> Math.cos(value));
 	}
 }

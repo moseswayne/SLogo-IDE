@@ -12,8 +12,7 @@ public class SetTowards extends A_TurtleCommand {
 	protected TurtleModel updateTurtle(ParameterObject params) {
 		myTurtle = params.getTurtle();
 		previousHeading = myTurtle.getHeading();
-		myTurtle.setHeading(
-				getAbsoluteHeading(params.getDoubleAt(0), params.getDoubleAt(1), myTurtle.getX(), myTurtle.getY()));
+		myTurtle.setHeading(getAbsoluteHeading(params.next(), params.next(), myTurtle.getX(), myTurtle.getY()));
 		return myTurtle;
 	}
 
@@ -27,12 +26,8 @@ public class SetTowards extends A_TurtleCommand {
 			// if updateTurtle called before returnValue
 			difference = myTurtle.getHeading() - previousHeading;
 		} catch (NullPointerException e) {
-			myTurtle = params.getTurtle();
-			difference = getAbsoluteHeading(params.getDoubleAt(0), params.getDoubleAt(1), myTurtle.getX(), myTurtle.getY())
-					- myTurtle.getHeading();
-			// TODO or
-			// updateTurtle(params);
-			// value = this.returnValue(params);
+			updateTurtle(params);
+			difference = this.returnValue(params);
 		}
 		return difference;
 	}

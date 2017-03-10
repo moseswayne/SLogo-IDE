@@ -2,11 +2,11 @@ package Model.operations.commandOps.turtleOps;
 
 import Model.TurtleModel;
 import Model.backEndUtils.ParameterObject;
-import Model.operations.commandOps.A_TurtleCommand;
 
-public class SetPosition extends A_ManipulateTurtle {
+public class SetPosition extends A_MoveTurtle {
 	private double prevX;
 	private double prevY;
+	private double[] newCoordinates;
 	/**
 	 * Moves turtle to an absolute point
 	 * 
@@ -14,14 +14,13 @@ public class SetPosition extends A_ManipulateTurtle {
 	 */
 	private TurtleModel myTurtle;
 
-	double updateX(Double oldX, ParameterObject params) {
-		prevX = params.getTurtle().getX();
-		return params.getDoubleAt(0);
-	}
-
-	double updateY(Double oldY, ParameterObject params) {
-		prevY = params.getTurtle().getY();
-		return params.getDoubleAt(1);
+	@Override
+	protected double[] updateCoordinates(Double oldX, Double oldY, ParameterObject params) {
+		prevX = oldX;
+		prevY = oldY;
+		newCoordinates[0] = params.next();
+		newCoordinates[1] = params.next();
+		return newCoordinates;
 
 	}
 
@@ -34,8 +33,8 @@ public class SetPosition extends A_ManipulateTurtle {
 		try {
 			return getDistance(myTurtle.getX(), myTurtle.getY(), prevX, prevY);
 		} catch (NullPointerException e) {
-			myTurtle = params.getTurtle();
-			return getDistance(params.getDoubleAt(0), params.getDoubleAt(1), myTurtle.getX(), myTurtle.getY());
+			updateCoordinates(params.getTurtle().getX(), params.getTurtle().getY(), params);
+			return returnValue(params);
 		}
 	}
 
@@ -51,4 +50,10 @@ public class SetPosition extends A_ManipulateTurtle {
 	private double getDistance(double newX, double newY, double currentX, double currentY) {
 		return Math.sqrt((newX - currentX) * (newX - currentX) + (newY - currentY) * (newY - currentY));
 	}
+
+	@Override
+	protected int getOffset() {
+		return 0;
+	}
+
 }

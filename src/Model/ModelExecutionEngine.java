@@ -7,14 +7,14 @@ import java.util.Map;
 
 import Operations.CommandOperation;
 import View.FrontEndData;
-import controller.NewParser;
+import controller.CommandParser;
 import utils.ParameterObject;
 import utils.RawCommand;
 
 public class ModelExecutionEngine implements I_ExecutionEngine {
 
 	private Map<String, Double> variableMap;
-	private NewParser myParser;
+	private CommandParser myParser;
 	
 	public ModelExecutionEngine() {
 		variableMap = new HashMap<String, Double>();

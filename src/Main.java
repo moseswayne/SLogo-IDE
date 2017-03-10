@@ -52,11 +52,11 @@ public class Main extends Application {
 		
 
 		
-		dataCollection = new ArrayList<>();
-		data = new FrontEndData("test main 60", Language.Chinese);
-		data.addError(new ErrorMessage("test error", "this is its extra info"));
-		dataCollection.add(data);
-		display.show(dataCollection);
+//		dataCollection = new ArrayList<>();
+//		data = new FrontEndData("test main 60", Language.Chinese);
+//		data.addError(new ErrorMessage("test error"));
+//		dataCollection.add(data);
+//		display.show(dataCollection);
 	}
 
 	private void step(double elapsedTime) {
@@ -65,13 +65,14 @@ public class Main extends Application {
 		if (rcmd != null) {
 			try {
 				data = engine.runOp(rcmd);
+				ArrayList<FrontEndData> collec = new ArrayList<>();
+				collec.add(data);
+				display.show(collec);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			ArrayList<FrontEndData> collec = new ArrayList<>();
-			collec.add(data);
-			display.show(collec);
+			
 		}
 
 	}

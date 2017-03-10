@@ -13,7 +13,6 @@ import utils.PropertyUtility;
 
 public class CommandParser {
 	private final String syntaxFile = "Syntax.properties";
-	private final String languageDir = "resources/languages/";
 	private final String fileExtension = ".properties";
 
 	private PropertyUtility mySyntaxProp;
@@ -24,10 +23,10 @@ public class CommandParser {
 	}
 
 	public Queue<ExpressionNode> parse(String rawString, Language language, TurtleManager turtManager) {
-		myLanguage = new PropertyUtility(language.toString()+fileExtension);//languageDir+
+		myLanguage = new PropertyUtility(language.toString()+fileExtension);
 		String[] commandLines = rawString.split(mySyntaxProp.getValue("Newline"));
 		Queue<String> commandTokens = buildQueue(commandLines);
-		NodeFactory nodeBuilder = new NodeFactory(turtManager);
+		NodeFactory nodeBuilder = new NodeFactory(turtManager, mySyntaxProp);
 		ArrayDeque<ExpressionNode> myNodes = new ArrayDeque<>();
 		while (!commandTokens.isEmpty()) {
 			myNodes.add(nodeBuilder.makeNode(commandTokens));

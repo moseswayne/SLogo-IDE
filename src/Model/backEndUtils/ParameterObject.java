@@ -29,6 +29,10 @@ public class ParameterObject {
 		varMap = vars;
 	}
 	
+	public void alterVar(String key, Double value) {
+		varMap.put(key, value);
+	}
+	
 	public boolean hasNext() {
 		return (!parameterQueue.isEmpty());
 	}

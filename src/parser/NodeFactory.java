@@ -21,14 +21,16 @@ public class NodeFactory {
 
 	private PropertyUtility myTypes;
 	private PropertyUtility myArguments;
+	private PropertyUtility syntaxProp;
 	private TurtleManager turtManager;
 	private OperationFactory myOpFactory;
 
-	public NodeFactory(TurtleManager turt) {
+	public NodeFactory(TurtleManager turt, PropertyUtility syntax) {
 		turtManager = turt;
 		myTypes = new PropertyUtility(typeFile);
 		myArguments = new PropertyUtility(argFile);
 		myOpFactory = new OperationFactory();
+		syntaxProp = syntax;
 	}
 
 	public ExpressionNode makeNode(Queue<String> remainingTokens) {
@@ -81,6 +83,7 @@ public class NodeFactory {
 		if(remainingTokens.peek().equals("[")) remainingTokens.poll();
 		addBaseVariablesLoop(newControl,command,Integer.parseInt(myArguments.getValue(command)),remainingTokens,type);
 		if(remainingTokens.peek().equals("]")) remainingTokens.poll();
+		
 		return newControl;
 	}
 	
@@ -89,5 +92,12 @@ public class NodeFactory {
 		for (int i = 0; i < numArgs; i++) {
 			node.addChild(makeNode(remainingTokens));
 		}
+	}
+	
+	private boolean checkSyntacticSugar(Queue<String> remainingTokens) {
+		if(syntaxProp.getKey(remainingTokens.peek()).equals("GroupStart")) {
+			remainingTokens.poll();
+		}
+		return false;
 	}
 }

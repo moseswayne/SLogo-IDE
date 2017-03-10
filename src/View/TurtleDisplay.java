@@ -17,6 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
+import utils.ColorManager;
 import utils.Language;
 import utils.PropertyUtility;
 import utils.RawCommand;
@@ -32,14 +33,13 @@ public class TurtleDisplay implements I_FrontEndModule {
 	private Dimension paneSize;
 	private Properties prop;
 	private final Dimension TURTLE_SIZE=new Dimension(20, 20);
-	private GUI myGUI;
+	private ColorManager myColorManager;
 	/**
 	 *  
 	 * @param height height of turtleDisplay
 	 * @param width width of turtleDisplay
 	 */
-	public TurtleDisplay(int height, int width, GUI _myGUI) {
-		myGUI=_myGUI;
+	public TurtleDisplay(int height, int width, ColorManager _myColorManager) {
 		prop=new PropertyUtility("deafaultTurtleDisp.properties").getProperties();
 		currentParams=new TurtleParameters(0,Double.parseDouble(prop.getProperty("DEAFAULT_X")),
 				Double.parseDouble(prop.getProperty("DEAFAULT_Y")),
@@ -48,14 +48,16 @@ public class TurtleDisplay implements I_FrontEndModule {
 				Boolean.parseBoolean(prop.getProperty("DEAFAULT_TURTLE_VISIBILITY")),
 				Boolean.parseBoolean(prop.getProperty("DEAFAULT_TURTLE_ACTIVE"))
 				);
-		setPenColor(prop.getProperty("DEAFAULT_PEN_COLOR"));
+		myColorManager=_myColorManager;
+		setPenColor(myColorManager.getColor(prop.getProperty("DEAFAULT_PEN_COLOR")));
 		paneSize=new Dimension(height, width);
 		initiateCanvas();
 		initiateTurtle();
 		container=new StackPane(lineCanvas, turtleContainer);
-		setBackgroudColor(prop.getProperty("DEAFAULT_BACKGROUND_COLOR"));
+		setBackgroudColor(myColorManager.getColor(prop.getProperty("DEAFAULT_BACKGROUND_COLOR")));
 		standardizeSize(container);
 	}
+
 
 	/**
 	 * binds the size of a Region (namely container and turtleContainer in this case) 
@@ -83,16 +85,15 @@ public class TurtleDisplay implements I_FrontEndModule {
 	 * 
 	 * @param color String specifying the color, USE VALID
 	 */
-	public void setBackgroudColor(String color){
-		Color trueColor=myGUI.getColor(color);
-		int blue=(int) (255*trueColor.getBlue()),
-				red=(int) (255*trueColor.getRed()),
-				green=(int) (255*trueColor.getGreen());
+	public void setBackgroudColor(Color color){
+		int blue=(int) (255*color.getBlue()),
+				red=(int) (255*color.getRed()),
+				green=(int) (255*color.getGreen());
 		container.setStyle(String.format("-fx-background-color: rgb(%d, %d, %d)", red, green, blue));
 	}
 	
-	public void setPenColor(String color){
-		penColor=myGUI.getColor(color);
+	public void setPenColor(Color color){
+		penColor=color;
 	}
 	
 	public void setTurtleImg(File file){

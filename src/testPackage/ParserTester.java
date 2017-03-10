@@ -18,7 +18,7 @@ public class ParserTester {
 			System.out.println(pt.getProp().getProperty((String) key));
 			System.out.println(Pattern.matches(pt.getProp().getProperty((String) key), "sum"));
 		}
-		p.parse("#sum 4 3 for [ :x 3 2 0 ]", Language.English);
+		p.parse("sum 4 3 for #[ :x 3 2 0 ]", Language.English);
 	}
 	
 	public Properties getProp(){

@@ -39,12 +39,13 @@ public class Main extends Application {
 		animation.getKeyFrames().add(frame);
 		animation.play();
 
+		/*
 		//TODO hard coded testing code, to be removed
 		ArrayList<FrontEndData> dataCollection = new ArrayList<>();
 		FrontEndData data = new FrontEndData("test main 43", Language.Chinese);
 		data.addTurtleParameters(0, 125, 125, 45, true, true, true);
 		dataCollection.add(data);
-		display.show(dataCollection);
+		display.show(dataCollection);*/
 		
 //		dataCollection = new ArrayList<>();
 //		data = new FrontEndData("test main 60", Language.Chinese);

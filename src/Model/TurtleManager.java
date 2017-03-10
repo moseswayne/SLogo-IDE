@@ -60,32 +60,43 @@ public class TurtleManager implements Iterable<TurtleModel> {
 	 */
 	public TurtleModel getTurtle(int idNumber) {
 		try {
-			return myTurtleList.get(idNumber);
+			TurtleModel turtle = myTurtleList.get(idNumber);
+			myActiveTurtleList.add(turtle);
+			return turtle;
 		} catch (NullPointerException e) {
-			// TODO create turtleNotFound exception
-			return null;
+			return makeTurtle();
 		}
 	}
 
 	/**
 	 * Gets a list of certain turtles that match the given ID numbers Note: does
-	 * not reset the active turtle
+	 * not reset the active turtle or reset the active list. Useful for Ask
 	 * 
 	 * @param idNumbers
+	 *            that can iterate through
 	 * @return list of TurtleModels
 	 */
-	public List<TurtleModel> getTheseTurtles(List<Integer> idNumbers) {
-		myActiveTurtleList.clear();
-		for (int i : idNumbers) {
-			TurtleModel thisTurtle;
-			try {
-				thisTurtle = myTurtleList.get(i);
-			} catch (NullPointerException e) {
-				thisTurtle = makeTurtle();
-			}
-			myActiveTurtleList.add(thisTurtle);
+	public List<TurtleModel> getTheseTempTurtles(Iterable<Double> params) {
+		List<TurtleModel> retTurtles = new ArrayList<TurtleModel>();
+		Iterator<Double> paramsIter = params.iterator();
+		while (paramsIter.hasNext()) {
+			retTurtles.add(this.getTurtle(paramsIter.next().intValue()));
 		}
-		return myActiveTurtleList;
+		return retTurtles;
+	}
+
+	/**
+	 * Gets a list of certain turtles and makes this list active. Useful for
+	 * Tell
+	 * 
+	 * @param params
+	 *            so can iterate through ID numbers
+	 * @return Active list of TurtleModels
+	 */
+	public List<TurtleModel> getTheseActiveTurtles(Iterable<Double> params) {
+		myActiveTurtleList.clear();
+		myActiveTurtleList = getTheseTempTurtles(params);
+		return getActiveTurtles();
 	}
 
 	/**

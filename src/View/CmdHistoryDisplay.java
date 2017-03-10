@@ -1,10 +1,11 @@
-package View.cmdHistory;
+package View;
 
 
 import java.util.Stack;
-import View.FrontEndData;
-import View.I_FrontEndModule;
-import View.ObservedDisplay;
+
+import View.viewUtils.CmdHistoryButton;
+import View.viewUtils.FrontEndData;
+import View.viewUtils.ObservedDisplay;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -25,6 +26,7 @@ public class CmdHistoryDisplay implements I_FrontEndModule{
 	private Dimension size;
 	private final int SCROLL_BAR_WIDTH = 30;
 	private RawCommand bufferedCommand;
+	
 	
 	public CmdHistoryDisplay(int width, int height) {
 		size=new Dimension(width, height);
@@ -89,9 +91,12 @@ public class CmdHistoryDisplay implements I_FrontEndModule{
 		return bufferedCommand!=null;
 	}
 
+	/**
+	 * 
+	 * @return container of this module
+	 */
 	@Override
 	public Node getVisualizedContent() {
-		// TODO Auto-generated method stub
 		return container;
 	}
 
@@ -100,5 +105,4 @@ public class CmdHistoryDisplay implements I_FrontEndModule{
 	public void setLanguage(Language language) {
 		return;
 	}
-
 }

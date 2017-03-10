@@ -1,7 +1,7 @@
 package Operations;
 
 import Model.BackEndData;
-import View.FrontEndData;
+import View.viewUtils.FrontEndData;
 import utils.ParameterObject;
 
 public abstract class A_BooleanOperation implements CommandOperation {

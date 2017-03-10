@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Queue;
 
 import Operations.CommandOperation;
-import View.FrontEndData;
+import View.viewUtils.FrontEndData;
 import controller.CommandParser;
 import tree.ExpressionNode;
 import utils.ParameterObject;

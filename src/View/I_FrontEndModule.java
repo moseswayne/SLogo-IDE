@@ -1,5 +1,6 @@
 package View;
 
+import View.viewUtils.FrontEndData;
 import javafx.scene.Node;
 import utils.Language;
 import utils.RawCommand;
@@ -31,6 +32,10 @@ public interface I_FrontEndModule {
 	public Node getVisualizedContent();
 	
 	
+	/**
+	 * Sets the language of the module
+	 * @param language
+	 */
 	public void setLanguage(Language language);
 	
 	

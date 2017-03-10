@@ -7,5 +7,5 @@ import Model.TurtleModel;
  *
  */
 public interface I_CheckTurtleConditions {
-	boolean check(TurtleModel turtle);
+	public boolean check(TurtleModel turtle);
 }

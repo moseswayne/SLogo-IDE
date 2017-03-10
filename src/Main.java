@@ -1,10 +1,7 @@
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
 import Model.ModelExecutionEngine;
-import View.FrontEndData;
 import View.GUI;
-import controller.TranslationMapGenerator;
+import View.viewUtils.FrontEndData;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -26,7 +23,6 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) {
-		// TODO Auto-generated method stub
 		display = new GUI();
 		display.setNewWindowButton(() -> {
 			(new Main()).start(new Stage());
@@ -49,8 +45,6 @@ public class Main extends Application {
 		data.addTurtleParameters(0, 125, 125, 45, true, true, true);
 		dataCollection.add(data);
 		display.show(dataCollection);
-		
-
 		
 //		dataCollection = new ArrayList<>();
 //		data = new FrontEndData("test main 60", Language.Chinese);

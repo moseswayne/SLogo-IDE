@@ -8,7 +8,7 @@ import utils.ParameterObject;
  * @author Kris Elbert
  *
  */
-public class Remainder extends A_Two_Inputs {
+public class Remainder extends A_Multiple_Inputs {
 
 	@Override
 	protected double evaluate(ParameterObject params) {

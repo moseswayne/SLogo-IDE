@@ -16,7 +16,7 @@ public abstract class A_One_Input extends A_MathOperation {
 	 * @param operation
 	 * @return
 	 */
-	protected static double solve(ParameterObject params, Function<Double, Double> operation) {
+	protected double solve(ParameterObject params, Function<Double, Double> operation) {
 		return operation.apply(params.getDoubleAt(0));
 	}
 

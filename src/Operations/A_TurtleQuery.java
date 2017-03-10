@@ -2,7 +2,6 @@ package Operations;
 
 import Model.BackEndData;
 import Model.TurtleModel;
-import View.FrontEndData;
 import utils.ParameterObject;
 
 public abstract class A_TurtleQuery implements CommandOperation {

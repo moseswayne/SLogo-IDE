@@ -1,4 +1,4 @@
-package View;
+package View.viewUtils;
 
 import java.util.ArrayDeque;
 import java.util.Map;

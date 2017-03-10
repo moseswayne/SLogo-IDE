@@ -2,32 +2,20 @@
 package turtleOps;
 
 import Model.TurtleModel;
-import Operations.A_TurtleCommand;
 import utils.ParameterObject;
 
 /**
  * Makes the turtle invisible
  * 
- * @author Elbert
+ * @author Kris Elbert
  *
  */
-public class HideTurtle extends A_TurtleCommand {
+public class HideTurtle extends A_ToggleVisibility {
 	private final boolean VISIBLE = false;
-	private final int RETURN = 0;
-	private TurtleModel myTurtle;
 
 	@Override
 	protected TurtleModel updateTurtle(ParameterObject params) {
-		myTurtle = params.getTurtle();
-		myTurtle.setTurtleShowing(VISIBLE);
-		return myTurtle;
+		return updateTurtleState(params, (turtle) -> (turtle.setTurtleShowing(VISIBLE)));
 	}
 
-	/**
-	 * Returns 1 if the pen is now down
-	 */
-	@Override
-	protected double returnValue(ParameterObject params) {
-		return RETURN;
-	}
 }

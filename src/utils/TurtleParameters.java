@@ -1,6 +1,8 @@
 package utils;
 
 import Model.TurtleModel;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 
 /**
  * 
@@ -8,13 +10,13 @@ import Model.TurtleModel;
  *
  */
 public class TurtleParameters {
-	private double x;
-	private double y;
-	private double heading;
-	private boolean isPendown;
-	private boolean turtleVisible;
+	private SimpleDoubleProperty x=new SimpleDoubleProperty();
+	private SimpleDoubleProperty y=new SimpleDoubleProperty();
+	private SimpleDoubleProperty heading=new SimpleDoubleProperty();
+	private SimpleBooleanProperty isPendown=new SimpleBooleanProperty();
+	private SimpleBooleanProperty turtleVisible=new SimpleBooleanProperty();
 	private int id;
-	private boolean isActive;
+	private SimpleBooleanProperty isActive=new SimpleBooleanProperty();
 	
 	/**
 	 * 
@@ -23,13 +25,13 @@ public class TurtleParameters {
 	 * @param _heading
 	 */
 	public TurtleParameters(int _id, double _x, double _y, double _heading, boolean _isPendown, boolean _turtleVisible, boolean _isActive) {
-		id=_id;
-		x=_x;
-		y=_y;
-		heading=_heading;
-		isPendown=_isPendown;
-		turtleVisible=_turtleVisible;
-		isActive=_isActive;
+		id= _id;
+		x.set(_x); 
+		y.set(_y);
+		heading.set(_heading);
+		isPendown.set(_isPendown);
+		turtleVisible.set(_turtleVisible);
+		isActive.set(_isActive);
 		//TODO need to set ID
 	}
 	
@@ -38,54 +40,52 @@ public class TurtleParameters {
 	 * @param other
 	 */
 	public TurtleParameters(TurtleParameters other){
-		this.x=other.getX();
-		this.y=other.getY();
-		this.heading=other.getHeading();
-		this.isPendown=other.isPendown();
 		this.id=other.getID();
+		this.x=other.getXProperty();
+		this.y=other.getYProperty();
+		this.heading=other.getHeadingProperty();
+		this.isPendown=other.getPenDownProperty();
+		this.isActive=other.isActive;
+
 	}
 	/**
 	 * Makes TurtleParamters from a backend turtle
 	 * @param turtle
 	 */
 	public TurtleParameters(TurtleModel turtle){
-		x=turtle.getX();
-		y=turtle.getY();
-		heading=turtle.getHeading();
-		isPendown=turtle.getPenShowing();
-		turtleVisible=turtle.getTurtleShowing();
-		id=turtle.getID();
+		this(turtle.getID(), turtle.getX(), turtle.getY(), turtle.getHeading(), turtle.getPenShowing(), turtle.getTurtleShowing(), true);//does not matter if turtle is active or not
 	}
 	/**
 	 * getters
 	 *
 	 */
-	public double getX(){
-		return x;
-	}
-	
-	public double getY(){
-		return y;
-	}
-
-	public double getHeading(){
-		return heading;
-	}
-	
-	public boolean isPendown(){
-		return isPendown;
-	}
-	
-	public boolean turtleVisible(){
-		return turtleVisible;
-	}
-	
-	public boolean isActive(){
-		return isActive;
-	}
 	
 	public int getID(){
 		return id;
 	}
-
+	
+	public SimpleDoubleProperty getXProperty(){
+		return x;
+	}
+	
+	public SimpleDoubleProperty getYProperty(){
+		return y;
+	}
+	
+	public SimpleDoubleProperty getHeadingProperty(){
+		return heading;
+	}
+	
+	public SimpleBooleanProperty getPenDownProperty(){
+		return isPendown;
+	}
+	
+	public SimpleBooleanProperty getVisibleProperty(){
+		return turtleVisible;
+	}
+	
+	public SimpleBooleanProperty getActiveProperty(){
+		return isActive;
+	}
+	
 }

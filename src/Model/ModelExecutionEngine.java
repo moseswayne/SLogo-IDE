@@ -18,14 +18,13 @@ public class ModelExecutionEngine implements I_ExecutionEngine {
 	
 	public ModelExecutionEngine() {
 		variableMap = new HashMap<String, Double>();
-//		myParser = new Parser(variableMap);
+//		myParser = new CommandParser();
 	}
 
 	@Override
 	public FrontEndData runOp(RawCommand runCommand) throws Exception {
 		
 		String run = runCommand.getCommandString();
-		Map<String, String> language = runCommand.getMap();
 		String[] runArr = run.split(" ");
 		Class<?> clazz = Class.forName("booleanOps."+runArr[0]);
 		ArrayList<String> myParams = new ArrayList<String>();

@@ -155,14 +155,14 @@ public class TurtleDisplay implements I_FrontEndModule {
      * @param position specifies the position of the image's center point, and the heading of the image
      */
     private void moveTurtle(TurtleParameters position) {
-    	turtle.setRotate(position.getHeading());
-    	turtle.setX(centralizeXPosition(position.getX()));
-    	turtle.setY(centralizeYPosition(position.getY()));
+    	turtle.setRotate(position.getHeadingProperty().getValue());
+    	turtle.setX(centralizeXPosition(position.getXProperty().getValue()));
+    	turtle.setY(centralizeYPosition(position.getYProperty().getValue()));
     	GraphicsContext canvasGC=lineCanvas.getGraphicsContext2D();
-    	if(position.isPendown()){
+    	if(position.getPenDownProperty().getValue()){
     		canvasGC.setStroke(penColor);
-            canvasGC.strokeLine(centralizeXPosition(currentParams.getX()), centralizeYPosition(currentParams.getY()), 
-            		centralizeXPosition(position.getX())+TURTLE_SIZE.getWidth()/2, centralizeYPosition(position.getY())+TURTLE_SIZE.getHeight()/2);
+            canvasGC.strokeLine(centralizeXPosition(currentParams.getXProperty().getValue()), centralizeYPosition(currentParams.getYProperty().getValue()), 
+            		centralizeXPosition(position.getXProperty().getValue())+TURTLE_SIZE.getWidth()/2, centralizeYPosition(position.getYProperty().getValue())+TURTLE_SIZE.getHeight()/2);
     	}
     }
     

@@ -13,7 +13,7 @@ import utils.ParameterObject;
  * @author Kris Elbert
  *
  */
-public abstract class A_MultipleTurtles extends A_TurtleQuery {
+public abstract class A_MultipleTurtles {
 
 	public List<TurtleModel> check(Iterable<TurtleModel> manager, I_CheckTurtleConditions checker) {
 		Iterator<TurtleModel> turtleIter = manager.iterator();
@@ -35,4 +35,5 @@ public abstract class A_MultipleTurtles extends A_TurtleQuery {
 		return retTurtles;
 	}
 	protected abstract void reset();
+	
 }

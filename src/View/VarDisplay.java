@@ -41,6 +41,7 @@ public class VarDisplay implements I_FrontEndModule {
 		container.setBorder(new Border(
 				new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(2.5), new BorderWidths(5.0))));
 		container.setPrefWidth(size.getWidth());
+		container.setPrefHeight(size.getHeight());
 		updateVisualContent();
 	}
 

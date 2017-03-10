@@ -13,18 +13,16 @@ package View;
 //TODO palette display
 
 import java.awt.Dimension;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Properties;
 import View.viewUtils.FrontEndData;
-import javafx.collections.ObservableList;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import utils.ColorManager;
 import utils.ErrorMessage;
 import utils.Language;
@@ -32,12 +30,12 @@ import utils.PropertyUtility;
 import utils.RawCommand;
 
 public class GUI implements I_GUI{
-	private final Dimension DEFAULT_SIZE = new Dimension(1000, 750);
+	private final Dimension DEFAULT_SIZE = new Dimension(1010, 770);
 	private final Dimension DEAFAULT_TURTLE_DISP_SIZE=new Dimension(600, 510);
-	private final Dimension DEAFAULT_CONSOLE_SIZE=new Dimension(1000, 200);
-	private final Dimension DEAFAULT_SIDE_DISP_SIZE=new Dimension(200, 400);
+	private final Dimension DEAFAULT_CONSOLE_SIZE=new Dimension(1010, 200);
+	private final Dimension DEAFAULT_SIDE_DISP_SIZE=new Dimension(200, 510);
 	private Scene myScene;
-	private BorderPane root;
+	private Parent root;
 	private CmdHistoryDisplay cmdHistoryDisplay;
 	private Console console;
 	private TurtleDisplay turtleDisplay;
@@ -58,9 +56,12 @@ public class GUI implements I_GUI{
 		language=Language.valueOf(prop.getProperty("DEAFAULT_LANGUAGE"));
 		initiateModules();
 		addModulesToCollection();
-		root=makeRoot();
+		root=new ScrollPane(makeRoot());
+		root.prefHeight(DEFAULT_SIZE.getHeight());
+		colorManager.addColor(124, 142, 18, "added in GUI constructor");
 		myScene= new Scene(root, DEFAULT_SIZE.getWidth(), DEFAULT_SIZE.getHeight());
 	}
+	
 	
 	/**
 	 * Helper method, 
@@ -95,85 +96,26 @@ public class GUI implements I_GUI{
 	private void initiateModules() {
 		cmdHistoryDisplay=new CmdHistoryDisplay(DEAFAULT_SIDE_DISP_SIZE.width, DEAFAULT_SIDE_DISP_SIZE.height);
 		console=new Console((int)DEAFAULT_CONSOLE_SIZE.getWidth(), (int)DEAFAULT_CONSOLE_SIZE.getHeight(), language);
-		turtleDisplay=new TurtleDisplay((int)DEAFAULT_TURTLE_DISP_SIZE.getWidth(), (int)DEAFAULT_TURTLE_DISP_SIZE.getHeight(), this);
+		turtleDisplay=new TurtleDisplay((int)DEAFAULT_TURTLE_DISP_SIZE.getWidth(), (int)DEAFAULT_TURTLE_DISP_SIZE.getHeight(), colorManager);
 		varDisplay=new VarDisplay(DEAFAULT_SIDE_DISP_SIZE.width, DEAFAULT_SIDE_DISP_SIZE.height);
-		ctrlPanel=new ControlPanel(this, language);
+		ctrlPanel=new ControlPanel(language, turtleDisplay, cmdHistoryDisplay, console, varDisplay, colorManager);
 	}
 	
-	/*
-	 * 
-	 * Front end APIs for FrontEndModules
-	 * 
-	 */
-	
-	/**
-	 * used for front end classes, gets the color within the ColorManager, 
-	 * This is to store all available palettes to avoid duplication
-	 */
-	Color getColor(String name){
-		return colorManager.getColor(name);
-	}
-	
-	/**
-	 * 
-	 * @return ObservableList<String> that shows all the available colors' names
-	 */
-	ObservableList<String> getObservedColorNames(){
-		return colorManager.getObservedColorNames();
-	}
 	
 	/**
 	 * adds a color using r, g, b values from 0-255
 	 * once added, available to all front end classes
 	 */
-	void addColor(double r, double g, double b, String name) {
+	private void addColor(double r, double g, double b, String name) {
 		colorManager.addColor(r, g, b, name);
 	}
 	
-	/**
-	 * Sets the color of the turtle background
-	 * @param color String specifying the color, must be from the observable list of names in ColorManager
-	 */
-	void setTurtleBackgroundColor(String color){
-		turtleDisplay.setBackgroudColor(color);
-	}
-	
-	/**
-	 * Sets the image of the turtle to be the image specified by the file
-	 * @param file
-	 */
-	void setTurtleImage(File file){
-		turtleDisplay.setTurtleImg(file);
-	}
-	
-	/**
-	 * Sets the color of the turtle pen
-	 * @param color String specifying the color, must be from the observable list of names in ColorManager
-	 */
-	void setTurtlePenColor(String color){
-		turtleDisplay.setPenColor(color);
-	}
-	
-	/**
-	 * sets the language for all FrontEndModules to lang
-	 * @param lang
-	 */
-	void setLanguage(Language lang){
-		language=lang;
-		for(I_FrontEndModule module: myModules){
-				module.setLanguage(lang);
-		}
-	}
-	
-	
 	/*
 	 * 
-	 * Public APIs (defined in I_GUI)
+	 * Public APIs
 	 * 
 	 */
-	public void setNewWindowButton(Runnable newWindowMethod){
-		ctrlPanel.setNewWindowMethod(newWindowMethod);
-	}
+
 
 	/**
 	 * Display the information in the FrontEndData objects
@@ -226,6 +168,10 @@ public class GUI implements I_GUI{
 	@Override
 	public Scene getScene() {
 		return myScene;
+	}
+	
+	public void setNewWindowButton(Runnable newWindowMethod){
+		ctrlPanel.setNewWindowMethod(newWindowMethod);
 	}
 
 

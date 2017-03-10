@@ -16,27 +16,38 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToolBar;
 import javafx.stage.FileChooser;
+import utils.ColorManager;
 import utils.Language;
 import utils.RawCommand;
 
 public class ControlPanel implements I_FrontEndModule {
 	ComboBox<Language> languageButton;
 	private ComboBox<String> turtleBackGroundSelector, penColorSelector;
+	
+	private TurtleDisplay myTurtleDisplay;
+	private CmdHistoryDisplay myCmdHistDisp;
+	private Console myConsole;
+	private VarDisplay myVarDisp;
+	private ColorManager myColorManager;
 	private Button turtleImgButton, newWorkspaceButton;
 	private ToolBar bar;
 	private Properties prop;
-	private GUI myGUI;
 	private Language language;
 	private final ObservableList<Language> LANG_BUTTON_OPTIONS = FXCollections.observableArrayList(Arrays.asList(Language.values()));
 	
 	
 	/**
+	 * @param colorManager 
 	 * 
 	 */
-	public ControlPanel(GUI _myGUI, Language _language) {
-		myGUI=_myGUI;
-		myGUI.addColor(120, 13, 0, "1 (added in controlPanel constructor)");
+	public ControlPanel(Language _language, TurtleDisplay _myTurtleDisplay, CmdHistoryDisplay _myCmdHistDisp,
+			Console _myConsole,VarDisplay _myVarDisp, ColorManager _myColorManager) {
+		myTurtleDisplay=_myTurtleDisplay;
+		myCmdHistDisp=_myCmdHistDisp;
+		myConsole=_myConsole;
+		myVarDisp=_myVarDisp;
 		language=_language;
+		myColorManager=_myColorManager;
 		bar = new ToolBar();
 		prop = new Properties();
 		loadPropetiesFromFile(language.toString()+"Text.properties");
@@ -57,21 +68,24 @@ public class ControlPanel implements I_FrontEndModule {
 		languageButton.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Language>() {
 			@Override
 			public void changed(ObservableValue<? extends Language> observable, Language oldValue, Language newValue) {
-				myGUI.setLanguage(newValue);
+				myTurtleDisplay.setLanguage(newValue);
+				myCmdHistDisp.setLanguage(newValue);
+				myConsole.setLanguage(newValue);
+				myVarDisp.setLanguage(newValue);
 			}
 		});
 		
 		turtleBackGroundSelector.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				myGUI.setTurtleBackgroundColor(newValue);
+				myTurtleDisplay.setBackgroudColor(myColorManager.getColor(newValue));
 			}				
 		});
 		
 		penColorSelector.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				myGUI.setTurtlePenColor(newValue);
+				myTurtleDisplay.setPenColor(myColorManager.getColor(newValue));
 			}
 		});
 		
@@ -85,7 +99,7 @@ public class ControlPanel implements I_FrontEndModule {
 	            );
 			File file=fileChooser.showOpenDialog(null);
 			if(file!=null){
-				myGUI.setTurtleImage(file);
+				myTurtleDisplay.setTurtleImg(file);
 			}
 		});
 	}
@@ -103,10 +117,10 @@ public class ControlPanel implements I_FrontEndModule {
 	private void initiateButtons() {
 		languageButton = new ComboBox<Language>(LANG_BUTTON_OPTIONS);
 		turtleBackGroundSelector = new ComboBox<String>();
-		turtleBackGroundSelector.setItems(myGUI.getObservedColorNames());
+		turtleBackGroundSelector.setItems(myColorManager.getObservedColorNames());
 		
 		penColorSelector = new ComboBox<String>();
-		penColorSelector.setItems(myGUI.getObservedColorNames());
+		penColorSelector.setItems(myColorManager.getObservedColorNames());
 		
 		turtleImgButton = new Button(prop.getProperty("turtleImgButton"));
 		newWorkspaceButton=new Button("New workspace");

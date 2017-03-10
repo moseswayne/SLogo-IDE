@@ -13,39 +13,43 @@ public class BackEndData {
 	private Double myValue;
 	private Stack<ExpressionNode> instructionStack;
 	private Queue<TurtleParameters> myTurtleParameters;
-	
+
 	public BackEndData() {
 		instructionStack = new Stack<ExpressionNode>();
 		myTurtleParameters = new ArrayDeque<TurtleParameters>();
 	}
-	
+
 	public void setValue(double thisValue) {
 		myValue = thisValue;
 	}
-	
+
 	public Double getMyValue() {
 		return myValue;
 	}
-	
+
 	public void addTurtleParameters(double x, double y, double heading, boolean isPendown, boolean turtleShow) {
 		myTurtleParameters.add(new TurtleParameters(0, x, y, heading, isPendown, turtleShow, turtleShow));
 	}
-	
+
+	public void addTurtleParameters(TurtleModel turtle) {
+		myTurtleParameters.add(new TurtleParameters(turtle));
+	}
+
 	public Queue<TurtleParameters> transferQueue() {
 		return myTurtleParameters;
 	}
-	
+
 	public void setInstructions(ExpressionNode instruction) {
 		instructionStack.push(instruction);
 	}
-	
+
 	public boolean hasNextInstruction() {
 		return (!instructionStack.isEmpty());
 	}
-	
+
 	public Queue<ExpressionNode> getInstructions() {
 		Queue<ExpressionNode> instructionQueue = new ArrayDeque<>();
-		while(hasNextInstruction()) {
+		while (hasNextInstruction()) {
 			instructionQueue.add(instructionStack.pop());
 		}
 		return instructionQueue;

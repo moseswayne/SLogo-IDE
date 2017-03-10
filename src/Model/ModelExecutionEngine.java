@@ -6,11 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
-import Operations.CommandOperation;
+import Model.backEndUtils.BackEndData;
+import Model.backEndUtils.ParameterObject;
+import Model.operations.CommandOperation;
 import View.viewUtils.FrontEndData;
-import controller.CommandParser;
+import parser.CommandParser;
 import tree.ExpressionNode;
-import utils.ParameterObject;
 import utils.RawCommand;
 
 public class ModelExecutionEngine implements I_ExecutionEngine {

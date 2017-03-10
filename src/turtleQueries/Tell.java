@@ -6,7 +6,8 @@ import java.util.List;
 
 import Model.TurtleManager;
 import Model.TurtleModel;
-import utils.ParameterObject;
+import Model.operations.commandOps.turtleOps.A_MultipleTurtles;
+import backEndObjects.ParameterObject;
 
 /**
  * Gets list of TurtleModels according to their ID number

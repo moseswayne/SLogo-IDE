@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import Model.BackEndData;
 import Model.TurtleManager;
 import Model.TurtleModel;
-import utils.ParameterObject;
+import Model.backEndUtils.BackEndData;
+import Model.backEndUtils.ParameterObject;
+import Model.operations.commandOps.turtleOps.A_MultipleTurtles;
 
 public class Ask extends A_MultipleTurtles{
 	List<TurtleModel> myTurtles;

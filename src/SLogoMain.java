@@ -13,7 +13,7 @@ import javafx.util.Duration;
 import utils.Language;
 import utils.RawCommand;
 
-public class Main extends Application {
+public class SLogoMain extends Application {
 	private final String TITLE = "SLogo Program";
 	GUI display;
 	ModelExecutionEngine engine;
@@ -23,10 +23,13 @@ public class Main extends Application {
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	@Override
-	public void start(Stage stage) throws Exception {
+	public void start(Stage stage) {
 		// TODO Auto-generated method stub
 		tmGenerator=new TranslationMapGenerator();
 		 display = new GUI();
+		 display.setNewWindowButton(()->{
+			 (new SLogoMain()).start(new Stage());
+		 });
 		 engine=new ModelExecutionEngine();
 		stage.setTitle(TITLE);
 		 stage.setResizable(false);
@@ -40,7 +43,7 @@ public class Main extends Application {
 		animation.play();
 		
 		ArrayList<FrontEndData> dataCollection = new ArrayList<>();
-		FrontEndData data = new FrontEndData("测试 main 43行", Language.Chinese);
+		FrontEndData data = new FrontEndData("test main 43", Language.Chinese);
 		data.addTurtleParameters(0, 125, 125, 45, true, true, true);
 		dataCollection.add(data);
 		display.show(dataCollection);

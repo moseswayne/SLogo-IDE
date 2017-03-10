@@ -111,6 +111,10 @@ public class GUI implements I_GUI{
 			module.setLanguage(lang);
 		}
 	}
+	
+	public void setNewWindowButton(Runnable newWindowMethod){
+		ctrlPanel.setNewWindowMethod(newWindowMethod);
+	}
 
 	private void addModulesToCollection() {
 		myModules=new ArrayList<>();

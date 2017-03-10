@@ -8,9 +8,9 @@ import utils.ParameterObject;
 public abstract class A_TurtleCommand implements CommandOperation {
 
 	public void execute(ParameterObject params, BackEndData data) {
-
-		data.setValue(returnValue(params));
+//Update turtle before get return value
 		TurtleModel myTurtle = updateTurtle(params);
+		data.setValue(returnValue(params));
 		data.addTurtleParameters(myTurtle.getX(), myTurtle.getY(), myTurtle.getHeading(), myTurtle.getPenShowing(), myTurtle.getTurtleShowing());
 		// TODO may need to make a queue
 	}

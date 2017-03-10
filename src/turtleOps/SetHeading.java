@@ -34,5 +34,4 @@ public class SetHeading extends A_TurtleCommand {
 		}
 		return value;
 	}
-
 }

@@ -10,20 +10,15 @@ import java.util.Map;
  * churns out the corresponding command object
  * @author Justin Yang
  * @author Yuxiang He
+ * @author Moses Wayne
  *
  */
 public class OperationFactory {
-	
-	private Map<String, String> commandMap;
 
-	public OperationFactory(Map<String, String> cmdMap) {
-		commandMap = cmdMap;
+	public OperationFactory() {
 	}
 	
 	public CommandOperation getOp(String cmdName) {
-		if (!isValidOp(cmdName)) {
-			throw new ParserException(ParserException.INVALID_CMD, cmdName);
-		}
 		CommandOperation cmdOp;
 		try {
 			Class<?> cmdClass = Class.forName(cmdName);
@@ -38,7 +33,8 @@ public class OperationFactory {
 		return cmdOp;
 	}
 	
+	/*
 	public boolean isValidOp(String cmd) {
 		return commandMap.containsKey(cmd) && commandMap.get(cmd).length() != 0;
-	}
+	}*/
 }

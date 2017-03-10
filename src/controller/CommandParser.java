@@ -23,12 +23,12 @@ public class CommandParser {
 		mySyntaxProp = new PropertyUtility(syntaxFile);
 	}
 
-	public Collection<ExpressionNode> parse(String rawString, Language language, TurtleManager turtManager) {
+	public Queue<ExpressionNode> parse(String rawString, Language language, TurtleManager turtManager) {
 		myLanguage = new PropertyUtility(languageDir+language.toString()+fileExtension);
 		String[] commandLines = rawString.split(mySyntaxProp.getValue("Newline"));
 		Queue<String> commandTokens = buildQueue(commandLines);
 		NodeFactory nodeBuilder = new NodeFactory(turtManager);
-		ArrayList<ExpressionNode> myNodes = new ArrayList<>();
+		ArrayDeque<ExpressionNode> myNodes = new ArrayDeque<>();
 		while (!commandTokens.isEmpty()) {
 			myNodes.add(nodeBuilder.makeNode(commandTokens));
 		}

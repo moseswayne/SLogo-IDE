@@ -20,9 +20,12 @@ import java.util.Collection;
 import java.util.Properties;
 import View.viewUtils.FrontEndData;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import utils.ColorManager;
@@ -32,12 +35,12 @@ import utils.PropertyUtility;
 import utils.RawCommand;
 
 public class GUI implements I_GUI{
-	private final Dimension DEFAULT_SIZE = new Dimension(1000, 750);
+	private final Dimension DEFAULT_SIZE = new Dimension(1010, 770);
 	private final Dimension DEAFAULT_TURTLE_DISP_SIZE=new Dimension(600, 510);
-	private final Dimension DEAFAULT_CONSOLE_SIZE=new Dimension(1000, 200);
-	private final Dimension DEAFAULT_SIDE_DISP_SIZE=new Dimension(200, 400);
+	private final Dimension DEAFAULT_CONSOLE_SIZE=new Dimension(1010, 200);
+	private final Dimension DEAFAULT_SIDE_DISP_SIZE=new Dimension(200, 510);
 	private Scene myScene;
-	private BorderPane root;
+	private Parent root;
 	private CmdHistoryDisplay cmdHistoryDisplay;
 	private Console console;
 	private TurtleDisplay turtleDisplay;
@@ -58,9 +61,12 @@ public class GUI implements I_GUI{
 		language=Language.valueOf(prop.getProperty("DEAFAULT_LANGUAGE"));
 		initiateModules();
 		addModulesToCollection();
-		root=makeRoot();
+		root=new ScrollPane(makeRoot());
+		root.prefHeight(DEFAULT_SIZE.getHeight());
+		
 		myScene= new Scene(root, DEFAULT_SIZE.getWidth(), DEFAULT_SIZE.getHeight());
 	}
+	
 	
 	/**
 	 * Helper method, 

@@ -67,11 +67,8 @@ public class Main extends Application {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
-
 	}
-
 	/**
 	 * Start of the program.
 	 */

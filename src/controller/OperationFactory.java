@@ -20,7 +20,7 @@ public class OperationFactory {
 	public CommandOperation getOp(String cmdName) {
 		CommandOperation cmdOp;
 		try {
-			Class<?> cmdClass = Class.forName(cmdName);
+			Class<?> cmdClass = Class.forName("mathOps."+cmdName);
 			Constructor<?> cmdConstructor = cmdClass.getConstructor();
 			cmdOp = (CommandOperation) cmdConstructor.newInstance();
 		}

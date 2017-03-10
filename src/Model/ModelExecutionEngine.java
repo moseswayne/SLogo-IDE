@@ -22,6 +22,7 @@ public class ModelExecutionEngine implements I_ExecutionEngine {
 	
 	public ModelExecutionEngine() {
 		variableMap = new HashMap<String, Double>();
+
 		myParser = new CommandParser();
 		myTurtleManager = new TurtleManager();
 	}

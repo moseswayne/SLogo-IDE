@@ -4,7 +4,6 @@ package View;
 //TODO show/hide turtles
 //TODO drag-able turtles
 //TODO see state of multiple turtles (probably a window)
-//TODO Multiple workspaces
 //TODO display error messages (probably pop up a notification window)
 //TODO animation
 //TODO Display active turtles
@@ -14,7 +13,6 @@ package View;
 
 import java.awt.Dimension;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Properties;
@@ -25,10 +23,14 @@ import View.turtleDisplay.TurtleDisplay;
 import View.varDisplay.VarDisplay;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import utils.ColorManager;
+import utils.ErrorMessage;
 import utils.Language;
+import utils.PropertyUtility;
 import utils.RawCommand;
 
 public class GUI implements I_GUI{
@@ -46,7 +48,6 @@ public class GUI implements I_GUI{
 	private ControlPanel ctrlPanel;
 	private Language language;
 	private Collection<I_FrontEndModule> myModules;
-	private Properties prop;
 	private ColorManager colorManager;
 	
 	/**
@@ -55,8 +56,7 @@ public class GUI implements I_GUI{
 	 * @param sceneHeight
 	 */
 	public GUI () {
-		prop=new Properties();
-		loadPropetiesFromFile("GeneraGUISettings.properties");
+		Properties prop=new PropertyUtility("GeneraGUISettings.properties").getProperties();
 		colorManager=new ColorManager();
 		language=Language.valueOf(prop.getProperty("DEAFAULT_LANGUAGE"));
 		initiateModules();
@@ -111,6 +111,10 @@ public class GUI implements I_GUI{
 			module.setLanguage(lang);
 		}
 	}
+	
+	public void setNewWindowButton(Runnable newWindowMethod){
+		ctrlPanel.setNewWindowMethod(newWindowMethod);
+	}
 
 	private void addModulesToCollection() {
 		myModules=new ArrayList<>();
@@ -137,11 +141,25 @@ public class GUI implements I_GUI{
 	@Override
 	public void show(Collection<FrontEndData> dataCollection) {
 		for(FrontEndData data: dataCollection){
-			cmdHistoryDisplay.updateDisplayedData(data);
-			console.updateDisplayedData(data);
-			varDisplay.updateDisplayedData(data);
-			turtleDisplay.updateDisplayedData(data);
+			if(data.getError()!=null){
+				showError(data.getError());
+			} else {
+				cmdHistoryDisplay.updateDisplayedData(data);
+				console.updateDisplayedData(data);
+				varDisplay.updateDisplayedData(data);
+				turtleDisplay.updateDisplayedData(data);
+			}
+			
 		}
+	}
+
+	private void showError(ErrorMessage error) {
+		Properties errProp=new PropertyUtility(language+"Text.properties").getProperties();
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle(errProp.getProperty("alertTitle"));
+		alert.setHeaderText(errProp.getProperty("alertHeader"));
+		alert.setContentText(error.getMessage());
+		alert.show();
 	}
 
 	@Override
@@ -158,14 +176,6 @@ public class GUI implements I_GUI{
 	@Override
 	public Scene getScene() {
 		return myScene;
-	}
-	
-	private void loadPropetiesFromFile(String fileName){
-		try {
-			prop.load(getClass().getClassLoader().getResourceAsStream(fileName));
-		} catch (IOException e1) {
-			throw new Error("properties file not found or something else created an IO error");
-		}
 	}
 
 

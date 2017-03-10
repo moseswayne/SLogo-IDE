@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import Model.ModelExecutionEngine;
 import View.FrontEndData;
@@ -10,6 +11,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import utils.ErrorMessage;
 import utils.Language;
 import utils.RawCommand;
 
@@ -17,19 +19,21 @@ public class Main extends Application {
 	private final String TITLE = "SLogo Program";
 	GUI display;
 	ModelExecutionEngine engine;
-	private TranslationMapGenerator tmGenerator;
-	
+
 	public static final int FRAMES_PER_SECOND = 60;
-    public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+
 	@Override
-	public void start(Stage stage) throws Exception {
+	public void start(Stage stage) {
 		// TODO Auto-generated method stub
-		tmGenerator=new TranslationMapGenerator();
-		 display = new GUI();
-		 engine=new ModelExecutionEngine();
+		display = new GUI();
+		display.setNewWindowButton(() -> {
+			(new Main()).start(new Stage());
+		});
+		engine = new ModelExecutionEngine();
 		stage.setTitle(TITLE);
-		 stage.setResizable(false);
+		stage.setResizable(false);
 		Scene sc = display.getScene();
 		stage.setScene(sc);
 		stage.show();
@@ -38,32 +42,41 @@ public class Main extends Application {
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
-		
+
+		//TODO hard coded testing code, to be removed
 		ArrayList<FrontEndData> dataCollection = new ArrayList<>();
-		FrontEndData data = new FrontEndData("测试 main 43行", Language.Chinese);
+		FrontEndData data = new FrontEndData("test main 43", Language.Chinese);
 		data.addTurtleParameters(0, 125, 125, 45, true, true, true);
 		dataCollection.add(data);
 		display.show(dataCollection);
+		
+
+		
+//		dataCollection = new ArrayList<>();
+//		data = new FrontEndData("test main 60", Language.Chinese);
+//		data.addError(new ErrorMessage("test error"));
+//		dataCollection.add(data);
+//		display.show(dataCollection);
 	}
 
-    private void step (double elapsedTime) {
-        RawCommand rcmd=display.getUserInput();
-        FrontEndData data=null;
-        if(rcmd!=null){
-        	  try {
-        		  rcmd.setTranslationMap(tmGenerator.getTranslationMap(rcmd.getLanguage()));
-        		  data=engine.runOp(rcmd);
-      		} catch (Exception e) {
-      			// TODO Auto-generated catch block
-      			e.printStackTrace();
-      		}
-        	  ArrayList<FrontEndData> collec=new ArrayList<>();
-              collec.add(data);
-             display.show(collec);
-        }
-         
-    }
-	
+	private void step(double elapsedTime) {
+		RawCommand rcmd = display.getUserInput();
+		FrontEndData data = null;
+		if (rcmd != null) {
+			try {
+				data = engine.runOp(rcmd);
+				ArrayList<FrontEndData> collec = new ArrayList<>();
+				collec.add(data);
+				display.show(collec);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+
+	}
+
 	/**
 	 * Start of the program.
 	 */

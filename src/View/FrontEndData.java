@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Map;
 import java.util.Queue;
 
+import utils.ErrorMessage;
 import utils.Language;
 import utils.TurtleParameters;
 
@@ -13,6 +14,7 @@ public class FrontEndData {
 	private Queue<TurtleParameters> myTurtleParameters;
 	private Map<String, String> variables;
 	private Language myLanguage;
+	private ErrorMessage errMsg;
 
 	public FrontEndData(String command, Language lang) {
 		myLanguage=lang;
@@ -26,6 +28,10 @@ public class FrontEndData {
 	
 	public void addTurtleParameters(int id, double x, double y, double heading, boolean isPendown, boolean turtleShow, boolean turtleActive) {
 		myTurtleParameters.add(new TurtleParameters(id, x, y, heading, isPendown, turtleShow, turtleActive));
+	}
+	
+	public void addError(ErrorMessage _errMsg){
+		errMsg=_errMsg;
 	}
 
 	public Double getPrintConsole() {
@@ -46,5 +52,9 @@ public class FrontEndData {
 
 	public Language getMyLanguage(){
 		return myLanguage;
+	}
+	
+	public ErrorMessage getError(){
+		return errMsg;
 	}
 }

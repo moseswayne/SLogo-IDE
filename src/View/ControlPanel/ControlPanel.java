@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToolBar;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import utils.Language;
 import utils.RawCommand;
 
@@ -45,10 +46,12 @@ public class ControlPanel implements I_FrontEndModule {
 		loadPropetiesFromFile(language.toString()+"Text.properties");
 		initiateButtons();
 		initiateListeners();
-		bar.getItems().addAll(languageButton, turtleBackGroundSelector, penColorSelector, turtleImgButton);//, newWorkspaceButton);
+		bar.getItems().addAll(languageButton, turtleBackGroundSelector, penColorSelector, turtleImgButton, newWorkspaceButton);
 	}
 
+	
 
+	
 	/**
 	 * 
 	 * 
@@ -89,12 +92,13 @@ public class ControlPanel implements I_FrontEndModule {
 				myGUI.setTurtleImage(file);
 			}
 		});
-		
-		newWorkspaceButton.setOnMouseClicked(action->{
-			
-		});
 	}
 	
+	public void setNewWindowMethod(Runnable newSimMethod){
+		newWorkspaceButton.setOnMouseClicked(action->{
+			newSimMethod.run();
+		});
+	}
 	/**
 	 * 
 	 * 

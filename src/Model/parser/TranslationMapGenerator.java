@@ -1,4 +1,4 @@
-package parser;
+package Model.parser;
 
 import java.io.IOException;
 import java.util.EnumMap;

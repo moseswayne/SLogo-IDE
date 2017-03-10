@@ -60,14 +60,15 @@ public class Main extends Application {
 		if (rcmd != null) {
 			try {
 				data = engine.runOp(rcmd);
-				ArrayList<FrontEndData> collec = new ArrayList<>();
-				collec.add(data);
-				display.show(collec);
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				data = new FrontEndData(rcmd.getCommandString(), Language.English);
+				data.addError(new ErrorMessage(e.getMessage()));
 			}
-			
+			ArrayList<FrontEndData> collec = new ArrayList<>();
+			collec.add(data);
+			display.show(collec);
 		}
 
 	}

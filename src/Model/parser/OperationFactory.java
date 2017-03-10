@@ -1,4 +1,4 @@
-package parser;
+package Model.parser;
 
 import java.lang.reflect.InvocationTargetException;
 

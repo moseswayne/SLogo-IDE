@@ -1,4 +1,4 @@
-package tree;
+package Model.expressionTree;
 
 import java.util.Map;
 

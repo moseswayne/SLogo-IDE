@@ -1,15 +1,17 @@
-package parser;
+package Model.parser;
 
 import java.lang.reflect.Method;
 import java.util.Queue;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import Model.TurtleManager;
-import tree.BaseCommandNode;
-import tree.CommandNode;
-import tree.ControlCommandNode;
-import tree.ExpressionNode;
-import tree.LeafNode;
-import tree.TurtleCommandNode;
+import Model.expressionTree.ExpressionNode;
+import Model.expressionTree.LeafNode;
+import Model.expressionTree.commandNode.BaseCommandNode;
+import Model.expressionTree.commandNode.CommandNode;
+import Model.expressionTree.commandNode.ControlCommandNode;
+import Model.expressionTree.commandNode.TurtleCommandNode;
 import utils.PropertyUtility;
 
 public class NodeFactory {
@@ -39,22 +41,15 @@ public class NodeFactory {
 		if (type == null) {
 			throw new ParserException(ParserException.INVALID_VAR, type);
 		}
-		/*
+		
 		try {
-			Method constructNode = this.getClass().getDeclaredMethod(methodStub + type);
+			Method constructNode = this.getClass().getDeclaredMethod(methodStub + type, new Class[] {Queue.class, String.class});
 			constructNode.setAccessible(true);
-			return (ExpressionNode) constructNode.invoke(this, remainingTokens);
+			Object[] parameters = {remainingTokens, type};
+			return (ExpressionNode) constructNode.invoke(this, parameters);
 		} catch (Exception e) {
 			throw new ParserException(ParserException.INVALID_CMD, type);
-		}*/
-		if(type.equals("Control")) {
-			return makeControl(remainingTokens, type);
-		} else if(type.equals("Turtle")) {
-			return makeTurtle(remainingTokens, type);
-		} else if(type.equals("Basic")) {
-			return makeBasic(remainingTokens, type);
-		} 
-		return makeLeaf(remainingTokens, type);
+		}
 	}
 
 	private ExpressionNode makeLeaf(Queue<String> remainingTokens, String type) {
@@ -94,10 +89,11 @@ public class NodeFactory {
 		}
 	}
 	
-	private boolean checkSyntacticSugar(Queue<String> remainingTokens) {
+	private BiFunction<Integer,Queue<String>,Boolean> checkSyntacticSugar(Queue<String> remainingTokens) {
 		if(syntaxProp.getKey(remainingTokens.peek()).equals("GroupStart")) {
 			remainingTokens.poll();
+			return  (numAgrs,tokenQueue) -> {return syntaxProp.getKey(tokenQueue.peek()).equals("GroupEnd");};
 		}
-		return false;
+		return (numArgs,tokenQueue) -> {return false;};
 	}
 }

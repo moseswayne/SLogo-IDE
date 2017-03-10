@@ -8,10 +8,10 @@ import java.util.Queue;
 
 import Model.backEndUtils.BackEndData;
 import Model.backEndUtils.ParameterObject;
+import Model.expressionTree.ExpressionNode;
 import Model.operations.CommandOperation;
+import Model.parser.CommandParser;
 import View.viewUtils.FrontEndData;
-import parser.CommandParser;
-import tree.ExpressionNode;
 import utils.RawCommand;
 
 public class ModelExecutionEngine implements I_ExecutionEngine {

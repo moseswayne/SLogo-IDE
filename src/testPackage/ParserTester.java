@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
-import parser.CommandParser;
+import Model.parser.CommandParser;
 import utils.Language;
 import utils.PropertyUtility;
 

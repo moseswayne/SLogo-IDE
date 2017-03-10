@@ -2,13 +2,13 @@ package tree;
 
 import java.util.Map;
 
-import Model.BackEndData;
 import Model.TurtleManager;
 import Model.TurtleModel;
-import utils.ParameterObject;
+import Model.backEndUtils.BackEndData;
+import Model.backEndUtils.ParameterObject;
 
-public class TurtleCommandNode extends CommandNode{
-	
+public class TurtleCommandNode extends CommandNode {
+
 	TurtleManager myManager;
 
 	public TurtleCommandNode(TurtleManager manager) {
@@ -18,8 +18,8 @@ public class TurtleCommandNode extends CommandNode{
 
 	@Override
 	public String getValue(BackEndData startData, Map<String, Double> varMap) {
-		for(TurtleModel turtle:myManager.getActiveTurtles()) {
-			getOp().execute(getTurtleParameters(startData, varMap,turtle), startData);
+		for (TurtleModel turtle : myManager.getActiveTurtles()) {
+			getOp().execute(getTurtleParameters(startData, varMap, turtle), startData);
 		}
 		System.out.println(startData.getMyValue().toString());
 		return startData.getMyValue().toString();
@@ -31,7 +31,7 @@ public class TurtleCommandNode extends CommandNode{
 		cloneContents(thisNode);
 		return thisNode;
 	}
-	
+
 	private ParameterObject getTurtleParameters(BackEndData data, Map<String, Double> vars, TurtleModel turtle) {
 		ParameterObject turtParameters = getParameters(data, vars);
 		turtParameters.setTurtle(turtle);

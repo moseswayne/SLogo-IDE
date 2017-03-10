@@ -2,6 +2,7 @@ package Model.operations.commandOps.turtleOps;
 
 import Model.TurtleModel;
 import Model.backEndUtils.ParameterObject;
+import Model.operations.commandOps.A_TurtleCommand;
 
 /**
  * Rotates Turtle in a specified direction
@@ -9,15 +10,16 @@ import Model.backEndUtils.ParameterObject;
  * @author Kris Elbert
  *
  */
-//TODO may not want to extend manipulate turtle
-public abstract class A_TurnTurtle extends A_ManipulateTurtle {
-	private static int FULL_CIRCLE = 360;
+// TODO may not want to extend manipulate turtle
+public abstract class A_TurnTurtle extends A_TurtleCommand {
+	private final int FULL_CIRCLE = 360;
+	private double myDegrees;
 
 	@Override
 	public TurtleModel updateTurtle(ParameterObject params) {
 		TurtleModel myTurtle = params.getTurtle();
-		Double degrees = returnValue(params);
-		myTurtle.setHeading(newHeading(myTurtle, degrees));
+		myDegrees = returnValue(params);
+		myTurtle.setHeading(newHeading(myTurtle, myDegrees));
 		return myTurtle;
 	}
 
@@ -43,4 +45,13 @@ public abstract class A_TurnTurtle extends A_ManipulateTurtle {
 	 * @return
 	 */
 	protected abstract int setDirection();
+
+	protected double returnValue(ParameterObject params) {
+		try {
+			return myDegrees;
+		} catch (NullPointerException e) {
+			updateTurtle(params);
+			return returnValue(params);
+		}
+	}
 }

@@ -13,8 +13,8 @@ import tree.TurtleCommandNode;
 import utils.PropertyUtility;
 
 public class NodeFactory {
-	private final String typeFile = "resources/Type.properties";
-	private final String argFile = "resources/Arguments.properties";
+	private final String typeFile = "Type.properties";
+	private final String argFile = "Arguments.properties";
 	private final String methodStub = "make";
 
 	private PropertyUtility myTypes;
@@ -31,16 +31,26 @@ public class NodeFactory {
 
 	public ExpressionNode makeNode(Queue<String> remainingTokens) {
 		String type = myTypes.getKey(remainingTokens.peek());
+		System.out.println(remainingTokens.peek());
 		if (type == null) {
 			throw new ParserException(ParserException.INVALID_VAR, type);
 		}
+		/*
 		try {
 			Method constructNode = this.getClass().getDeclaredMethod(methodStub + type);
 			constructNode.setAccessible(true);
 			return (ExpressionNode) constructNode.invoke(this, remainingTokens);
 		} catch (Exception e) {
 			throw new ParserException(ParserException.INVALID_CMD, type);
-		}
+		}*/
+		if(type.equals("Leaf")) {
+			return makeLeaf(remainingTokens);
+		} else if(type.equals("Turtle")) {
+			return makeTurtle(remainingTokens);
+		} else if(type.equals("Base")) {
+			return makeBase(remainingTokens);
+		} 
+		return makeControl(remainingTokens);
 	}
 
 	private ExpressionNode makeLeaf(Queue<String> remainingTokens) {

@@ -7,7 +7,11 @@ public class For extends A_StructureCommand{
 
 	@Override
 	public void modifyInstructionStack(ParameterObject params) {
-		for(int i = params.next().intValue(); i < params.next(); i+=params.next()) {
+		String var = params.nextRaw();
+		int start = params.next().intValue();
+		int end = params.next().intValue();
+		int increment = params.next().intValue();
+		for(int i = start; i < end; i+=increment) {
 			addListStack();
 		}
 		

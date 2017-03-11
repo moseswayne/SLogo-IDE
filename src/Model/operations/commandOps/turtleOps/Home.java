@@ -4,7 +4,7 @@ import Model.TurtleModel;
 import Model.backEndUtils.ParameterObject;
 import Model.operations.commandOps.A_TurtleCommand;
 
-public class MoveHome extends A_MoveTurtle {
+public class Home extends A_MoveTurtle {
 	private final double[] HOME_COORDINATES = { 0, 0 };
 	private double prevX;
 	private double prevY;

@@ -3,6 +3,7 @@ package Model.parser;
 public class ParserException extends RuntimeException {
 
 	public static final String INVALID_CMD = "%s is not a recognized command";
+	public static final String INVALID_SYN = "Syntax for the entered command is incorrect";
 	public static final String INVALID_VAR = "%s is not a recognized variable";
 	public static final String PROPERTIES_ERROR = "Error reading properties file";
 	

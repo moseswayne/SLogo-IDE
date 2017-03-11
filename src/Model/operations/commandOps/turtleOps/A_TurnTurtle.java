@@ -18,7 +18,7 @@ public abstract class A_TurnTurtle extends A_TurtleCommand {
 	@Override
 	public TurtleModel updateTurtle(ParameterObject params) {
 		TurtleModel myTurtle = params.getTurtle();
-		myDegrees = returnValue(params);
+		myDegrees = params.next();
 		myTurtle.setHeading(newHeading(myTurtle, myDegrees));
 		return myTurtle;
 	}

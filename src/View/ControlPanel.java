@@ -46,7 +46,7 @@ public class ControlPanel implements I_FrontEndModule {
 	 * 
 	 */
 	public ControlPanel(Language _language, TurtleDisplay _myTurtleDisplay, CmdHistoryDisplay _myCmdHistDisp,
-			Console _myConsole,VarDisplay _myVarDisp, ColorManager _myColorManager) {
+		Console _myConsole,VarDisplay _myVarDisp, ColorManager _myColorManager) {
 		myTurtleDisplay=_myTurtleDisplay;
 		myCmdHistDisp=_myCmdHistDisp;
 		myConsole=_myConsole;

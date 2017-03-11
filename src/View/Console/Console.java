@@ -88,8 +88,6 @@ public class Console implements I_FrontEndModule {
 			String text = inputField.getText().trim();
 			if (text.length() != 0) {
 				bufferedCommandStr = text;
-				// TODO this line will be removed
-				printToOutput("debug: " + text);
 			}
 			clearInputField();
 		});

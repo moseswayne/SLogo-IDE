@@ -1,4 +1,4 @@
-package View.viewUtils;
+package View.VarDisp;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;

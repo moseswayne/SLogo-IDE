@@ -3,23 +3,12 @@ package View.TurtleDisplay;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.Properties;
 import java.util.Queue;
-
 import View.viewUtils.ObservedDisplay;
-import javafx.collections.FXCollections;
-import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableMap;
 import javafx.scene.Node;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-import utils.Language;
-import utils.PropertyUtility;
 import utils.TurtleParameters;
 
 public class TurtleContainer {

@@ -30,7 +30,7 @@ import utils.PropertyUtility;
 import utils.RawCommand;
 
 public class GUI implements I_GUI{
-	private final Dimension DEFAULT_SIZE = new Dimension(1010, 770);
+	private final Dimension DEFAULT_SIZE = new Dimension(1010, 600);
 	private final Dimension DEAFAULT_TURTLE_DISP_SIZE=new Dimension(600, 510);
 	private final Dimension DEAFAULT_CONSOLE_SIZE=new Dimension(1010, 200);
 	private final Dimension DEAFAULT_SIDE_DISP_SIZE=new Dimension(200, 510);

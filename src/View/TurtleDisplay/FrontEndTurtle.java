@@ -20,10 +20,6 @@ public class FrontEndTurtle extends ImageView {
 		Image myImage =  new Image(getClass().getClassLoader().getResourceAsStream(prop.getProperty("deafaultTurtleImage")));
 		this.setImage(myImage);
 		myParams=_myParams;
-		this.xProperty().bind(myParams.getXProperty());
-		this.yProperty().bind(myParams.getYProperty());
-		this.rotateProperty().bind(myParams.getHeadingProperty());
-		this.visibleProperty().bind(myParams.getVisibleProperty());
 	}
 
 
@@ -33,12 +29,7 @@ public class FrontEndTurtle extends ImageView {
 	
 	public void setParams(TurtleParameters params){
 		if(params.getID()==myParams.getID()){
-			myParams.setX(params.getXProperty());
-			myParams.setY(params.getYProperty());
-			myParams.setHeading(params.getHeadingProperty());
-			myParams.setIsActive(params.getActiveProperty());
-			myParams.setIsPendown(params.getPenDownProperty());
-			myParams.setTurtleVisible(params.getVisibleProperty());
+			myParams=params;
 		} else {
 			System.out.println("turtle id doesn;'t match");
 		}

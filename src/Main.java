@@ -11,6 +11,7 @@ import javafx.util.Duration;
 import utils.ErrorMessage;
 import utils.Language;
 import utils.RawCommand;
+import utils.TurtleParameters;
 
 public class Main extends Application {
 	private final String TITLE = "SLogo Program";
@@ -39,13 +40,19 @@ public class Main extends Application {
 		animation.getKeyFrames().add(frame);
 		animation.play();
 
-		/*
+		
 		//TODO hard coded testing code, to be removed
-		ArrayList<FrontEndData> dataCollection = new ArrayList<>();
-		FrontEndData data = new FrontEndData("test main 43", Language.Chinese);
-		data.addTurtleParameters(0, 125, 125, 45, true, true, true);
-		dataCollection.add(data);
-		display.show(dataCollection);*/
+//		ArrayList<FrontEndData> dataCollection = new ArrayList<>();
+//		FrontEndData data1 = new FrontEndData("test main 43", Language.Chinese);
+//		TurtleParameters params=new TurtleParameters(1, 125, 125, 45, true, true, true);
+//		data1.addTurtleParameters(params);
+//		dataCollection.add(data1);
+//		
+//		FrontEndData data2 = new FrontEndData("test main 51", Language.Chinese);
+//		TurtleParameters params2=new TurtleParameters(2, 125, 125, 45, true, true, true);
+//		data2.addTurtleParameters(params2);
+//		dataCollection.add(data2);
+//		display.show(dataCollection);
 		
 //		dataCollection = new ArrayList<>();
 //		data = new FrontEndData("test main 60", Language.Chinese);

@@ -74,7 +74,7 @@ public class TurtleDispNode {
 	public void setTurtleImg(File file){
 		Image turtleImg=new Image(file.toURI().toString());
 		turtle.setImage(turtleImg);
-		moveTurtle(new TurtleParameters(1, -100,-100, 45, true, true, true), Color.RED);
+		moveTurtle(new TurtleParameters(1, 100,100, 0, true, false, true), Color.RED);
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class TurtleDispNode {
 	
 	public void show(TurtleParameters param, Paint penColor){
 		moveTurtle(param, penColor);
-    	currentParams.copy(param);
+    	currentParams=param;
 	}
     /**
      * Draws the turtle on the canvas
@@ -102,14 +102,16 @@ public class TurtleDispNode {
      * @param position specifies the position of the image's center point, and the heading of the image
      */
     private void moveTurtle(TurtleParameters position, Paint penColor) {
-    	position.setX(centralizeXPosition(position.getXProperty()));
-    	position.setY(centralizeYPosition(position.getYProperty()));
+    	turtle.setX(centralizeXPosition(position.getX()));
+    	turtle.setY(centralizeYPosition(position.getY()));
+    	turtle.setRotate(position.getHeading());
+    	turtle.setVisible(position.turtleVisible());
     	turtle.setParams(position);
     	GraphicsContext canvasGC=lineCanvas.getGraphicsContext2D();
-    	if(position.getPenDownProperty().getValue()){
+    	if(position.isPendown()){
     		canvasGC.setStroke(penColor);
-            canvasGC.strokeLine(currentParams.getXProperty().getValue(), currentParams.getYProperty().getValue(), 
-            		position.getXProperty().getValue(), position.getYProperty().getValue());
+            canvasGC.strokeLine(centralizeXPosition(currentParams.getX()), centralizeYPosition(currentParams.getY()),
+            		centralizeXPosition(position.getX())+TURTLE_SIZE.getWidth()/2, centralizeYPosition(position.getY())+TURTLE_SIZE.getWidth()/2);
     	}
     }
     
@@ -118,17 +120,16 @@ public class TurtleDispNode {
 	 * makes (0, 0) at the center of the display, 
 	 * i.e. center-aligns every coordinate
 	 */
-	private SimpleDoubleProperty centralizeXPosition(SimpleDoubleProperty xPos){
-		double newD=xPos.getValue()+paneSize.getWidth()/2-TURTLE_SIZE.getWidth()/2;
-		return new SimpleDoubleProperty(newD);
+	private double centralizeXPosition(double xPos){
+		return xPos+paneSize.getWidth()/2-TURTLE_SIZE.getWidth()/2;
 	}
 	
 	/**
 	 * makes (0, 0) at the center of the display, 
 	 * i.e. center-aligns every coordinate
 	 */
-	private SimpleDoubleProperty centralizeYPosition(SimpleDoubleProperty yPos){
-		return new SimpleDoubleProperty(yPos.getValue()+paneSize.getWidth()/2-TURTLE_SIZE.getWidth()/2);
+	private double centralizeYPosition(double yPos){
+		return yPos+paneSize.getHeight()/2-TURTLE_SIZE.getHeight()/2;
 	}
 	
 	public Node getContainerNode(){

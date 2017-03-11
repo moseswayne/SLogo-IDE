@@ -144,7 +144,6 @@ public class TurtleDispNode {
 
 
 	private void animateTurtle(TurtleParameters position) {
-		System.out.println("ANIMATING TURTLE");
 		Path path=new Path();
     	path.getElements().add(new MoveTo(centralizeXPosition(position.getX()), centralizeYPosition(position.getY())));
     	PathTransition pathTransition = new PathTransition();

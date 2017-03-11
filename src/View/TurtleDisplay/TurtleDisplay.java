@@ -11,7 +11,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import utils.ColorManager;
 import utils.Language;
@@ -56,16 +55,6 @@ public class TurtleDisplay implements I_FrontEndModule {
 	}
 
 
-	/**
-	 * binds the size of a Region (namely container and turtleContainer in this case) 
-	 * to the size of the "turtleDisplay"
-	 * @param region
-	 */
-	private void standardizeSize(Region region) {
-		region.setPrefSize(paneSize.getWidth(), paneSize.getHeight());
-		region.setMaxSize(paneSize.getWidth(), paneSize.getHeight());
-		region.setMinSize(paneSize.getWidth(), paneSize.getHeight());
-	}
 
 
 	

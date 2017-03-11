@@ -14,7 +14,7 @@ public class ParameterObject {
 	private Queue<String> parameterQueue;
 	private Map<String, Double> varMap;
 	private TurtleModel myTurtle;
-	private Stack<ExpressionNode> instructionStack;
+	private Queue<ExpressionNode> instructionQueue;
 
 	public ParameterObject(Collection<String> params, Map<String, Double> vars, TurtleModel turtle) {
 		this(params, vars);
@@ -76,15 +76,15 @@ public class ParameterObject {
 	}
 
 	public void setStack(Collection<ExpressionNode> instructs) {
-		instructionStack = new Stack<ExpressionNode>();
+		instructionQueue = new ArrayDeque<ExpressionNode>();
 		if (!instructs.isEmpty()) {
 			for (ExpressionNode instruction : instructs) {
-				instructionStack.push(instruction);
+				instructionQueue.add(instruction);
 			}
 		}
 	}
 
-	public Stack<ExpressionNode> getInstructions() {
-		return instructionStack;
+	public Queue<ExpressionNode> getInstructions() {
+		return instructionQueue;
 	}
 }

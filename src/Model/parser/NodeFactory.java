@@ -22,6 +22,8 @@ public class NodeFactory {
 	private final String methodStub = "make";
 	private final String opDir = "Model.operations.commandOps.";
 	private final String opEnd = "Ops.";
+	private final String lStart = "ListStart";
+	private final String lEnd = "ListEnd";
 
 	private PropertyUtility myTypes;
 	private PropertyUtility myArguments;
@@ -76,10 +78,10 @@ public class NodeFactory {
 	private ExpressionNode makeControl(Queue<String> remainingTokens, String type, TriFunction<Integer,Integer,Queue<String>,Boolean> evaluation) {
 		String command = remainingTokens.poll();
 		ControlCommandNode newControl = new ControlCommandNode();
-		if(remainingTokens.peek().equals("[")) remainingTokens.poll();
+		if(Pattern.matches(syntaxProp.getValue(lStart), remainingTokens.peek())) remainingTokens.poll();
 		addBaseVariablesLoop(newControl,command,remainingTokens,type, evaluation);
-		if(remainingTokens.peek().equals("]")) remainingTokens.poll();
-		if(!remainingTokens.poll().equals("[")) throw new ParserException(ParserException.INVALID_SYN);
+		if(Pattern.matches(syntaxProp.getValue(lEnd), remainingTokens.peek())) remainingTokens.poll();
+		if(!Pattern.matches(syntaxProp.getValue(lStart), remainingTokens.poll())) throw new ParserException(ParserException.INVALID_SYN);
 		loopInstructions(remainingTokens, newControl);
 		return newControl;
 	}
@@ -95,11 +97,11 @@ public class NodeFactory {
 	}
 	
 	private void loopInstructions(Queue<String> remainingTokens, ControlCommandNode node) {
-		while(!Pattern.matches(syntaxProp.getValue("ListEnd"), remainingTokens.peek())) {
+		while(!Pattern.matches(syntaxProp.getValue(lEnd), remainingTokens.peek())) {
 			node.addLoopInstruction(makeNode(remainingTokens));
 		}
 		remainingTokens.poll();
-		if(!remainingTokens.isEmpty() && Pattern.matches(syntaxProp.getValue("ListStart"), remainingTokens.peek())) {
+		if(!remainingTokens.isEmpty() && Pattern.matches(syntaxProp.getValue(lStart), remainingTokens.peek())) {
 			System.out.println(remainingTokens.poll());
 			loopInstructions(remainingTokens, node);
 		}

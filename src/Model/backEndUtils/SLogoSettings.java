@@ -5,9 +5,11 @@ import java.util.List;
 
 import utils.Language;
 
-public class BackEndSettings {
+public class SLogoSettings {
 	private final int MAX_VALUE = 256;
 	private final int LENGTH = 3;
+	
+	private String myFile;
 	private Language myLanguage;
 	private List<List<Integer>> myPalette = new ArrayList<List<Integer>>();
 	private List<String> myShapes = new ArrayList<String>();
@@ -24,7 +26,12 @@ public class BackEndSettings {
 	};
 	private boolean isScreenClear;
 
-	public BackEndSettings(Language lang, List<List<Integer>> pallete, Integer pen, Integer back, Double size,
+	public SLogoSettings(String propertyFileName) {
+		myFile = propertyFileName;
+		setUpFromFile(propertyFileName);
+	}
+
+	public SLogoSettings(Language lang, List<List<Integer>> pallete, Integer pen, Integer back, Double size,
 			String img) {
 		myLanguage = lang;
 		myPalette = pallete;
@@ -34,8 +41,13 @@ public class BackEndSettings {
 		myShapes.add(img);
 		myShapeIndex = myShapes.indexOf(img);
 	}
+	
+	private void setUpFromFile(String propertyFileName) {
+		// TODO Auto-generated method stub
+		
+	}
 
-	public BackEndSettings(Language lang, List<Integer> backgroundColor, List<Integer> penColor, Double penSize,
+	public SLogoSettings(Language lang, List<Integer> backgroundColor, List<Integer> penColor, Double penSize,
 			String shape) {
 		myLanguage = lang;
 

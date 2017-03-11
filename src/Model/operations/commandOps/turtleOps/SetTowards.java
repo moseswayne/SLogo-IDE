@@ -26,7 +26,7 @@ public class SetTowards extends A_TurtleCommand {
 			// if updateTurtle called before returnValue
 			difference = myTurtle.getHeading() - previousHeading;
 		} catch (NullPointerException e) {
-			updateTurtle(params);S
+			updateTurtle(params);
 			difference = this.returnValue(params);
 		}
 		return difference;

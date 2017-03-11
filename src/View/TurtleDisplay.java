@@ -162,7 +162,7 @@ public class TurtleDisplay implements I_FrontEndModule {
     	GraphicsContext canvasGC=lineCanvas.getGraphicsContext2D();
     	if(position.getPenDownProperty().getValue()){
     		canvasGC.setStroke(penColor);
-            canvasGC.strokeLine(centralizeXPosition(currentParams.getXProperty().getValue()), centralizeYPosition(currentParams.getYProperty().getValue()), 
+            canvasGC.strokeLine(centralizeXPosition(currentParams.getXProperty().getValue())+TURTLE_SIZE.getWidth()/2, centralizeYPosition(currentParams.getYProperty().getValue())+TURTLE_SIZE.getHeight()/2, 
             		centralizeXPosition(position.getXProperty().getValue())+TURTLE_SIZE.getWidth()/2, centralizeYPosition(position.getYProperty().getValue())+TURTLE_SIZE.getHeight()/2);
     	}
     }

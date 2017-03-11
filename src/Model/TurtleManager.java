@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
 
+import Model.backEndUtils.ParameterObject;
 import Model.operations.commandOps.turtleOps.I_CheckTurtleConditions;
 
 /**
@@ -77,11 +78,10 @@ public class TurtleManager implements Iterable<TurtleModel> {
 	 *            that can iterate through
 	 * @return list of TurtleModels
 	 */
-	public List<TurtleModel> getTheseTempTurtles(Iterable<Double> params) {
+	public List<TurtleModel> getTheseTempTurtles(ParameterObject params) {
 		List<TurtleModel> retTurtles = new ArrayList<TurtleModel>();
-		Iterator<Double> paramsIter = params.iterator();
-		while (paramsIter.hasNext()) {
-			retTurtles.add(this.getTurtle(paramsIter.next().intValue()));
+		while (params.hasNext()) {
+			retTurtles.add(this.getTurtle(params.next().intValue()));
 		}
 		return retTurtles;
 	}
@@ -94,7 +94,7 @@ public class TurtleManager implements Iterable<TurtleModel> {
 	 *            so can iterate through ID numbers
 	 * @return Active list of TurtleModels
 	 */
-	public List<TurtleModel> getTheseActiveTurtles(Iterable<Double> params) {
+	public List<TurtleModel> getTheseActiveTurtles(ParameterObject params) {
 		myActiveTurtleList.clear();
 		myActiveTurtleList = getTheseTempTurtles(params);
 		return getActiveTurtles();

@@ -1,5 +1,6 @@
 package Model.expressionTree.commandNode;
 
+import java.util.List;
 import java.util.Map;
 
 import Model.TurtleManager;
@@ -9,18 +10,25 @@ import Model.backEndUtils.ParameterObject;
 import Model.expressionTree.ExpressionNode;
 
 public class TurtleCommandNode extends CommandNode {
-
+/*
+ * Need to get turtles from turtlemanager
+ * need to iterate through them, adding parameters to the parameter object as make
+ */
 	TurtleManager myManager;
 
 	public TurtleCommandNode(TurtleManager manager) {
 		super();
 		myManager = manager;
 	}
+	private List<TurtleModel> getTurtles(){
+		return myManager.getActiveTurtles();
+	}
 
 	@Override
 	public String getValue(BackEndData startData, Map<String, Double> varMap) {
-		for (TurtleModel turtle : myManager.getActiveTurtles()) {
-			getOp().execute(getTurtleParameters(startData, varMap, turtle), startData);
+		for (TurtleModel turtle : myManager.getActiveTurtles()) {//make for specific ask or tell commands
+			//default to whatever the current active turtle is
+			getOp().execute(getTurtleParameters(startData, varMap), startData);
 		}
 		return startData.getMyValue().toString();
 	}
@@ -32,9 +40,11 @@ public class TurtleCommandNode extends CommandNode {
 		return thisNode;
 	}
 
-	private ParameterObject getTurtleParameters(BackEndData data, Map<String, Double> vars, TurtleModel turtle) {
+	private ParameterObject getTurtleParameters(BackEndData data, Map<String, Double> vars) {
 		ParameterObject turtParameters = getParameters(data, vars);
-		turtParameters.setTurtle(turtle);
+		for (TurtleModel t: this.getTurtles()){
+		turtParameters.setTurtle(t);
+	}
 		return turtParameters;
 	}
 }

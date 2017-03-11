@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import Model.ModelExecutionEngine;
+import Model.backEndUtils.SLogoSettings;
 import View.GUI;
 import View.viewUtils.FrontEndData;
 import javafx.animation.KeyFrame;
@@ -11,12 +12,13 @@ import javafx.util.Duration;
 import utils.ErrorMessage;
 import utils.Language;
 import utils.RawCommand;
-import utils.TurtleParameters;
 
 public class Main extends Application {
 	private final String TITLE = "SLogo Program";
+	private final String defaultSettings = "defaultSettings.properties";
 	GUI display;
 	ModelExecutionEngine engine;
+	SLogoSettings settings;
 
 	public static final int FRAMES_PER_SECOND = 60;
 	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -28,7 +30,8 @@ public class Main extends Application {
 		display.setNewWindowButton(() -> {
 			(new Main()).start(new Stage());
 		});
-		engine = new ModelExecutionEngine();
+		settings = new SLogoSettings(defaultSettings);
+		engine = new ModelExecutionEngine(settings);
 		stage.setTitle(TITLE);
 //		stage.setResizable(false);
 		Scene sc = display.getScene();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import utils.Language;
+import utils.PropertyUtility;
 
 public class SLogoSettings {
 	private final int MAX_VALUE = 256;
@@ -11,7 +12,7 @@ public class SLogoSettings {
 	
 	private String myFile;
 	private Language myLanguage;
-	private List<List<Integer>> myPalette = new ArrayList<List<Integer>>();
+	private List<List<Integer>> myPalette;
 	private List<String> myShapes = new ArrayList<String>();
 	private Integer myPenColorIndex = 1;
 	private Integer myBackgroundColorIndex = 0;
@@ -43,8 +44,18 @@ public class SLogoSettings {
 	}
 	
 	private void setUpFromFile(String propertyFileName) {
-		// TODO Auto-generated method stub
-		
+		PropertyUtility fileProps = new PropertyUtility(propertyFileName);
+		myLanguage = Language.valueOf(fileProps.getValue("Language"));
+		myPalette = new ArrayList<List<Integer>>();
+		String[] colors = fileProps.getValue("ColorPalette").split(",");
+		for (String elem:colors) {
+			ArrayList<Integer> colorP = new ArrayList<>();
+			String[] colorVal = elem.split(".");
+			for (String c:colorVal) colorP.add(Integer.parseInt(c));
+			myPalette.add(colorP);
+		}
+		myPenColorIndex = Integer.parseInt(fileProps.getValue("PenColorIndex"));
+		myBackgroundColorIndex = Integer.parseInt(fileProps.getValue("BackgroundColorIndex"));
 	}
 
 	public SLogoSettings(Language lang, List<Integer> backgroundColor, List<Integer> penColor, Double penSize,

@@ -15,6 +15,10 @@ public class ErrorMessage {
 		this(_errorType, null);
 	}
 	
+	public ErrorMessage(Exception e){
+		this(e.getMessage(), e.toString());
+	}
+	
 	public ErrorMessage(String _errorType, String _extraInfo) {
 		errorType=_errorType;
 		extraInfo=_extraInfo;

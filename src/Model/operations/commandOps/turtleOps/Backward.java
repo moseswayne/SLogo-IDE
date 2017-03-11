@@ -4,7 +4,7 @@ package Model.operations.commandOps.turtleOps;
  * @author Kris Elbert
  *
  */
-public class MoveBackwards extends A_MoveTurtle {
+public class Backward extends A_MoveTurtle {
 	@Override
 	protected int getOffset() {
 		return -180;

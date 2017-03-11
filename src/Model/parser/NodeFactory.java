@@ -1,10 +1,7 @@
 package Model.parser;
 
 import java.lang.reflect.Method;
-import java.util.ArrayDeque;
 import java.util.Queue;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.regex.Pattern;
 
 import Model.TurtleManager;

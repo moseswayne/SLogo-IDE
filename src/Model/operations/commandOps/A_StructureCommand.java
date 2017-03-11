@@ -41,6 +41,10 @@ public abstract class A_StructureCommand implements CommandOperation {
 		}
 	}
 	
+	protected void removeFromList(int index) {
+		instructionList.remove(index);
+	}
+	
 	protected ExpressionNode initializeIncrementVariable(String varName, Double value, ParameterObject params) {
 		VariableIncrementer vi = new VariableIncrementer();
 		return vi.generateVar(varName, value, params);

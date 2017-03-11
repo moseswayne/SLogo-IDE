@@ -10,7 +10,6 @@ public class BaseCommandNode extends CommandNode{
 	@Override
 	public String getValue(BackEndData startData, Map<String, Double> varMap) {
 		getOp().execute(getParameters(startData, varMap), startData);
-		System.out.println(startData.getMyValue().toString());
 		return startData.getMyValue().toString();
 	}
 

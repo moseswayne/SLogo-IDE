@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.Queue;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.regex.Pattern;
 
 import Model.TurtleManager;
 import Model.expressionTree.ExpressionNode;
@@ -38,7 +39,6 @@ public class NodeFactory {
 	public ExpressionNode makeNode(Queue<String> remainingTokens) {
 		TriFunction<Integer,Integer,Queue<String>,Boolean> eval = checkSyntacticSugar(remainingTokens);
 		String type = myTypes.getKey(remainingTokens.peek());
-		System.out.println(remainingTokens.peek());
 		if (type == null) {
 			throw new ParserException(ParserException.INVALID_VAR, type);
 		}
@@ -49,7 +49,7 @@ public class NodeFactory {
 			Object[] parameters = {remainingTokens, type, eval};
 			return (ExpressionNode) constructNode.invoke(this, parameters);
 		} catch (Exception e) {
-			throw new ParserException(ParserException.INVALID_CMD, type);
+			throw new ParserException(ParserException.INVALID_CMD, remainingTokens.peek());
 		}
 	}
 
@@ -94,10 +94,11 @@ public class NodeFactory {
 	}
 	
 	private TriFunction<Integer,Integer,Queue<String>,Boolean> checkSyntacticSugar(Queue<String> remainingTokens) {
-		if(syntaxProp.getKey(remainingTokens.peek()).equals("GroupStart")) {
+		if(Pattern.matches(syntaxProp.getValue("GroupStart"), remainingTokens.peek())) {
 			remainingTokens.poll();
 			return  (count,numAgrs,tokensRemaining) -> {
-				if (syntaxProp.getKey(tokensRemaining.peek()).equals("GroupEnd")){
+				System.out.println("I work");
+				if (Pattern.matches(syntaxProp.getValue("GroupEnd"), remainingTokens.peek())){
 					tokensRemaining.poll();
 					return false;
 				}

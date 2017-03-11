@@ -6,6 +6,7 @@ import java.util.Queue;
 
 import Model.backEndUtils.BackEndData;
 import Model.backEndUtils.ParameterObject;
+import Model.backEndUtils.SLogoSettings;
 import Model.expressionTree.ExpressionNode;
 
 public class ControlCommandNode extends CommandNode{
@@ -18,10 +19,10 @@ public class ControlCommandNode extends CommandNode{
 	}
 	
 	@Override
-	public String getValue(BackEndData startData, Map<String, Double> varMap) {
-		getOp().execute(getModifiedParameters(startData, varMap), startData);
+	public String getValue(BackEndData startData, Map<String, Double> varMap, SLogoSettings settings) {
+		getOp().execute(getModifiedParameters(startData, varMap, settings), startData);
 		for(ExpressionNode command:startData.getInstructions()) {
-			command.getValue(startData, varMap);
+			command.getValue(startData, varMap, settings);
 		}
 		return startData.getMyValue().toString();
 	}
@@ -30,8 +31,8 @@ public class ControlCommandNode extends CommandNode{
 		repeatChildren.add(node);
 	}
 	
-	private ParameterObject getModifiedParameters(BackEndData data, Map<String, Double> vars) {
-		ParameterObject controlParameters = getParameters(data, vars);
+	private ParameterObject getModifiedParameters(BackEndData data, Map<String, Double> vars, SLogoSettings settings) {
+		ParameterObject controlParameters = getParameters(data, vars, settings);
 		controlParameters.setStack(repeatChildren);
 		return controlParameters;
 	}

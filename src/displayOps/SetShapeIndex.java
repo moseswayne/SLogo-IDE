@@ -1,19 +1,18 @@
 package displayOps;
 
 import Model.backEndUtils.BackEndData;
-import Model.backEndUtils.BackEndSettings;
+import Model.backEndUtils.SLogoSettings;
 import Model.backEndUtils.ParameterObject;
 
 public class SetShapeIndex extends A_DisplayCommand{
 
 	@Override
-	protected double returnValue(ParameterObject params, BackEndSettings settings) {
+	protected double returnValue(ParameterObject params, SLogoSettings settings) {
 		return (double) settings.getShapeIndex();
 	}
 
 	@Override
-	protected BackEndSettings modifyDisplay(ParameterObject params, BackEndData data, BackEndSettings settings) {
+	protected void modifyDisplay(ParameterObject params, BackEndData data, SLogoSettings settings) {
 		settings.setShape(params.next().intValue());
-		return settings;
 	}
 }

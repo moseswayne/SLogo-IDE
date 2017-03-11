@@ -5,7 +5,7 @@ import javafx.scene.control.TextField;
 
 public class VarDispButton extends Button {
 	private TextField textField;
-	private final String SEPERATION_STR = " : ";
+	private final String SEPERATION_STR = " = ";
 	private final String DEAFAULT_VALUE = "0";
 	private final double TEXT_FIELD_LENGTH_OFFSET=18;
 	private String varName;

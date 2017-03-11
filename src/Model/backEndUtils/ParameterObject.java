@@ -5,23 +5,24 @@ import java.util.Collection;
 
 import java.util.Map;
 import java.util.Queue;
-import java.util.Stack;
 import Model.TurtleModel;
 import Model.expressionTree.ExpressionNode;
 
 public class ParameterObject {
 
+	private SLogoSettings mySettings;
 	private Queue<String> parameterQueue;
 	private Map<String, Double> varMap;
 	private TurtleModel myTurtle;
 	private Queue<ExpressionNode> instructionQueue;
 
-	public ParameterObject(Collection<String> params, Map<String, Double> vars, TurtleModel turtle) {
-		this(params, vars);
+	public ParameterObject(Collection<String> params, Map<String, Double> vars, SLogoSettings settings, TurtleModel turtle) {
+		this(params, vars, settings);
 		myTurtle = turtle;
 	}
 
-	public ParameterObject(Collection<String> params, Map<String, Double> vars) {
+	public ParameterObject(Collection<String> params, Map<String, Double> vars, SLogoSettings settings) {
+		mySettings = settings;
 		parameterQueue = new ArrayDeque<String>();
 		for(String parameter:params) {
 			parameterQueue.add(parameter);
@@ -86,5 +87,9 @@ public class ParameterObject {
 
 	public Queue<ExpressionNode> getInstructions() {
 		return instructionQueue;
+	}
+	
+	public SLogoSettings getSettings() {
+		return mySettings;
 	}
 }

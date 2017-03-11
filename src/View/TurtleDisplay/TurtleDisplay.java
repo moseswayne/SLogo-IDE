@@ -8,6 +8,8 @@ import java.util.Queue;
 import View.I_FrontEndModule;
 import View.viewUtils.FrontEndData;
 import javafx.scene.Node;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
@@ -23,7 +25,12 @@ public class TurtleDisplay implements I_FrontEndModule {
 	private Properties prop;
 	private ColorManager myColorManager;
 	private TurtleContainer turtleContainer;
-	private StackPane container;
+	private Node graphicDisp;
+	private Tab infoTab;
+	private Node infoDisp;
+	private Tab graphicTab;
+	private Language myLanguage;
+	
 	
 	/**
 	 *  
@@ -31,14 +38,21 @@ public class TurtleDisplay implements I_FrontEndModule {
 	 * @param width width of turtleDisplay
 	 */
 	public TurtleDisplay(int width, int height, ColorManager _myColorManager) {
+		
+		paneSize=new Dimension(width, height);
+		turtleContainer=new TurtleContainer(width, height);
+		graphicDisp=turtleContainer.getGraphicNode();
+		prop=new PropertyUtility("GeneraGUISettings.properties").getProperties();
+		myLanguage=Language.valueOf(prop.getProperty("DEAFAULT_LANGUAGE"));
+		infoDisp=turtleContainer.getInfoNode();
+		infoTab=createTab(infoDisp);
+		graphicTab=createTab(graphicDisp);
+		setLanguage(myLanguage);
 		prop=new PropertyUtility("deafaultTurtleDisp.properties").getProperties();
 		myColorManager=_myColorManager;
 		setPenColor(myColorManager.getColor(prop.getProperty("DEAFAULT_PEN_COLOR")));
-		paneSize=new Dimension(width, height);
-		turtleContainer=new TurtleContainer(width, width);
-		container=new StackPane(turtleContainer.getContainerNode());
 		setBackgroudColor(myColorManager.getColor(prop.getProperty("DEAFAULT_BACKGROUND_COLOR")));
-		standardizeSize(container);
+
 	}
 
 
@@ -63,7 +77,7 @@ public class TurtleDisplay implements I_FrontEndModule {
 		int blue=(int) (255*color.getBlue()),
 				red=(int) (255*color.getRed()),
 				green=(int) (255*color.getGreen());
-		container.setStyle(String.format("-fx-background-color: rgb(%d, %d, %d)", red, green, blue));
+		graphicDisp.setStyle(String.format("-fx-background-color: rgb(%d, %d, %d)", red, green, blue));
 	}
 	
 	public void setPenColor(Color color){
@@ -94,10 +108,19 @@ public class TurtleDisplay implements I_FrontEndModule {
 		return null;
 	}
 
-	//TODO potentially dangerous?
+	private Tab createTab(Node node) {
+		Tab tab=new Tab();
+		tab.setContent(node);
+		tab.setClosable(false);
+		return tab;
+	}
+	
+
 	@Override
 	public Node getVisualizedContent() {
-		return container;
+		TabPane out=new TabPane();
+		out.getTabs().addAll(graphicTab, infoTab);
+		return out;
 	}
 
 	@Override
@@ -110,7 +133,9 @@ public class TurtleDisplay implements I_FrontEndModule {
 	 */
 	@Override
 	public void setLanguage(Language language) {
-		turtleContainer.setLanguage(language);
+		prop=new PropertyUtility(language+"Text.properties").getProperties();
+		infoTab.setText(prop.getProperty("turtleInfoTab"));
+		graphicTab.setText(prop.getProperty("turtleDispTab"));
 	}
 
 

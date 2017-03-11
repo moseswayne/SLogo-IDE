@@ -7,9 +7,10 @@ public class DoTimes extends A_StructureCommand{
 
 	@Override
 	public void modifyInstructionStack(ParameterObject params) {
-		int start = params.next().intValue();
-		int end = params.next().intValue();
-		for(int i = start; i < end; i++) {
+		String var = params.nextRaw();
+		double end = params.next();
+		for(double i = 0; i < end; i++) {
+			addNodeStack(initializeIncrementVariable(var, i, params));
 			addListStack();
 		}
 		

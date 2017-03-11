@@ -1,7 +1,6 @@
 package View.TurtleDisplay;
 
 import java.util.Properties;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import utils.PropertyUtility;
@@ -13,6 +12,7 @@ public class FrontEndTurtle extends ImageView {
 	public FrontEndTurtle(TurtleParameters _myParams, Image myImage) {
 		this(_myParams);
 		this.setImage(myImage);
+		
 	}
 	
 	public FrontEndTurtle(TurtleParameters _myParams) {
@@ -21,18 +21,23 @@ public class FrontEndTurtle extends ImageView {
 		this.setImage(myImage);
 		myParams=_myParams;
 	}
-
-
-	public int getID(){
+	
+	/**
+	 * Assumes the right parameter has come through
+	 * @param params
+	 */
+	void setParams(TurtleParameters params){
+		myParams=params;
+	}
+	
+	int getID(){
 		return myParams.getID();
 	}
 	
-	public void setParams(TurtleParameters params){
-		if(params.getID()==myParams.getID()){
-			myParams=params;
-		} else {
-			System.out.println("turtle id doesn;'t match");
-		}
+	@Override
+	public String toString(){
+		return String.format("id: %d, X: %f, Y: %f\n heading: %f, penDown: %b, visible: %b\n", myParams.getID(),
+				myParams.getX(), myParams.getY(), myParams.getHeading(), myParams.isPendown(), myParams.turtleVisible());			
 	}
 	
 }

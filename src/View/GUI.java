@@ -1,10 +1,7 @@
 package View;
 
-//TODO multiple turtles
-//TODO show/hide turtles
 //TODO drag-able turtles
 //TODO see state of multiple turtles (probably a window)
-//TODO display error messages (probably pop up a notification window)
 //TODO animation
 //TODO Display active turtles
 //TODO show user defined commands
@@ -16,8 +13,10 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Properties;
-
+import View.CmdHist.CmdHistoryDisplay;
+import View.Console.Console;
 import View.TurtleDisplay.TurtleDisplay;
+import View.VarDisp.VarDisplay;
 import View.viewUtils.FrontEndData;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -102,15 +101,6 @@ public class GUI implements I_GUI{
 		turtleDisplay=new TurtleDisplay((int)DEAFAULT_TURTLE_DISP_SIZE.getWidth(), (int)DEAFAULT_TURTLE_DISP_SIZE.getHeight(), colorManager);
 		varDisplay=new VarDisplay(DEAFAULT_SIDE_DISP_SIZE.width, DEAFAULT_SIDE_DISP_SIZE.height);
 		ctrlPanel=new ControlPanel(language, turtleDisplay, cmdHistoryDisplay, console, varDisplay, colorManager);
-	}
-	
-	
-	/**
-	 * adds a color using r, g, b values from 0-255
-	 * once added, available to all front end classes
-	 */
-	private void addColor(double r, double g, double b, String name) {
-		colorManager.addColor(r, g, b, name);
 	}
 	
 	/*

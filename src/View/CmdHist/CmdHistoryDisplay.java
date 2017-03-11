@@ -1,8 +1,9 @@
-package View;
+package View.CmdHist;
 
 
 import java.util.Stack;
 
+import View.I_FrontEndModule;
 import View.viewUtils.CmdHistoryButton;
 import View.viewUtils.FrontEndData;
 import View.viewUtils.ObservedDisplay;

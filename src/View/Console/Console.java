@@ -1,9 +1,10 @@
-package View;
+package View.Console;
 
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.Properties;
 
+import View.I_FrontEndModule;
 import View.viewUtils.FrontEndData;
 import View.viewUtils.ObservedDisplay;
 import javafx.scene.Node;

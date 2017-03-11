@@ -13,6 +13,4 @@ public class XCoordinate extends A_TurtleQuery{
 	protected double returnQuery(TurtleModel turtle) {
 		return turtle.getX();
 	}
-	
-
 }

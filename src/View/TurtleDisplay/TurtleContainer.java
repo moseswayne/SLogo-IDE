@@ -25,29 +25,18 @@ import utils.TurtleParameters;
 public class TurtleContainer {
 	private HashMap<Integer, TurtleDispNode>  myTurtleMap;
 	private StackPane graphicContainer;
-	private TabPane overallContainer;
 	private ObservedDisplay<Text> turtleStatusDisplay;
 	private int height, width;
-	private Tab graphicTab, infoTab;
-	private PropertyUtility prop;
-	private Language myLanguage;
 	
 	public TurtleContainer(int _height, int _width){
-		prop=new PropertyUtility("GeneraGUISettings.properties");
-		myLanguage=Language.valueOf(prop.getProperties().getProperty("DEAFAULT_LANGUAGE"));
 		myTurtleMap=new HashMap<>();
 		height=_height;
 		width=_width;
 		graphicContainer=new StackPane();
-		graphicContainer.setStyle("-fx-background-color: red");
+		graphicContainer.setStyle("-fx-background-color: transparent");
 		turtleStatusDisplay=new ObservedDisplay<Text>();
 		addNewTurtle(1);
 		addNewTurtle(2);
-		graphicTab=createTab(graphicContainer);
-		infoTab=createTab(turtleStatusDisplay.getDisplay());
-		
-		setLanguage(myLanguage);
-		overallContainer=new TabPane();
 	}
 	
 	public void show(Queue<TurtleParameters> paramQ, Paint penColor){
@@ -73,19 +62,17 @@ public class TurtleContainer {
 		turtleStatusDisplay.add(new Text(myTurtleMap.get(paramID).getTurtleString()));
 	}
 
-	private Tab createTab(Node node) {
-		Tab tab=new Tab();
-		tab.setContent(node);
-		tab.setClosable(false);
-		return tab;
-	}
 
-	
-	public Node getContainerNode(){
-		
-		overallContainer.getTabs().addAll(graphicTab, infoTab);
-		return new ScrollPane(overallContainer);
+
+	Node getGraphicNode(){
+		return graphicContainer;
 	}
+	
+	Node getInfoNode(){
+		return turtleStatusDisplay.getDisplay();
+	}
+	
+
 
 	public void setTurtleImg(File file) {
 		for(int id: myTurtleMap.keySet()){
@@ -93,9 +80,4 @@ public class TurtleContainer {
 		}
 	}
 
-	public void setLanguage(Language language) {
-		prop=new PropertyUtility(language.toString()+"Text.properties");
-		graphicTab.setText(prop.getProperties().getProperty("turtleDispTab"));
-		infoTab.setText(prop.getProperties().getProperty("turtleInfoTab"));
-	}
 }

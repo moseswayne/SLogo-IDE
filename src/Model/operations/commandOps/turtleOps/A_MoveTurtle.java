@@ -22,8 +22,9 @@ public abstract class A_MoveTurtle extends A_ManipulateTurtle {
 	}
 
 	double[] updateCoordinates(Double oldX, Double oldY, ParameterObject params) {
-		double[] array = { (oldX + changeInX(params.getTurtle().getHeading(), params.next())),
-				(oldY + changeInY(params.getTurtle().getHeading(), params.next())) };
+		double changeParam = params.peekNext();
+		double[] array = { (oldX + changeInX(params.getTurtle().getHeading(), changeParam)),
+				(oldY + changeInY(params.getTurtle().getHeading(), changeParam)) };
 		return array;
 	}
 

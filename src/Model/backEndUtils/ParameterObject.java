@@ -36,13 +36,23 @@ public class ParameterObject {
 	public boolean hasNext() {
 		return (!parameterQueue.isEmpty());
 	}
-
+	
 	public String nextRaw() {
 		return parameterQueue.poll();
 	}
 
+	public String peekNextRaw() {
+		return parameterQueue.peek();
+	}
+	
 	public Double next() {
-		String val = nextRaw();
+		Double retDouble = peekNext();
+		parameterQueue.poll();
+		return retDouble;
+	}
+
+	public Double peekNext() {
+		String val = peekNextRaw();
 		Double retValue = null;
 		if (varMap.containsKey(val)) {
 			retValue = varMap.get(val);
@@ -55,6 +65,7 @@ public class ParameterObject {
 		}
 		return retValue;
 	}
+	
 	
 	public void setTurtle(TurtleModel turt) {
 		myTurtle = turt;

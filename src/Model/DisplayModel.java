@@ -7,42 +7,87 @@ import java.util.List;
 import java.util.Map;
 
 public class DisplayModel {
-	private final RGBColor DEFAULT_BACKGROUND_COLOR = new RGBColor(0,0,0);
-	private final RGBColor DEFAULT_PEN_COLOR = new RGBColor(255,255,255);
-	private final double DEFAULT_PEN_SIZE = 2;
+	private static RGBColor DEFAULT_BACKGROUND_COLOR = new RGBColor(0, 0, 0);
+	private static RGBColor DEFAULT_PEN_COLOR = new RGBColor(255, 255, 255);
+	private static double DEFAULT_PEN_SIZE = 2;
 	private boolean isScreenClear;
-	private RGBColor myBackgroundColor;
-	private RGBColor myPenColor;
+	private double myBackgroundColorIndex;
+	private double myPenColorIndex;
 	private double myPenSize;
 	private int myShapeIndex = 0;
+	// private List<Double> myShapeIndexes = new ArrayList<Double>();
 	private List<RGBColor> myPalette = new ArrayList<RGBColor>();
 
-
 	public DisplayModel() {
-		isScreenClear = false;
-		myBackgroundColor= DEFAULT_BACKGROUND_COLOR;
-		 myPenColor = DEFAULT_PEN_COLOR;
-		myPenSize = DEFAULT_PEN_SIZE;
-		
+		this(DEFAULT_BACKGROUND_COLOR, DEFAULT_PEN_COLOR, DEFAULT_PEN_SIZE);
+
 	}
-	public double setBackground(int index){
-		try{
-		myBackgroundColor = myPalette.get(index);
-		} catch (NullPointerException e){
-			this.addToPalette(index, DEFAULT_BACKGROUND_COLOR);
-			this.setBackground(index);
-		}
+
+	public DisplayModel(RGBColor background, RGBColor pen, double penSize) {
+		isScreenClear = false;
+		myPenSize = penSize;
+		myPalette.add(background);
+		myBackgroundColorIndex = 0;
+		myPalette.add(pen);
+		myPenColorIndex = 1;
+	}
+	public void clearScreen(boolean clear){
+		isScreenClear = clear;
+	}
+public boolean isScreenClear(){
+	return isScreenClear;
+}
+	public double setBackground(int index) {
+		fillIn(index);
+		myBackgroundColorIndex = index;
+		return getBackground();
+	}
+
+	public double getBackground() {
+		return myBackgroundColorIndex;
+	}
+
+	public double setPen(int index) {
+		fillIn(index);
+		myPenColorIndex = index;
+		return getPen();
+	}
+
+	public double getPen() {
+		return myPenColorIndex;
+	}
+
+	public double setPenSize(double size) {
+		myPenSize = size;
+		return getPenSize();
+	}
+
+	public double getPenSize() {
+		return myPenSize;
+	}
+
+	public double setShape(int shape) {
+		myShapeIndex = shape;
+		return getShape();
+	}
+
+	public double getShape() {
+		return myShapeIndex;
+	}
+
+	public double addToPalette(int index, List<Double> rgb) {
+		RGBColor color = new RGBColor(rgb);
+		fillIn(index);
+		myPalette.add(index, color);
 		return index;
 	}
-	
-	public double addToPalette(double index, RGBColor color){
-		while(myPalette.size()-1 < index){
+
+	private void fillIn(int index) {
+		while (myPalette.size() - 1 < index) {
 			myPalette.add(DEFAULT_BACKGROUND_COLOR);
 		}
-		myPalette.add(color);
-		return index;
 	}
-	
+
 }
 
 class RGBColor implements Iterator<Integer> {
@@ -52,9 +97,14 @@ class RGBColor implements Iterator<Integer> {
 	private int myCurrentIndex = 0;
 	private List<Integer> myValues;
 
-	RGBColor(double r, double g, double b){
-		this.setColor(r,g,b);
+	RGBColor(double r, double g, double b) {
+		this.setColor(r, g, b);
 	}
+
+	RGBColor(List<Double> colorList) {
+		this.setColor(colorList);
+	}
+
 	@Override
 	public boolean hasNext() {
 		return (myCurrentIndex + 1) < myValues.size();
@@ -81,12 +131,15 @@ class RGBColor implements Iterator<Integer> {
 		}
 
 	}
+
 	/**
 	 * Ensures values are positive integers less than 256
-	 * @param number to convert
-	 * @return 
+	 * 
+	 * @param number
+	 *            to convert
+	 * @return
 	 */
-	private int normalize(double num){
+	private int normalize(double num) {
 		return (int) Math.abs(num % MAX_VALUE);
 	}
 

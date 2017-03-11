@@ -114,9 +114,15 @@ public class BackEndSettings {
 		return myPalette;
 	}
 
-	public int addColor(List<Integer> numbers) {
-		myPalette.add(normalize(numbers));
-		return myPalette.size() - 1;
+	public int addColor(ParameterObject params) {
+		int index = params.next().intValue();
+		List<Integer> paramValues = new ArrayList<Integer>();
+		while(params.hasNext()){
+			paramValues.add(params.next().intValue());
+		}
+		myPalette.add(index, normalize(paramValues));
+		//return myPalette.size() - 1;
+		return index;
 	}
 
 	/**

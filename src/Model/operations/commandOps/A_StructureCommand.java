@@ -3,17 +3,12 @@ package Model.operations.commandOps;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Stack;
 
-import Model.TurtleManager;
 import Model.backEndUtils.BackEndData;
 import Model.backEndUtils.ParameterObject;
+import Model.backEndUtils.VariableIncrementer;
 import Model.expressionTree.ExpressionNode;
-import Model.expressionTree.commandNode.CommandNode;
 import Model.operations.CommandOperation;
-import Model.parser.CommandParser;
-import View.viewUtils.FrontEndData;
-import utils.Language;
 
 public abstract class A_StructureCommand implements CommandOperation {
 
@@ -47,8 +42,8 @@ public abstract class A_StructureCommand implements CommandOperation {
 	}
 	
 	protected ExpressionNode initializeIncrementVariable(String varName, Double value, ParameterObject params) {
-		CommandParser parseNode = new CommandParser();
-		return parseNode.parse("set "+varName+" "+value, Language.English, new TurtleManager()).poll();
+		VariableIncrementer vi = new VariableIncrementer();
+		return vi.generateVar(varName, value, params);
 	}
 	
 }

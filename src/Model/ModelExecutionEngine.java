@@ -1,15 +1,12 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
 import Model.backEndUtils.BackEndData;
-import Model.backEndUtils.ParameterObject;
+import Model.backEndUtils.SLogoSettings;
 import Model.expressionTree.ExpressionNode;
-import Model.operations.CommandOperation;
 import Model.parser.CommandParser;
 import View.viewUtils.FrontEndData;
 import utils.RawCommand;
@@ -19,10 +16,11 @@ public class ModelExecutionEngine implements I_ExecutionEngine {
 	private Map<String, Double> variableMap;
 	private CommandParser myParser;
 	private TurtleManager myTurtleManager;
+	private SLogoSettings mySettings;
 	
-	public ModelExecutionEngine() {
+	public ModelExecutionEngine(SLogoSettings settings) {
 		variableMap = new HashMap<String, Double>();
-
+		mySettings = settings;
 		myParser = new CommandParser();
 		myTurtleManager = new TurtleManager();
 	}
@@ -33,7 +31,7 @@ public class ModelExecutionEngine implements I_ExecutionEngine {
 		Queue<ExpressionNode> runNodes = myParser.parse(runCommand.getCommandString(), runCommand.getLanguage(), myTurtleManager);
 		BackEndData initData = new BackEndData();
 		while(!runNodes.isEmpty()) {
-			runNodes.poll().getValue(initData, variableMap);
+			runNodes.poll().getValue(initData, variableMap, mySettings);
 		}
 		FrontEndData returnData = new FrontEndData(runCommand.getCommandString(), runCommand.getLanguage());
 		transferData(initData,returnData);

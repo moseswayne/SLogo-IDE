@@ -7,6 +7,7 @@ import java.util.Queue;
 
 import Model.backEndUtils.BackEndData;
 import Model.backEndUtils.ParameterObject;
+import Model.backEndUtils.SLogoSettings;
 import Model.expressionTree.ExpressionNode;
 import Model.operations.CommandOperation;
 
@@ -27,12 +28,12 @@ public abstract class CommandNode implements ExpressionNode{
 		myChildren.add(child);
 	}
 	
-	protected ParameterObject getParameters(BackEndData data, Map<String, Double> vars) {
+	protected ParameterObject getParameters(BackEndData data, Map<String, Double> vars, SLogoSettings settings) {
 		ArrayList<String> paramList = new ArrayList<String>();
 		while(!myChildren.isEmpty()) {
-			paramList.add(myChildren.poll().getValue(data, vars));
+			paramList.add(myChildren.poll().getValue(data, vars, settings));
 		}
-		return new ParameterObject(paramList, vars);
+		return new ParameterObject(paramList, vars, settings);
 	}
 	
 	protected CommandOperation getOp() {

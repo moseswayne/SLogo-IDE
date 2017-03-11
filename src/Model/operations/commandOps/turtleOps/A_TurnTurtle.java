@@ -28,9 +28,9 @@ public abstract class A_TurnTurtle extends A_TurtleCommand {
 		int temp = 1;
 		while (temp != 0) {
 			if (newHeading > FULL_CIRCLE) {
-				temp = 1;
-			} else if (newHeading < 0) {
 				temp = -1;
+			} else if (newHeading < 0) {
+				temp = 1;
 			} else {
 				temp = 0;
 			}

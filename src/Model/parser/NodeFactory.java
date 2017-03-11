@@ -1,6 +1,7 @@
 package Model.parser;
 
 import java.lang.reflect.Method;
+import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -42,7 +43,6 @@ public class NodeFactory {
 		if (type == null) {
 			throw new ParserException(ParserException.INVALID_VAR, type);
 		}
-		
 		try {
 			Method constructNode = this.getClass().getDeclaredMethod(methodStub + type, new Class[] {Queue.class, String.class, TriFunction.class});
 			constructNode.setAccessible(true);
@@ -79,7 +79,8 @@ public class NodeFactory {
 		if(remainingTokens.peek().equals("[")) remainingTokens.poll();
 		addBaseVariablesLoop(newControl,command,remainingTokens,type, evaluation);
 		if(remainingTokens.peek().equals("]")) remainingTokens.poll();
-		
+		if(!remainingTokens.poll().equals("[")) throw new ParserException(ParserException.INVALID_SYN);
+		loopInstructions(remainingTokens, newControl);
 		return newControl;
 	}
 	
@@ -90,6 +91,17 @@ public class NodeFactory {
 		while(evaluation.apply(count, numArgs, remainingTokens)) {
 			node.addChild(makeNode(remainingTokens));
 			count++;
+		}
+	}
+	
+	private void loopInstructions(Queue<String> remainingTokens, ControlCommandNode node) {
+		while(!Pattern.matches(syntaxProp.getValue("ListEnd"), remainingTokens.peek())) {
+			node.addLoopInstruction(makeNode(remainingTokens));
+		}
+		remainingTokens.poll();
+		if(!remainingTokens.isEmpty() && Pattern.matches(syntaxProp.getValue("ListStart"), remainingTokens.peek())) {
+			System.out.println(remainingTokens.poll());
+			loopInstructions(remainingTokens, node);
 		}
 	}
 	
@@ -110,4 +122,5 @@ public class NodeFactory {
 	public interface TriFunction<var1, var2, var3, res> {
 		public res apply(var1 i, var2 j, var3 k);
 	}
+
 }

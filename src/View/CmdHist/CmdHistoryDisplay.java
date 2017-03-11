@@ -43,7 +43,6 @@ public class CmdHistoryDisplay implements I_FrontEndModule{
 	
 	private void setUpHistory() {
 		history = new Stack<RawCommand>();
-		fillHistory();
 	}
 	
 	/**
@@ -57,13 +56,6 @@ public class CmdHistoryDisplay implements I_FrontEndModule{
 			RawCommand newCmd=histCopy.pop();
 			myVisualContent.add(createButton(newCmd));
 		}
-	}
-	
-	private void fillHistory() {
-		for(int i=0; i<20; i++){
-			history.add(new RawCommand(""+i, Language.English));
-		}	
-		updateVisualContent();
 	}
 
 	private Button createButton(RawCommand str) {

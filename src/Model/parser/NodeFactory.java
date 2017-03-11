@@ -97,7 +97,6 @@ public class NodeFactory {
 		if(Pattern.matches(syntaxProp.getValue("GroupStart"), remainingTokens.peek())) {
 			remainingTokens.poll();
 			return  (count,numAgrs,tokensRemaining) -> {
-				System.out.println("I work");
 				if (Pattern.matches(syntaxProp.getValue("GroupEnd"), remainingTokens.peek())){
 					tokensRemaining.poll();
 					return false;

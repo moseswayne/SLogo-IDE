@@ -7,7 +7,8 @@ public class Repeat extends A_StructureCommand{
 
 	@Override
 	public void modifyInstructionStack(ParameterObject params) {
-		for(int i = 0; i < params.next(); i++) {
+		Double maxVal = params.next();
+		for(int i = 0; i < maxVal; i++) {
 			addListStack();
 		}
 		

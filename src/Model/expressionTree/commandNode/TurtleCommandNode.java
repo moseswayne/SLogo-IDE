@@ -30,7 +30,6 @@ public class TurtleCommandNode extends CommandNode {
 			//default to whatever the current active turtle is
 			getOp().execute(getTurtleParameters(startData, varMap), startData);
 		}
-		System.out.println(startData.getMyValue().toString());
 		return startData.getMyValue().toString();
 	}
 

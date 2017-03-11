@@ -7,7 +7,7 @@ package Model.operations.commandOps.turtleOps;
  *
  */
 
-public class TurnLeft extends A_TurnTurtle {
+public class Left extends A_TurnTurtle {
 
 	@Override
 	protected int setDirection() {

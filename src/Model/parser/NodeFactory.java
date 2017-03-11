@@ -1,9 +1,11 @@
 package Model.parser;
 
 import java.lang.reflect.Method;
+import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.regex.Pattern;
 
 import Model.TurtleManager;
 import Model.expressionTree.ExpressionNode;
@@ -38,18 +40,16 @@ public class NodeFactory {
 	public ExpressionNode makeNode(Queue<String> remainingTokens) {
 		TriFunction<Integer,Integer,Queue<String>,Boolean> eval = checkSyntacticSugar(remainingTokens);
 		String type = myTypes.getKey(remainingTokens.peek());
-		System.out.println(remainingTokens.peek());
 		if (type == null) {
 			throw new ParserException(ParserException.INVALID_VAR, type);
 		}
-		
 		try {
 			Method constructNode = this.getClass().getDeclaredMethod(methodStub + type, new Class[] {Queue.class, String.class, TriFunction.class});
 			constructNode.setAccessible(true);
 			Object[] parameters = {remainingTokens, type, eval};
 			return (ExpressionNode) constructNode.invoke(this, parameters);
 		} catch (Exception e) {
-			throw new ParserException(ParserException.INVALID_CMD, type);
+			throw new ParserException(ParserException.INVALID_CMD, remainingTokens.peek());
 		}
 	}
 
@@ -79,7 +79,8 @@ public class NodeFactory {
 		if(remainingTokens.peek().equals("[")) remainingTokens.poll();
 		addBaseVariablesLoop(newControl,command,remainingTokens,type, evaluation);
 		if(remainingTokens.peek().equals("]")) remainingTokens.poll();
-		
+		if(!remainingTokens.poll().equals("[")) throw new ParserException(ParserException.INVALID_SYN);
+		loopInstructions(remainingTokens, newControl);
 		return newControl;
 	}
 	
@@ -93,11 +94,22 @@ public class NodeFactory {
 		}
 	}
 	
+	private void loopInstructions(Queue<String> remainingTokens, ControlCommandNode node) {
+		while(!Pattern.matches(syntaxProp.getValue("ListEnd"), remainingTokens.peek())) {
+			node.addLoopInstruction(makeNode(remainingTokens));
+		}
+		remainingTokens.poll();
+		if(!remainingTokens.isEmpty() && Pattern.matches(syntaxProp.getValue("ListStart"), remainingTokens.peek())) {
+			System.out.println(remainingTokens.poll());
+			loopInstructions(remainingTokens, node);
+		}
+	}
+	
 	private TriFunction<Integer,Integer,Queue<String>,Boolean> checkSyntacticSugar(Queue<String> remainingTokens) {
-		if(syntaxProp.getKey(remainingTokens.peek()).equals("GroupStart")) {
+		if(Pattern.matches(syntaxProp.getValue("GroupStart"), remainingTokens.peek())) {
 			remainingTokens.poll();
 			return  (count,numAgrs,tokensRemaining) -> {
-				if (syntaxProp.getKey(tokensRemaining.peek()).equals("GroupEnd")){
+				if (Pattern.matches(syntaxProp.getValue("GroupEnd"), remainingTokens.peek())){
 					tokensRemaining.poll();
 					return false;
 				}
@@ -110,4 +122,5 @@ public class NodeFactory {
 	public interface TriFunction<var1, var2, var3, res> {
 		public res apply(var1 i, var2 j, var3 k);
 	}
+
 }

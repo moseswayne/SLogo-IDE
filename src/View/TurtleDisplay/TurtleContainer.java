@@ -28,9 +28,6 @@ public class TurtleContainer {
 		while(paramQ.size()!=0){
 			TurtleParameters param=paramQ.poll();
 			int paramID=param.getID();
-//	    	if(newTurtleParams==null){
-//	    		return;
-//	    	}
 			if(myTurtleMap.keySet().contains(paramID)){
 				myTurtleMap.get(paramID).show(param, penColor);
 			} else {

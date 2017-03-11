@@ -60,7 +60,6 @@ public class Main extends Application {
 		if (rcmd != null) {
 			try {
 				data = engine.runOp(rcmd);
-				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -71,9 +70,7 @@ public class Main extends Application {
 			collec.add(data);
 			display.show(collec);
 		}
-
 	}
-
 	/**
 	 * Start of the program.
 	 */

@@ -1,14 +1,5 @@
 package View;
 
-//TODO drag-able turtles
-//TODO see state of multiple turtles (probably a window)
-//TODO animation
-//TODO Display active turtles
-//TODO show user defined commands
-//TODO Help page
-//TODO save preferences to file
-//TODO palette display
-
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -108,8 +99,6 @@ public class GUI implements I_GUI{
 	 * Public APIs
 	 * 
 	 */
-
-
 	/**
 	 * Display the information in the FrontEndData objects
 	 */

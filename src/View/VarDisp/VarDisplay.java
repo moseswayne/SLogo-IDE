@@ -7,7 +7,6 @@ import java.util.TreeMap;
 import View.I_FrontEndModule;
 import View.viewUtils.FrontEndData;
 import View.viewUtils.ObservedDisplay;
-import View.viewUtils.VarDispButton;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

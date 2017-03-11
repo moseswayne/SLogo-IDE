@@ -1,9 +1,10 @@
-package View;
+package View.VarDisp;
 
 import java.awt.Dimension;
 import java.util.Map;
 import java.util.TreeMap;
 
+import View.I_FrontEndModule;
 import View.viewUtils.FrontEndData;
 import View.viewUtils.ObservedDisplay;
 import View.viewUtils.VarDispButton;

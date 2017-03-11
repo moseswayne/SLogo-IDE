@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
 
+import View.CmdHist.CmdHistoryDisplay;
+import View.Console.Console;
 import View.TurtleDisplay.TurtleDisplay;
+import View.VarDisp.VarDisplay;
 import View.viewUtils.FrontEndData;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -74,6 +77,7 @@ public class ControlPanel implements I_FrontEndModule {
 				myCmdHistDisp.setLanguage(newValue);
 				myConsole.setLanguage(newValue);
 				myVarDisp.setLanguage(newValue);
+				setLanguage(newValue);
 			}
 		});
 		
@@ -125,7 +129,7 @@ public class ControlPanel implements I_FrontEndModule {
 		penColorSelector.setItems(myColorManager.getObservedColorNames());
 		
 		turtleImgButton = new Button(prop.getProperty("turtleImgButton"));
-		newWorkspaceButton=new Button("New workspace");
+		newWorkspaceButton=new Button(prop.getProperty("newWorkSpaceButton"));
 		setButtonText();
 	}
 
@@ -134,6 +138,7 @@ public class ControlPanel implements I_FrontEndModule {
 		turtleBackGroundSelector.setPromptText(prop.getProperty("turtleBackGroundButton"));
 		penColorSelector.setPromptText(prop.getProperty("penColorButton"));
 		turtleImgButton.setText(prop.getProperty("turtleImgButton"));
+		newWorkspaceButton.setText(prop.getProperty("newWorkSpaceButton"));
 	}
 
 	/**

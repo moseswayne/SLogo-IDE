@@ -4,18 +4,15 @@ import Model.TurtleModel;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
-/**
- * 
- * @author Yuxiang He
- *
- */
+
+
 public class TurtleParameters {
+	private int id;
 	private SimpleDoubleProperty x=new SimpleDoubleProperty();
 	private SimpleDoubleProperty y=new SimpleDoubleProperty();
 	private SimpleDoubleProperty heading=new SimpleDoubleProperty();
 	private SimpleBooleanProperty isPendown=new SimpleBooleanProperty();
 	private SimpleBooleanProperty turtleVisible=new SimpleBooleanProperty();
-	private int id;
 	private SimpleBooleanProperty isActive=new SimpleBooleanProperty();
 	
 	/**
@@ -41,13 +38,18 @@ public class TurtleParameters {
 	 */
 	public TurtleParameters(TurtleParameters other){
 		this.id=other.getID();
-		this.x=other.getXProperty();
-		this.y=other.getYProperty();
-		this.heading=other.getHeadingProperty();
-		this.isPendown=other.getPenDownProperty();
-		this.isActive=other.isActive;
-
+		copy(other);
 	}
+	
+	public void copy(TurtleParameters other){
+		setX(other.getXProperty());
+		setY(other.getYProperty());
+		setHeading(other.getHeadingProperty());
+		setIsPendown(other.getPenDownProperty());
+		setIsActive(other.getActiveProperty());
+		setTurtleVisible(other.getVisibleProperty());
+	}
+	
 	/**
 	 * Makes TurtleParamters from a backend turtle
 	 * @param turtle
@@ -55,11 +57,11 @@ public class TurtleParameters {
 	public TurtleParameters(TurtleModel turtle){
 		this(turtle.getID(), turtle.getX(), turtle.getY(), turtle.getHeading(), turtle.getPenShowing(), turtle.getTurtleShowing(), true);//does not matter if turtle is active or not
 	}
+	
 	/**
 	 * getters
 	 *
 	 */
-	
 	public int getID(){
 		return id;
 	}
@@ -86,6 +88,34 @@ public class TurtleParameters {
 	
 	public SimpleBooleanProperty getActiveProperty(){
 		return isActive;
+	}
+
+	
+	/**
+	 * setters
+	 */
+	public void setX(SimpleDoubleProperty x) {
+		this.x.setValue(x.getValue());;
+	}
+
+	public void setY(SimpleDoubleProperty y) {
+		this.y.setValue(y.getValue());;
+	}
+
+	public void setHeading(SimpleDoubleProperty heading) {
+		this.heading.setValue(heading.getValue());;
+	}
+
+	public void setIsPendown(SimpleBooleanProperty isPendown) {
+		this.isPendown.setValue(isPendown.getValue());
+	}
+
+	public void setTurtleVisible(SimpleBooleanProperty turtleVisible) {
+		this.turtleVisible.setValue(turtleVisible.getValue());
+	}
+
+	public void setIsActive(SimpleBooleanProperty isActive) {
+		this.isActive.setValue(isActive.getValue());
 	}
 	
 }

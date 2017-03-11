@@ -16,6 +16,8 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Properties;
+
+import View.TurtleDisplay.TurtleDisplay;
 import View.viewUtils.FrontEndData;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

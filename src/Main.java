@@ -61,9 +61,11 @@ public class Main extends Application {
 			try {
 				data = engine.runOp(rcmd);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				data = new FrontEndData(rcmd.getCommandString(), Language.English);
-				data.addError(new ErrorMessage(e.getMessage()));
+				data.addError(new ErrorMessage(e));
+				
+				//TODO REMOVE THIS LINE!
+				e.getStackTrace().toString();
 			}
 			ArrayList<FrontEndData> collec = new ArrayList<>();
 			collec.add(data);

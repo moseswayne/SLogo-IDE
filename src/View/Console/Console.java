@@ -87,7 +87,7 @@ public class Console implements I_FrontEndModule {
 		executeButton.setOnMouseClicked(action -> {
 			String text = inputField.getText().trim();
 			if (text.length() != 0) {
-				bufferedCommandStr = text;
+				bufferedCommandStr = text.toLowerCase();
 				// TODO this line will be removed
 				printToOutput("debug: " + text);
 			}

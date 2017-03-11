@@ -22,7 +22,6 @@ public class TurtleCommandNode extends CommandNode {
 		for (TurtleModel turtle : myManager.getActiveTurtles()) {
 			getOp().execute(getTurtleParameters(startData, varMap, turtle), startData);
 		}
-		System.out.println(startData.getMyValue().toString());
 		return startData.getMyValue().toString();
 	}
 

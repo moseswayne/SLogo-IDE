@@ -56,9 +56,9 @@ public class TurtleDispNode {
 	 * @param region
 	 */
 	private void standardizeSize(Region region) {
-		region.setPrefSize(paneSize.getWidth(), paneSize.getHeight());
+//		region.setPrefSize(paneSize.getWidth(), paneSize.getHeight());
 		region.setMaxSize(paneSize.getWidth(), paneSize.getHeight());
-		region.setMinSize(paneSize.getWidth(), paneSize.getHeight());
+//		region.setMinSize(paneSize.getWidth(), paneSize.getHeight());
 	}
 	
 	/**
@@ -74,7 +74,6 @@ public class TurtleDispNode {
 	public void setTurtleImg(File file){
 		Image turtleImg=new Image(file.toURI().toString());
 		turtle.setImage(turtleImg);
-		moveTurtle(new TurtleParameters(1, 100,100, 0, true, false, true), Color.RED);
 	}
 
 	/**
@@ -87,8 +86,11 @@ public class TurtleDispNode {
 		turtle.setFitWidth(TURTLE_SIZE.getWidth());
 		turtle.setFitHeight(TURTLE_SIZE.getHeight());
 		turtleContainer=new Pane(turtle);
+		turtleContainer.setMaxSize(paneSize.getWidth(), paneSize.getHeight());
+		turtleContainer.setPrefSize(paneSize.getWidth(), paneSize.getHeight());
+		turtleContainer.setMinSize(paneSize.getWidth(), paneSize.getHeight());
 		standardizeSize(turtleContainer);
-		moveTurtle(params, Color.GREEN);
+		moveTurtle(params, Color.TRANSPARENT);
 	}
 	
 	public void show(TurtleParameters param, Paint penColor){

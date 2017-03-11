@@ -30,11 +30,11 @@ public class TurtleDisplay implements I_FrontEndModule {
 	 * @param height height of turtleDisplay
 	 * @param width width of turtleDisplay
 	 */
-	public TurtleDisplay(int height, int width, ColorManager _myColorManager) {
+	public TurtleDisplay(int width, int height, ColorManager _myColorManager) {
 		prop=new PropertyUtility("deafaultTurtleDisp.properties").getProperties();
 		myColorManager=_myColorManager;
 		setPenColor(myColorManager.getColor(prop.getProperty("DEAFAULT_PEN_COLOR")));
-		paneSize=new Dimension(height, width);
+		paneSize=new Dimension(width, height);
 		turtleContainer=new TurtleContainer(width, width);
 		container=new StackPane(turtleContainer.getContainerNode());
 		setBackgroudColor(myColorManager.getColor(prop.getProperty("DEAFAULT_BACKGROUND_COLOR")));

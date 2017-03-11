@@ -1,10 +1,7 @@
 package View;
 
-//TODO multiple turtles
-//TODO show/hide turtles
 //TODO drag-able turtles
 //TODO see state of multiple turtles (probably a window)
-//TODO display error messages (probably pop up a notification window)
 //TODO animation
 //TODO Display active turtles
 //TODO show user defined commands

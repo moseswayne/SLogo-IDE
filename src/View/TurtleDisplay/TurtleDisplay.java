@@ -110,7 +110,7 @@ public class TurtleDisplay implements I_FrontEndModule {
 	 */
 	@Override
 	public void setLanguage(Language language) {
-		return;
+		turtleContainer.setLanguage(language);
 	}
 
 

@@ -41,7 +41,7 @@ public class TurtleDispNode {
 	 */
 	public TurtleDispNode(int id, int height, int width) {
 		prop=new PropertyUtility("deafaultTurtleDisp.properties").getProperties();
-		currentParams=new TurtleParameters(1,Double.parseDouble(prop.getProperty("DEAFAULT_X")),
+		currentParams=new TurtleParameters(id,Double.parseDouble(prop.getProperty("DEAFAULT_X")),
 				Double.parseDouble(prop.getProperty("DEAFAULT_Y")),
 				Double.parseDouble(prop.getProperty("DEAFAULT_HEADING")), 
 				Boolean.parseBoolean(prop.getProperty("DEAFAULT_PENDOWN")), 
@@ -128,9 +128,6 @@ public class TurtleDispNode {
     	if (!myPenColor.equals(penColor)){
     		myPenColor=penColor;
     	}
-    	
-//    	animateTurtle(position);
-    	
     	turtle.setX(centralizeXPosition(position.getX()));
     	turtle.setY(centralizeYPosition(position.getY()));
     	turtle.setRotate(position.getHeading());

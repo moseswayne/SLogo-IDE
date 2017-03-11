@@ -11,11 +11,11 @@ import utils.TurtleParameters;
 public class BackEndData {
 
 	private Double myValue;
-	private Stack<ExpressionNode> instructionStack;
+	private Queue<ExpressionNode> instructionStack;
 	private Queue<TurtleParameters> myTurtleParameters;
 
 	public BackEndData() {
-		instructionStack = new Stack<ExpressionNode>();
+		instructionStack = new ArrayDeque<ExpressionNode>();
 		myTurtleParameters = new ArrayDeque<TurtleParameters>();
 	}
 
@@ -40,7 +40,7 @@ public class BackEndData {
 	}
 
 	public void setInstructions(ExpressionNode instruction) {
-		instructionStack.push(instruction);
+		instructionStack.add(instruction);
 	}
 
 	public boolean hasNextInstruction() {
@@ -50,7 +50,7 @@ public class BackEndData {
 	public Queue<ExpressionNode> getInstructions() {
 		Queue<ExpressionNode> instructionQueue = new ArrayDeque<>();
 		while (hasNextInstruction()) {
-			instructionQueue.add(instructionStack.pop());
+			instructionQueue.add(instructionStack.poll());
 		}
 		return instructionQueue;
 	}

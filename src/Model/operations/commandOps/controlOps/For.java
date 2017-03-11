@@ -8,10 +8,11 @@ public class For extends A_StructureCommand{
 	@Override
 	public void modifyInstructionStack(ParameterObject params) {
 		String var = params.nextRaw();
-		int start = params.next().intValue();
-		int end = params.next().intValue();
-		int increment = params.next().intValue();
-		for(int i = start; i < end; i+=increment) {
+		double start = params.next();
+		double end = params.next();
+		double increment = params.next();
+		for(double i = start; i < end; i+=increment) {
+			addNodeStack(initializeIncrementVariable(var, i, params));
 			addListStack();
 		}
 		

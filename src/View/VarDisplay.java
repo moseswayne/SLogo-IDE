@@ -41,6 +41,7 @@ public class VarDisplay implements I_FrontEndModule {
 		container.setBorder(new Border(
 				new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(2.5), new BorderWidths(5.0))));
 		container.setPrefWidth(size.getWidth());
+		container.setPrefHeight(size.getHeight());
 		updateVisualContent();
 	}
 
@@ -48,7 +49,7 @@ public class VarDisplay implements I_FrontEndModule {
 		VarDispButton button=new VarDispButton(varName, varVal);
 		button.setPrefWidthForAll(size.getWidth()-SCROLL_BAR_WIDTH);
 		button.setTextActionAfterEnter(()->{
-			bufferedCommandStr=String.format("set :%s %s", button.getVarName(), button.getVarVal());
+			bufferedCommandStr=String.format("set %s %s", button.getVarName(), button.getVarVal());
 		});
 		return button;
 	}

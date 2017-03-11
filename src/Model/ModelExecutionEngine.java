@@ -6,11 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
-import Operations.CommandOperation;
+import Model.backEndUtils.BackEndData;
+import Model.backEndUtils.ParameterObject;
+import Model.expressionTree.ExpressionNode;
+import Model.operations.CommandOperation;
+import Model.parser.CommandParser;
 import View.viewUtils.FrontEndData;
-import controller.CommandParser;
-import tree.ExpressionNode;
-import utils.ParameterObject;
 import utils.RawCommand;
 
 public class ModelExecutionEngine implements I_ExecutionEngine {
@@ -21,12 +22,14 @@ public class ModelExecutionEngine implements I_ExecutionEngine {
 	
 	public ModelExecutionEngine() {
 		variableMap = new HashMap<String, Double>();
+
 		myParser = new CommandParser();
 		myTurtleManager = new TurtleManager();
 	}
 
 	@Override
 	public FrontEndData runOp(RawCommand runCommand) {
+		myTurtleManager.makeTurtle();
 		Queue<ExpressionNode> runNodes = myParser.parse(runCommand.getCommandString(), runCommand.getLanguage(), myTurtleManager);
 		BackEndData initData = new BackEndData();
 		while(!runNodes.isEmpty()) {

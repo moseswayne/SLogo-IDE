@@ -6,7 +6,8 @@ import java.util.List;
 
 import Model.TurtleManager;
 import Model.TurtleModel;
-import utils.ParameterObject;
+import Model.operations.commandOps.turtleOps.A_MultipleTurtles;
+import backEndObjects.ParameterObject;
 
 /**
  * Gets list of TurtleModels according to their ID number
@@ -14,13 +15,11 @@ import utils.ParameterObject;
  * @author Kris Elbert
  *
  */
-public class Tell {
-	public List<TurtleModel> getTheseTurtles(ParameterObject params, TurtleManager manager) {
-		List<TurtleModel> retTurtles = new ArrayList<TurtleModel>();
-		Iterator<Double> paramsIter = params.iterator();
-		while (paramsIter.hasNext()) {
-			retTurtles.add(manager.getTurtle(paramsIter.next().intValue()));
-		}
-		return retTurtles;
+public class Tell extends A_MultipleTurtles{
+
+	@Override
+	protected List<TurtleModel> getTurtles(TurtleManager manager) {
+		manager.get
 	}
+	
 }

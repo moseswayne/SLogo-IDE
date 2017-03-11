@@ -36,6 +36,7 @@ public class CmdHistoryDisplay implements I_FrontEndModule{
 		container.setBorder(new Border(
 				new BorderStroke(Color.CHARTREUSE, BorderStrokeStyle.SOLID, new CornerRadii(2.5), new BorderWidths(5.0))));
 		container.setPrefWidth(size.getWidth());
+		container.setPrefHeight(size.getHeight());
 	}
 
 	

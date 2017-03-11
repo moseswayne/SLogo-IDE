@@ -29,6 +29,7 @@ public class ModelExecutionEngine implements I_ExecutionEngine {
 
 	@Override
 	public FrontEndData runOp(RawCommand runCommand) {
+		myTurtleManager.makeTurtle();
 		Queue<ExpressionNode> runNodes = myParser.parse(runCommand.getCommandString(), runCommand.getLanguage(), myTurtleManager);
 		BackEndData initData = new BackEndData();
 		while(!runNodes.isEmpty()) {

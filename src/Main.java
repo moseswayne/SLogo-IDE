@@ -63,6 +63,7 @@ public class Main extends Application {
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
+				e.printStackTrace();
 				data = new FrontEndData(rcmd.getCommandString(), Language.English);
 				data.addError(new ErrorMessage(e.getMessage()));
 			}

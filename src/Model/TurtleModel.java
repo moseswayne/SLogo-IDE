@@ -43,6 +43,8 @@ public class TurtleModel {
 		this.myX = other.getX();
 		this.myY = other.getY();
 		this.myHeading = other.getHeading();
+		//may change
+		this.myID = other.getID() + 1;
 	}
 
 	/**
